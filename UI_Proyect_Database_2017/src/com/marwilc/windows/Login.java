@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class Login {
 
@@ -44,6 +45,9 @@ public class Login {
 	public Login() {
 		initialize();
 	}
+	public void setVisible(boolean var){
+		frmBienvenido.setVisible(var);
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -65,13 +69,27 @@ public class Login {
 		passwordField.setBounds(159, 107, 117, 19);
 		frmBienvenido.getContentPane().add(passwordField);
 		
+		final JLabel lblNewLabel_2 = new JLabel("Error contraseña o Usuario invalidos");
+		lblNewLabel_2.setForeground(Color.RED);
+		lblNewLabel_2.setBounds(91, 175, 278, 15);
+		lblNewLabel_2.setVisible(false);
+		frmBienvenido.getContentPane().add(lblNewLabel_2);
+		
+		
 		final JButton btnNewButton = new JButton("Acceso");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//frmBienvenido.setVisible(false);
 				if(e.getSource()==btnNewButton){
 					conect = (new Conexion(userField.getText(),passwordField.getPassword())).Conectar();
 					if(conect == null)
+					{	
+						lblNewLabel_2.setVisible(true);
+						//UserInvalid.lanzar();
+						//frmBienvenido.setVisible(true);
 						System.out.println("Usuario y Contraseña invalidos");
+					}
 					else
 					{
 						System.out.println("Conexion exitosa");
