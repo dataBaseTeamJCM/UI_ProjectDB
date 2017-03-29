@@ -1,5 +1,5 @@
 package com.marwilc.windows;
-import com.marwilc.connection.Conexion;
+//import com.marwilc.connection.*;
 
 import java.awt.EventQueue;
 
@@ -21,7 +21,7 @@ import java.util.logging.*;
 
 public class Login {
 
-	private JFrame frmBienvenido;
+	JFrame frmBienvenido;
 	private JTextField userField;
 	private JPasswordField passwordField;
 	private Connection conect;
@@ -30,24 +30,13 @@ public class Login {
 	 * Launch the application.
 	 */
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login window = new Login();
-					window.frmBienvenido.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 //
 	/**
 	 * Create the application.
 	 */
 	public Login() {
 		initialize();
+		this.frmBienvenido.setVisible(true);
 	}
 
 	private void PrimeraConsulta(){
@@ -108,11 +97,13 @@ public class Login {
 		
 		final JButton btnNewButton = new JButton("Acceso");
 		btnNewButton.addActionListener(new ActionListener() {
+			private Connection conect;
+
 			public void actionPerformed(ActionEvent e) {
 				
 				//frmBienvenido.setVisible(false);
 				if(e.getSource()==btnNewButton){
-					conect = (new Conexion(userField.getText(),passwordField.getPassword())).Conectar();
+					this.conect = (new Conexion(userField.getText(),passwordField.getPassword())).Conectar();
 					
 					if(conect == null)
 					{	
