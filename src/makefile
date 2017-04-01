@@ -1,12 +1,12 @@
 JC = javac
 JV = java
-CLASSES = com/marwilc/windows/*.java com/marwilc/connection/*.java  
-MAINCLASS = com/marwilc/windows/Principal
-CP = ./lib/postgresql-9.2-1004.jdbc4.jar:.
+CLASSES = com/marwilc/connection/Conexion.class com/marwilc/windows/Registro.class com/marwilc/windows/Login.class com/marwilc/controller/Principal.class
+MAINCLASS = com/marwilc/controller/Principal
+CP = ./lib/postgresql-42.0.0.jre6.jar:.
 
 compile:
-	$(JC) $(CLASSES)
+	$(JC) $(MAINCLASS).java
 run:
 	$(JV) -classpath $(CP) $(MAINCLASS)
 clean:
-	rm -rf com/marwilc/windows/*.class
+	rm -rf $(CLASSES)

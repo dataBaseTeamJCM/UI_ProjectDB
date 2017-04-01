@@ -1,7 +1,6 @@
 package com.marwilc.connection;
 
 import java.sql.*;
-import java.util.logging.*;
 
 public class Conexion {
 
@@ -17,12 +16,12 @@ public class Conexion {
 				Class.forName("org.postgresql.Driver");
 				this.connection = DriverManager.getConnection(url,this.user,new String(this.password));
 			}catch(Exception e){
-
+				System.out.println("error");
 			}
 			return this.connection;
 	}
 	public Conexion(String usr, char[] password){
-		this.url ="jdbc:postgresql://localhost:5432/bancobd22"+usr;
+		this.url ="jdbc:postgresql://localhost:5432/bancobd22";
 		System.out.println(this.url);
 		this.password =password;
 		this.user = usr;
