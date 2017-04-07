@@ -1,7 +1,0 @@
-1 compilar todos los archivos .java ejecutando: $ javac package/subpackage*.java
-
-2 crear el archivo manifest.txt con lo siguiente: Main-Class: package.subpackage.<programa principal>
-
-3 crear el fichero .jar ejecutando: $ jar cmf manifest.txt <nombre_fichero>.jar package
-
-4 ejecutar el fichero .jar ejecutando: $ java -jar <nombre_fichero>.jar 
