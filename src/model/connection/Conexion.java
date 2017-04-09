@@ -1,5 +1,6 @@
 package model.connection;
 
+import java.net.ConnectException;
 import java.sql.*;
 
 public class Conexion {
@@ -28,5 +29,13 @@ public class Conexion {
 		this.password =password;
 		this.user = usr;
 	}
-	
+	public void cerrarConexion() throws ConnectException {
+		try {
+			this.connection.close();
+		}catch (SQLException e) {
+			throw new ConnectException("Ha ocurrido un error al intentar "
+					+ "cerrar la conexion con PSQL. Error: "+ e.getMessage());
+		}
+		
+	}
 }

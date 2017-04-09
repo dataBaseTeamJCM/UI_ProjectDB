@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -28,7 +29,7 @@ public class Login extends JFrame implements ActionListener {
 	private JPasswordField passwordField;
 	private Connection conect;
 	
-	String textError=""; 
+	private String textError=""; 
 	public void setCoordinator(Coordinator myCoordinator) {
 		this.myCoordinator = myCoordinator;
 	}
@@ -45,11 +46,11 @@ public class Login extends JFrame implements ActionListener {
 				+ "Usuario invalidos";
 		
 		userField = new JTextField();
-		userField.setBounds(159, 62, 114, 19);
+		userField.setBounds(159, 56, 114, 25);
 		userField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(159, 107, 117, 19);
+		passwordField.setBounds(159, 107, 117, 25);
 		passwordField.setColumns(10);
 		
 		lblError = new JLabel(textError);
@@ -86,7 +87,7 @@ public class Login extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getSource()==btnAccess){
+		if(e.getSource()==btnAccess){	
 			this.conect = (new Conexion
 						  (userField.getText(),
 						  passwordField.getPassword())).
@@ -101,11 +102,19 @@ public class Login extends JFrame implements ActionListener {
 			else
 			{
 				System.out.println("Conexion exitosa");
-				//PrimeraConsulta();
+				myCoordinator.getMyWindowQuery().setTitle("Hola "+ userField.getText());
+				myCoordinator.showWindowQuery();
+				myCoordinator.getMyWindowLogin().dispose();
+				
 			}
-		
+		}
 	}
 	
+	public void logOut() throws SQLException
+	{
+		this.conect.close();
+	}
+		
 
 
 	/*public void (ActionEvent e) {
@@ -144,5 +153,4 @@ public class Login extends JFrame implements ActionListener {
 	/*
 	 ** Initialize the contents of the frame.
 	 */
-	}
 }

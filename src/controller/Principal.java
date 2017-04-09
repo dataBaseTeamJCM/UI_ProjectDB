@@ -5,21 +5,28 @@ import javax.swing.UIManager;
 
 import views.Login;
 import views.WindowPrincipal;
+import views.WindowQuery;
 
 class Principal{
 
 		Login myWindowLogin;
 		WindowPrincipal myWindowPrincipal;
+		WindowQuery myWindowQuery;
 		Coordinator myCoordinator;
 		
 		public static void main(String[] args){
-			try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				Principal myPrincipal= new Principal();
-				myPrincipal.init();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			EventQueue.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+						Principal myPrincipal= new Principal();
+						myPrincipal.init();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 		}
 		
 		private void init()
@@ -29,12 +36,14 @@ class Principal{
 			myWindowPrincipal = new WindowPrincipal();
 			myWindowLogin = new Login();
 			myCoordinator = new Coordinator();
+			myWindowQuery = new WindowQuery();
 			
 			/*
 			 * se establecen las relaciones con las clases
 			 */
 			myWindowPrincipal.setCoordinator(myCoordinator);
 			myWindowLogin.setCoordinator(myCoordinator);
+			myWindowQuery.setCoordinator(myCoordinator);
 			
 			
 			/*
@@ -43,6 +52,7 @@ class Principal{
 			
 			myCoordinator.setMyWindowPrincipal(myWindowPrincipal);
 			myCoordinator.setMyWindowLogin(myWindowLogin);
+			myCoordinator.setMyWindowQuery(myWindowQuery);
 			
 			myWindowPrincipal.setVisible(true);
 		}
