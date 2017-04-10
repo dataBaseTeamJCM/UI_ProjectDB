@@ -34,16 +34,16 @@ class Principal{
 			/*se instancian las clases
 			 */
 			myWindowPrincipal = new WindowPrincipal();
-			myWindowLogin = new Login();
+			//myWindowLogin = new Login();
 			myCoordinator = new Coordinator();
-			myWindowQuery = new WindowQuery();
+			//myWindowQuery = new WindowQuery();
 			
 			/*
 			 * se establecen las relaciones con las clases
 			 */
 			myWindowPrincipal.setCoordinator(myCoordinator);
-			myWindowLogin.setCoordinator(myCoordinator);
-			myWindowQuery.setCoordinator(myCoordinator);
+			//myWindowLogin.setCoordinator(myCoordinator);
+			//myWindowQuery.setCoordinator(myCoordinator);
 			
 			
 			/*
@@ -51,8 +51,8 @@ class Principal{
 			 */
 			
 			myCoordinator.setMyWindowPrincipal(myWindowPrincipal);
-			myCoordinator.setMyWindowLogin(myWindowLogin);
-			myCoordinator.setMyWindowQuery(myWindowQuery);
+			//myCoordinator.setMyWindowLogin(myWindowLogin);
+			//myCoordinator.setMyWindowQuery(myWindowQuery);
 			
 			myWindowPrincipal.setVisible(true);
 		}

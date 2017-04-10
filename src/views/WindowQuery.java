@@ -15,11 +15,14 @@ import javax.swing.border.EmptyBorder;
 import controller.Coordinator;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class WindowQuery extends JFrame implements ActionListener{
 
 	private Coordinator myCoordinator;
-	private JLabel lblTime, lblFecha;
+	private JLabel lblFecha;
 	private JButton btnEdit;
 	private JButton btnSalir;
 	private Calendar date = Calendar.getInstance();
@@ -28,6 +31,14 @@ public class WindowQuery extends JFrame implements ActionListener{
 	
 	private String textTime="";
 	private String textFecha="";
+	private JMenuBar menuBar;
+	private JMenu mnNewMenu;
+	private JMenu mnNewMenu_1;
+	private JMenu mnNewMenu_2;
+	private JMenu mnNewMenu_3;
+	private JMenuItem mntmNewMenuItem;
+	private JMenuItem mntmNewMenuItem_1;
+	private JMenuItem mntmNewMenuItem_2;
 	
 	
 	public void setCoordinator(Coordinator myCoordinator) {
@@ -49,26 +60,47 @@ public class WindowQuery extends JFrame implements ActionListener{
 		
 		textTime = hour+":"+minutes+":"+seconds;
 		textFecha = day+"/"+month+"/"+year;
-		lblTime = new JLabel(textTime);
-		lblTime.setBounds(348, 27, 70, 15);
 			
 		lblFecha = new JLabel(textFecha);
-		lblFecha.setBounds(348, 11, 70, 15);
+		lblFecha.setBounds(368, 0, 70, 15);
 		
 		btnEdit = new JButton("Editar");
 		btnEdit.setBounds(140, 190, 117, 25);
 		
 		btnSalir = new JButton("Salir");
-		btnSalir.setBounds(307, 233, 117, 25);
+		btnSalir.setBounds(302, 218, 117, 25);
 		
 		btnEdit.addActionListener(this);
 		btnSalir.addActionListener(this);
-		getContentPane().add(lblTime);
 		getContentPane().add(lblFecha);
 		getContentPane().add(btnEdit);
 		getContentPane().add(btnSalir);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		mnNewMenu = new JMenu("Menu1");
+		menuBar.add(mnNewMenu);
+		
+		mntmNewMenuItem = new JMenuItem("guardar");
+		mnNewMenu.add(mntmNewMenuItem);
+		
+		mntmNewMenuItem_1 = new JMenuItem("editar");
+		mnNewMenu.add(mntmNewMenuItem_1);
+		
+		mntmNewMenuItem_2 = new JMenuItem("salir");
+		mnNewMenu.add(mntmNewMenuItem_2);
+		
+		mnNewMenu_1 = new JMenu("Menu2");
+		menuBar.add(mnNewMenu_1);
+		
+		mnNewMenu_2 = new JMenu("Menu3");
+		menuBar.add(mnNewMenu_2);
+		
+		mnNewMenu_3 = new JMenu("menu4");
+		menuBar.add(mnNewMenu_3);
 		
 	}
 	
@@ -85,11 +117,11 @@ public class WindowQuery extends JFrame implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			myCoordinator.getMyWindowQuery().dispose();
 			myCoordinator.setMyWindowLogin(new Login());
+			myCoordinator.getMyWindowLogin().setCoordinator(myCoordinator);
+			myCoordinator.hideWindowQuery();
 			myCoordinator.showWindowLogin();
 			
 		}
 	}
-	
 }

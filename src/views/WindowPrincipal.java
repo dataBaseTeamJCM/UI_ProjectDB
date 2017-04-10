@@ -76,8 +76,10 @@ public class WindowPrincipal extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnInitSession){
+			myCoordinator.setMyWindowLogin(new Login());
+			myCoordinator.getMyWindowLogin().setCoordinator(myCoordinator);
 			myCoordinator.showWindowLogin();
-			myCoordinator.getMyWindowPrincipal().dispose();
+			myCoordinator.hideWindowPrincipal();
 		}
 	}
 }

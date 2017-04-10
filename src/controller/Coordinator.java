@@ -31,11 +31,27 @@ public class Coordinator {
 		myWindowLogin.setVisible(true);
 	}
 	
+	public void hideWindowLogin(){
+		myWindowLogin.dispose();
+	}
+	
 	public void showWindowQuery(){
 		myWindowQuery.setVisible(true);
 	}
 	
+	public void hideWindowQuery(){
+		myWindowQuery.dispose();
+	}
 	
+	public void showWindowPrincipal(){
+		myWindowPrincipal.setVisible(true);
+	}
+	
+	public void hideWindowPrincipal(){
+		myWindowPrincipal.dispose();
+	}
+	
+
 	
 
 }
