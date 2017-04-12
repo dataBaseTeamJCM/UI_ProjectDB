@@ -4,7 +4,10 @@ import views.*;
 public class Coordinator {
 	private	WindowPrincipal myWindowPrincipal;
 	private Login myWindowLogin;
-	private WindowQuery myWindowQuery;
+	private WindowQueryCoordinator myWindowQueryCoordinator;
+	private WindowQueryProgrammer myWindowQueryProgrammer;
+	
+	// getters y setters de las ventanas
 	
 	public WindowPrincipal getMyWindowPrincipal() {
 		return myWindowPrincipal;
@@ -18,14 +21,23 @@ public class Coordinator {
 	public void setMyWindowLogin(Login myWindowLogin) {
 		this.myWindowLogin = myWindowLogin;
 	}
-	public WindowQuery getMyWindowQuery() {
-		return myWindowQuery;
+	public WindowQueryCoordinator getMyWindowQueryCoordinador() {
+		return myWindowQueryCoordinator;
 	}
-	public void setMyWindowQuery(WindowQuery myWindowQuery) {
-		this.myWindowQuery = myWindowQuery;
+	public void setMyWindowQueryCoordinator(WindowQueryCoordinator myWindowQueryCoordinator) {
+		this.myWindowQueryCoordinator = myWindowQueryCoordinator;
 	}
 	
-	/*metodos para mostrar las ventanas*/
+	public WindowQueryProgrammer getMyWindowQueryProgrammer() {
+		return myWindowQueryProgrammer;
+	}
+	public void setMyWindowQueryProgrammer(WindowQueryProgrammer myWindowQueryProgrammer) {
+		this.myWindowQueryProgrammer = myWindowQueryProgrammer;
+	}
+	
+
+	/*metodos para mostrar y cerrar las ventanas*/
+	
 	
 	public void showWindowLogin(){
 		myWindowLogin.setVisible(true);
@@ -35,12 +47,20 @@ public class Coordinator {
 		myWindowLogin.dispose();
 	}
 	
-	public void showWindowQuery(){
-		myWindowQuery.setVisible(true);
+	public void showWindowQueryCoordinator(){
+		myWindowQueryCoordinator.setVisible(true);
 	}
 	
-	public void hideWindowQuery(){
-		myWindowQuery.dispose();
+	public void hideWindowQueryCoordinator(){
+		myWindowQueryCoordinator.dispose();
+	}
+	
+	public void showWindowQueryProgrammer(){
+		myWindowQueryProgrammer.setVisible(true);
+	}
+	
+	public void hideWindowQueryProgrammer(){
+		myWindowQueryProgrammer.dispose();
 	}
 	
 	public void showWindowPrincipal(){
@@ -51,7 +71,15 @@ public class Coordinator {
 		myWindowPrincipal.dispose();
 	}
 	
-
+	// valida si es Coordinador o programador
+	public int checkLogin(String userName){
+		if(userName == "Coordinador")
+			return(1);
+		if(userName == "Programador")
+			return(2);
+		return 0;
+	}
+	
 	
 
 }

@@ -99,14 +99,25 @@ public class Login extends JFrame implements ActionListener {
 				System.out.println("Usuario y "
 						+ "Contraseña invalidos");
 			}
+			
 			else
 			{
-				System.out.println("Conexion exitosa");
-				myCoordinator.setMyWindowQuery(new WindowQuery());
-				myCoordinator.getMyWindowQuery().setCoordinator(myCoordinator);
-				myCoordinator.getMyWindowQuery().setTitle("Hola "+ userField.getText());
-				myCoordinator.showWindowQuery();
-				myCoordinator.hideWindowLogin();
+				if(myCoordinator.checkLogin(userField.getText())==1){
+					System.out.println("Conexion exitosa");
+					myCoordinator.setMyWindowQueryCoordinator(new WindowQueryCoordinator());
+					myCoordinator.getMyWindowQueryCoordinador().setCoordinator(myCoordinator);
+					myCoordinator.getMyWindowQueryCoordinador().setTitle("Hola "+ userField.getText());
+					myCoordinator.showWindowQueryCoordinator();
+					myCoordinator.hideWindowLogin();
+					
+				}else if(myCoordinator.checkLogin(userField.getText())==2){
+					myCoordinator.setMyWindowQueryProgrammer(new WindowQueryProgrammer());
+					myCoordinator.getMyWindowQueryCoordinador().setCoordinator(myCoordinator);
+					myCoordinator.getMyWindowQueryProgrammer().setTitle("Hola " + userField.getText());
+					myCoordinator.showWindowQueryProgrammer();
+					myCoordinator.hideWindowLogin();
+					
+				}
 				
 			}
 		}

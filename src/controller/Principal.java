@@ -5,13 +5,13 @@ import javax.swing.UIManager;
 
 import views.Login;
 import views.WindowPrincipal;
-import views.WindowQuery;
+import views.WindowQueryCoordinator;
 
 class Principal{
 
 		Login myWindowLogin;
 		WindowPrincipal myWindowPrincipal;
-		WindowQuery myWindowQuery;
+		WindowQueryCoordinator myWindowQuery;
 		Coordinator myCoordinator;
 		
 		public static void main(String[] args){
