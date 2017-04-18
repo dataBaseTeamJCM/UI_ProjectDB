@@ -73,9 +73,9 @@ public class Coordinator {
 	
 	// valida si es Coordinador o programador
 	public int checkLogin(String userName){
-		if(userName == "Coordinador")
+		if(userName == "userc")
 			return(1);
-		if(userName == "Programador")
+		if(userName == "userp")
 			return(2);
 		return 0;
 	}

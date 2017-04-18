@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -47,6 +48,12 @@ public class WindowQueryProgrammer extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==btnSalir) {
+			try {
+				myCoordinator.getMyWindowLogin().logOut();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			myCoordinator.setMyWindowLogin(new Login());
 			myCoordinator.getMyWindowLogin().setCoordinator(myCoordinator);
 			myCoordinator.hideWindowQueryProgrammer();
