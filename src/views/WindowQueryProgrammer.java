@@ -13,52 +13,36 @@ import javax.swing.border.EmptyBorder;
 import controller.Coordinator;
 
 import javax.swing.JButton;
+import java.awt.CardLayout;
+import javax.swing.JTabbedPane;
 
 public class WindowQueryProgrammer extends JFrame implements ActionListener {
-
-	private JButton btnSalir, btnConsultar, btnInsertar;
 	private Coordinator myCoordinator;
-	/**
-	 * Launch the application.
-	 */
 	
+	public void setCoordinator(Coordinator myCoordinator) {
+		this.myCoordinator = myCoordinator;
+	}
+
 	/**
 	 * Create the frame.
 	 */
 	public WindowQueryProgrammer() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new CardLayout(0, 0));
 		
-		btnConsultar = new JButton("Consultar");
-		btnConsultar.setBounds(93, 155, 117, 25);
-		getContentPane().add(btnConsultar);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		getContentPane().add(tabbedPane, "name_97981333999461");
 		
-		btnInsertar = new JButton("Insertar");
-		btnInsertar.setBounds(242, 155, 117, 25);
-		getContentPane().add(btnInsertar);
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("Consultar", null, panel, null);
 		
-		btnSalir = new JButton("Salir");
-		btnSalir.setBounds(311, 233, 117, 25);
-		
-		btnSalir.addActionListener(this);
-		getContentPane().add(btnSalir);
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("Modificar", null, panel_1, null);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource()==btnSalir) {
-			try {
-				myCoordinator.getMyWindowLogin().logOut();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			myCoordinator.setMyWindowLogin(new Login());
-			myCoordinator.getMyWindowLogin().setCoordinator(myCoordinator);
-			myCoordinator.hideWindowQueryProgrammer();
-			myCoordinator.showWindowLogin();
-		}
 		// TODO Auto-generated method stub
 		
 	}

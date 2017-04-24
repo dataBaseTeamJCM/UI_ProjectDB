@@ -114,7 +114,7 @@ public class Login extends JFrame implements ActionListener {
 				}else if(userField.getText().equals("programador")){
 					System.out.println("Conexion exitosa");
 					myCoordinator.setMyWindowQueryProgrammer(new WindowQueryProgrammer());
-					myCoordinator.getMyWindowQueryCoordinador().setCoordinator(myCoordinator);
+					myCoordinator.getMyWindowQueryProgrammer().setCoordinator(myCoordinator);
 					myCoordinator.getMyWindowQueryProgrammer().setTitle("Hola " + userField.getText());
 					myCoordinator.showWindowQueryProgrammer();
 					myCoordinator.hideWindowLogin();
