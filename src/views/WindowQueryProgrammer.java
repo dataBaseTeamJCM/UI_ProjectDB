@@ -35,10 +35,13 @@ public class WindowQueryProgrammer extends JFrame implements ActionListener {
 		getContentPane().add(tabbedPane, "name_97981333999461");
 		
 		JPanel panel = new JPanel();
-		tabbedPane.addTab("Consultar", null, panel, null);
+		tabbedPane.addTab("Integrante", null, panel, null);
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Modificar", null, panel_1, null);
+		tabbedPane.addTab("Problema Resuelto", null, panel_1, null);
+		
+		JPanel panel_2 = new JPanel();
+		tabbedPane.addTab("Competencia", null, panel_2, null);
 	}
 
 	@Override

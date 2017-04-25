@@ -1,6 +1,6 @@
 package controller;
 import java.sql.Connection;
-
+import model.Logic;
 import model.connection.Conexion;
 import views.*;
 
@@ -9,6 +9,7 @@ public class Coordinator {
 	private Login myWindowLogin;
 	private WindowQueryCoordinator myWindowQueryCoordinator;
 	private WindowQueryProgrammer myWindowQueryProgrammer;
+	private Logic data;
 	private Connection conect;
 	
 	// getters y setters de las ventanas
