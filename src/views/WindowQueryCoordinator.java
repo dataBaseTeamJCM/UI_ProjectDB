@@ -54,7 +54,8 @@ public class WindowQueryCoordinator extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
-	public WindowQueryCoordinator() {
+	public WindowQueryCoordinator(Coordinator myCoordinator) {
+		this.myCoordinator = myCoordinator;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		hour = String.valueOf(date.get(Calendar.HOUR_OF_DAY));

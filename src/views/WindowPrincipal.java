@@ -35,7 +35,8 @@ public class WindowPrincipal extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
-	public WindowPrincipal() {
+	public WindowPrincipal(Coordinator myCoordinator) {
+		this.myCoordinator = myCoordinator;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		textInfo="Esta aplicacion presenta una herramienta para"

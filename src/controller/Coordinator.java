@@ -1,6 +1,9 @@
 package controller;
 import java.sql.Connection;
-import model.Logic;
+
+import javax.swing.JTable;
+
+import model.MembersRegister;
 import model.connection.Conexion;
 import views.*;
 
@@ -9,7 +12,7 @@ public class Coordinator {
 	private Login myWindowLogin;
 	private WindowQueryCoordinator myWindowQueryCoordinator;
 	private WindowQueryProgrammer myWindowQueryProgrammer;
-	private Logic data;
+	private MembersRegister members;
 	private Connection conect;
 	
 	// getters y setters de las ventanas
@@ -18,6 +21,14 @@ public class Coordinator {
 		this.conect = (new Conexion (userName,password)).Conectar();
 	}
 	
+	public MembersRegister getMembers() {
+		return members;
+	}
+
+	public void setMembers(MembersRegister members) {
+		this.members = members;
+	}
+
 	public Connection getConect() {
 		return conect;
 	}
@@ -92,23 +103,28 @@ public class Coordinator {
 	
 	//** metodos para invokar ventanas desde otras ventanas
 	public void invokerWindowProgrammer(String name){
-		this.setMyWindowQueryProgrammer(new WindowQueryProgrammer());
-		this.getMyWindowQueryProgrammer().setCoordinator(this);
+		this.setMyWindowQueryProgrammer(new WindowQueryProgrammer(this));
 		this.getMyWindowQueryProgrammer().setTitle("Hola " + name);
 		this.showWindowQueryProgrammer();
 		
 	}
 	
 	public void invokerWindowCoordinator(String name){
-		this.setMyWindowQueryCoordinator(new WindowQueryCoordinator());
-		this.getMyWindowQueryCoordinator().setCoordinator(this);
+		this.setMyWindowQueryCoordinator(new WindowQueryCoordinator(this));
 		this.getMyWindowQueryCoordinator().setTitle("Hola "+ name);
 		this.showWindowQueryCoordinator();
 	}
 	
 	public void invokerWindowLogin(){
-		this.setMyWindowLogin(new Login());
-		this.getMyWindowLogin().setCoordinator(this);
+		this.setMyWindowLogin(new Login(this));
 		this.showWindowLogin();
+	}
+	
+	// metodos para obtener datos de la bd y actualizarlos
+	
+	public JTable listMembers(){
+		this.setMembers(new MembersRegister(this));
+		this.getMembers().showListMembers();
+		return (this.getMembers().getJtable());
 	}
 }

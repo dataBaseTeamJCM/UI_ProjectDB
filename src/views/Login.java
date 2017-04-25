@@ -25,8 +25,9 @@ public class Login extends JFrame implements ActionListener {
 	/**
 	 * Create the application.
 	 */
-	public Login() {
-		
+	public Login(Coordinator myCoordinator) {
+		this.myCoordinator = myCoordinator;
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		textError="Error "

@@ -9,9 +9,6 @@ import views.WindowQueryCoordinator;
 
 class Principal{
 
-		Login myWindowLogin;
-		WindowPrincipal myWindowPrincipal;
-		WindowQueryCoordinator myWindowQuery;
 		Coordinator myCoordinator;
 		
 		public static void main(String[] args){
@@ -33,27 +30,9 @@ class Principal{
 		{
 			/*se instancian las clases
 			 */
-			myWindowPrincipal = new WindowPrincipal();
-			//myWindowLogin = new Login();
 			myCoordinator = new Coordinator();
-			//myWindowQuery = new WindowQuery();
+			myCoordinator.setMyWindowPrincipal(new WindowPrincipal(myCoordinator));
+			myCoordinator.showWindowPrincipal();
 			
-			/*
-			 * se establecen las relaciones con las clases
-			 */
-			myWindowPrincipal.setCoordinator(myCoordinator);
-			//myWindowLogin.setCoordinator(myCoordinator);
-			//myWindowQuery.setCoordinator(myCoordinator);
-			
-			
-			/*
-			 * Se establecen relaciones con la clase coordinador
-			 */
-			
-			myCoordinator.setMyWindowPrincipal(myWindowPrincipal);
-			//myCoordinator.setMyWindowLogin(myWindowLogin);
-			//myCoordinator.setMyWindowQuery(myWindowQuery);
-			
-			myWindowPrincipal.setVisible(true);
 		}
 }
