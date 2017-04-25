@@ -178,18 +178,14 @@ public class WindowQueryCoordinator extends JFrame implements ActionListener{
 		}
 		
 		if(e.getSource()==btnSalir){
+			myCoordinator.invokerWindowLogin();
+			myCoordinator.hideWindowQueryCoordinator();
 			try {
-				myCoordinator.getMyWindowLogin().logOut();
-				myCoordinator.setMyWindowLogin(new Login());
-				myCoordinator.getMyWindowLogin().setCoordinator(myCoordinator);
-				myCoordinator.hideWindowQueryCoordinator();
-				myCoordinator.showWindowLogin();
+				myCoordinator.getConect().close();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-			
 		}
 	}
 }
