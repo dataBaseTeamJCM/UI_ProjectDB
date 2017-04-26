@@ -46,6 +46,10 @@ public class WindowQueryProgrammer extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
+		ImageIcon iconMembers = new ImageIcon("/home/marwilc/workspace/"
+				+ "JavaProject/UI_Proyect_Database_2017/src/views/icons/"
+				+ "ic_people_black_48dp.png");
+		
 		// arreglo con los titulos de las columnas
 		String[] columnNames = 
 		{"titulo 1", "titulo 2", "titulo 3"};
@@ -55,7 +59,7 @@ public class WindowQueryProgrammer extends JFrame implements ActionListener {
 		getContentPane().add(tabbedPane, "name_83473617679216");
 		
 		JScrollPane scrollPane = new JScrollPane();
-		tabbedPane.addTab("Integrante",new ImageIcon("ic_people_black_48dp.png"),
+		tabbedPane.addTab("Integrante",iconMembers,
 				scrollPane, null);
 		
 		table = new JTable();
