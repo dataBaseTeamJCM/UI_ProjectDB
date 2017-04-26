@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import controller.Coordinator;
+import views.colorMD.MaterialDesignColor;
 
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
@@ -38,7 +39,8 @@ public class WindowPrincipal extends JFrame implements ActionListener{
 	public WindowPrincipal(Coordinator myCoordinator) {
 		this.myCoordinator = myCoordinator;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
+		getContentPane().setBackground(new MaterialDesignColor("03A9F4"));
 		textInfo="Esta aplicacion presenta una herramienta para"
 				+ " la gestion de la base de datos del maraton de la competencia.\n\n"
 				+ "La aplicacion permite registrar,actualizar, buscar y eliminar registros"
@@ -59,12 +61,15 @@ public class WindowPrincipal extends JFrame implements ActionListener{
 		lblDataComp.setBounds(89, 31, 260, 15);
 		
 		btnInitSession = new JButton("Iniciar sesion");
-		btnInitSession.setBounds(142, 212, 140, 25);
+		btnInitSession.setToolTipText("Acces");
+		btnInitSession.setBounds(131, 219, 140, 25);
+		btnInitSession.setForeground(new MaterialDesignColor("212121"));
+		btnInitSession.setBackground(new MaterialDesignColor("CDDC39"));
 		
 		btnInitSession.addActionListener(this);
-		add(btnInitSession);
-		add(lblDataComp);
-		add(txtpAreaInfo);
+		getContentPane().add(btnInitSession);
+		getContentPane().add(lblDataComp);
+		getContentPane().add(txtpAreaInfo);
 		
 		setSize(480, 350);
 		setTitle("BIENVENIDO");

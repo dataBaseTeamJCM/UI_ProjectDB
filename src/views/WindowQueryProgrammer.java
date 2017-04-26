@@ -17,10 +17,14 @@ import model.MembersRegister;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.CardLayout;
+import java.awt.Color;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
+import views.colorMD.MaterialDesignColor;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -42,14 +46,10 @@ public class WindowQueryProgrammer extends JFrame implements ActionListener {
 	 */
 	public WindowQueryProgrammer(Coordinator myCoordinator) {
 		this.myCoordinator = myCoordinator;
-				
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		
-		ImageIcon iconMembers = new ImageIcon("/home/marwilc/workspace/"
-				+ "JavaProject/UI_Proyect_Database_2017/src/views/icons/"
-				+ "ic_people_black_48dp.png");
-		
+		getContentPane().setBackground(new MaterialDesignColor("0288D1"));
 		// arreglo con los titulos de las columnas
 		String[] columnNames = 
 		{"titulo 1", "titulo 2", "titulo 3"};
@@ -59,7 +59,7 @@ public class WindowQueryProgrammer extends JFrame implements ActionListener {
 		getContentPane().add(tabbedPane, "name_83473617679216");
 		
 		JScrollPane scrollPane = new JScrollPane();
-		tabbedPane.addTab("Integrante",iconMembers,
+		tabbedPane.addTab("Integrante",new ImageIcon(WindowQueryProgrammer.class.getResource("/views/icons/ic_person_black_18dp.png")),
 				scrollPane, null);
 		
 		table = new JTable();
@@ -88,6 +88,7 @@ public class WindowQueryProgrammer extends JFrame implements ActionListener {
 		menu.add(mntmNewMenuItem_2);
 		
 		intemSalir = new JMenuItem("Salir");
+		intemSalir.setIcon(new ImageIcon(WindowQueryProgrammer.class.getResource("/views/icons/ic_close_black_16dp.png")));
 		menu.add(intemSalir);
 		
 		intemSalir.addActionListener(this);
