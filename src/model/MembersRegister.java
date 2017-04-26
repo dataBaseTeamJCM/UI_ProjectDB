@@ -40,7 +40,9 @@ public class MembersRegister {
 
 	public void showListMembers(){
 		String sql = "SELECT * "
-					+ "FROM mtn.integrante";
+					+ "FROM mtn.integrante "
+					+ "ORDER by ci ASC";
+		
 		Connection connect = myCoordinator.getConect();
 		Statement st = null;
 		ResultSet rs = null;
