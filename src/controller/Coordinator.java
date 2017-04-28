@@ -3,7 +3,7 @@ import java.sql.Connection;
 
 import javax.swing.JTable;
 
-import model.MembersRegister;
+import model.QueryBD;
 import model.connection.Conexion;
 import views.*;
 
@@ -12,7 +12,7 @@ public class Coordinator {
 	private Login myWindowLogin;
 	private WindowQueryCoordinator myWindowQueryCoordinator;
 	private WindowQueryProgrammer myWindowQueryProgrammer;
-	private MembersRegister members;
+	private QueryBD members;
 	private Connection conect;
 	
 	// getters y setters de las ventanas
@@ -21,11 +21,11 @@ public class Coordinator {
 		this.conect = (new Conexion (userName,password)).Conectar();
 	}
 	
-	public MembersRegister getMembers() {
+	public QueryBD getMembers() {
 		return members;
 	}
 
-	public void setMembers(MembersRegister members) {
+	public void setMembers(QueryBD members) {
 		this.members = members;
 	}
 
@@ -123,8 +123,14 @@ public class Coordinator {
 	// metodos para obtener datos de la bd y actualizarlos
 	
 	public JTable listMembers(){
-		this.setMembers(new MembersRegister(this));
+		this.setMembers(new QueryBD(this));
 		this.getMembers().showListMembers();
+		return (this.getMembers().getJtable());
+	}
+	
+	public JTable listStudents(){
+		this.setMembers(new QueryBD(this));
+		this.getMembers().showListStudents();
 		return (this.getMembers().getJtable());
 	}
 }

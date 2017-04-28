@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableModel;
 
 import controller.Coordinator;
-import model.MembersRegister;
+import model.QueryBD;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,6 +30,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
+import javax.swing.JSplitPane;
 
 public class WindowQueryProgrammer extends JFrame implements ActionListener {
 	private Coordinator myCoordinator;
@@ -63,8 +64,11 @@ public class WindowQueryProgrammer extends JFrame implements ActionListener {
 				scrollPane, null);
 		
 		table = new JTable();
-		table = myCoordinator.listMembers();
+		table = myCoordinator.listStudents();
 		scrollPane.setViewportView(table);
+		
+		JSplitPane splitPane = new JSplitPane();
+		scrollPane.setViewportView(splitPane);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		tabbedPane.addTab("New tab", null, scrollPane_1, null);

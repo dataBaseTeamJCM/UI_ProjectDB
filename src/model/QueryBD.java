@@ -13,7 +13,7 @@ import net.proteanit.sql.DbUtils;
 
 import controller.Coordinator;
 
-public class MembersRegister {
+public class QueryBD {
 	
 	private Coordinator myCoordinator;
 	private JTable jtable;
@@ -33,7 +33,7 @@ public class MembersRegister {
 		this.jtable = jtable;
 	}
 
-	public MembersRegister(Coordinator myCoordinator) {
+	public QueryBD(Coordinator myCoordinator) {
 		super();
 		this.myCoordinator = myCoordinator;
 	}
@@ -41,8 +41,19 @@ public class MembersRegister {
 	public void showListMembers(){
 		String sql = "SELECT * "
 					+ "FROM mtn.integrante "
-					+ "ORDER by ci ASC";
-		
+					+ "ORDER BY ci ASC;";
+		createQuery(sql);
+	}
+	
+	public void showListStudents(){
+		String sql = "SELECT * "
+					+ "FROM mtn.es_un_estudiante "
+					+ "ORDER BY ci_e ASC;";
+		createQuery(sql);
+	}
+	
+	private void createQuery(String sql)
+	{
 		Connection connect = myCoordinator.getConect();
 		Statement st = null;
 		ResultSet rs = null;
@@ -53,7 +64,7 @@ public class MembersRegister {
 			rs = st.executeQuery(sql);
 			this.setJtable(new JTable(DbUtils.resultSetToTableModel(rs)));
 		} catch (SQLException e) {
-			System.out.println("error en la ejecucion de la consulta");
+			System.out.println("error en la ejecucion de la consulta: " + sql);
 			// TODO: handle exception
 		}finally {
 			try {
