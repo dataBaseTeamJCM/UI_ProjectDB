@@ -11,7 +11,7 @@ public class Coordinator {
 	private	WindowPrincipal myWindowPrincipal;
 	private Login myWindowLogin;
 	private WindowQueryCoordinator myWindowQueryCoordinator;
-	private WindowQueryProgrammer myWindowQueryProgrammer;
+	private WinQueryProgrammer myWindowQueryProgrammer;
 	private QueryBD members;
 	private Connection conect;
 	
@@ -58,10 +58,10 @@ public class Coordinator {
 		return myWindowQueryCoordinator;
 	}
 
-	public WindowQueryProgrammer getMyWindowQueryProgrammer() {
+	public WinQueryProgrammer getMyWindowQueryProgrammer() {
 		return myWindowQueryProgrammer;
 	}
-	public void setMyWindowQueryProgrammer(WindowQueryProgrammer myWindowQueryProgrammer) {
+	public void setMyWindowQueryProgrammer(WinQueryProgrammer myWindowQueryProgrammer) {
 		this.myWindowQueryProgrammer = myWindowQueryProgrammer;
 	}
 	
@@ -103,7 +103,7 @@ public class Coordinator {
 	
 	//** metodos para invokar ventanas desde otras ventanas
 	public void invokerWindowProgrammer(String name){
-		this.setMyWindowQueryProgrammer(new WindowQueryProgrammer(this));
+		this.setMyWindowQueryProgrammer(new WinQueryProgrammer(this));
 		this.getMyWindowQueryProgrammer().setTitle("Hola " + name);
 		this.showWindowQueryProgrammer();
 		

@@ -32,7 +32,7 @@ import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JSplitPane;
 
-public class WindowQueryProgrammer extends JFrame implements ActionListener {
+public class WinQueryProgrammer extends JFrame implements ActionListener {
 	private Coordinator myCoordinator;
 	private JTable table;
 	private JTable table_1;
@@ -45,7 +45,7 @@ public class WindowQueryProgrammer extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public WindowQueryProgrammer(Coordinator myCoordinator) {
+	public WinQueryProgrammer(Coordinator myCoordinator) {
 		this.myCoordinator = myCoordinator;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,7 +60,7 @@ public class WindowQueryProgrammer extends JFrame implements ActionListener {
 		getContentPane().add(tabbedPane, "name_83473617679216");
 		
 		JScrollPane scrollPane = new JScrollPane();
-		tabbedPane.addTab("Integrante",new ImageIcon(WindowQueryProgrammer.class.getResource("/views/icons/ic_person_black_18dp.png")),
+		tabbedPane.addTab("Integrante",new ImageIcon(WinQueryProgrammer.class.getResource("/views/icons/ic_person_black_18dp.png")),
 				scrollPane, null);
 		
 		table = new JTable();
@@ -92,7 +92,7 @@ public class WindowQueryProgrammer extends JFrame implements ActionListener {
 		menu.add(mntmNewMenuItem_2);
 		
 		intemSalir = new JMenuItem("Salir");
-		intemSalir.setIcon(new ImageIcon(WindowQueryProgrammer.class.getResource("/views/icons/ic_close_black_16dp.png")));
+		intemSalir.setIcon(new ImageIcon(WinQueryProgrammer.class.getResource("/views/icons/ic_close_black_16dp.png")));
 		menu.add(intemSalir);
 		
 		intemSalir.addActionListener(this);
