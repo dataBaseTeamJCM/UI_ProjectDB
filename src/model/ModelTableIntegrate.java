@@ -13,7 +13,7 @@ import net.proteanit.sql.DbUtils;
 
 import controller.Coordinator;
 
-public class QueryBD {
+public class ModelTableIntegrate {
 	
 	private Coordinator myCoordinator;
 	private JTable jtable;
@@ -33,7 +33,7 @@ public class QueryBD {
 		this.jtable = jtable;
 	}
 
-	public QueryBD(Coordinator myCoordinator) {
+	public ModelTableIntegrate(Coordinator myCoordinator) {
 		super();
 		this.myCoordinator = myCoordinator;
 	}

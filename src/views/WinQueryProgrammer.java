@@ -12,12 +12,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableModel;
 
 import controller.Coordinator;
-import model.QueryBD;
+import model.ModelTableIntegrate;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JScrollPane;
@@ -29,8 +30,32 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
 import javax.swing.JSplitPane;
+import javax.swing.JTextField;
+import javax.swing.JDesktopPane;
+import javax.swing.JLabel;
+import java.awt.FlowLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JToolBar;
+import java.awt.Button;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JSeparator;
 
 public class WinQueryProgrammer extends JFrame implements ActionListener {
 	private Coordinator myCoordinator;
@@ -47,41 +72,29 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 	 */
 	public WinQueryProgrammer(Coordinator myCoordinator) {
 		this.myCoordinator = myCoordinator;
-		
+		setBounds(0, 0, 800, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setVisible(true);
 		getContentPane().setBackground(new MaterialDesignColor("0288D1"));
-		// arreglo con los titulos de las columnas
-		String[] columnNames = 
-		{"titulo 1", "titulo 2", "titulo 3"};
-		getContentPane().setLayout(new CardLayout(0, 0));
+		getContentPane().setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		getContentPane().add(tabbedPane, "name_83473617679216");
+		tabbedPane.setBounds(-566, -846, 800, 690);
+		getContentPane().add(tabbedPane);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		tabbedPane.addTab("Integrante",new ImageIcon(WinQueryProgrammer.class.getResource("/views/icons/ic_person_black_18dp.png")),
-				scrollPane, null);
+		JToolBar toolBar = new JToolBar();
+		toolBar.setBounds(0, 0, 800, 32);
+		
+		getContentPane().add(toolBar);
+		
+		JSeparator separator = new JSeparator();
+		toolBar.add(separator);
+		
 		
 		table = new JTable();
 		table = myCoordinator.listStudents();
-		scrollPane.setViewportView(table);
-		
-		JSplitPane splitPane = new JSplitPane();
-		scrollPane.setViewportView(splitPane);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		tabbedPane.addTab("New tab", null, scrollPane_1, null);
-		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		tabbedPane.addTab("New tab", null, scrollPane_2, null);
-		
-		JScrollPane scrollPane_3 = new JScrollPane();
-		tabbedPane.addTab("New tab", null, scrollPane_3, null);
-		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
 		JMenu menu = new JMenu("Menu");
 		menuBar.add(menu);
 		
@@ -112,5 +125,7 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 			}
 			
 		}
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
 	}
 }
