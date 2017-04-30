@@ -3,13 +3,31 @@ package model.connection;
 import java.net.ConnectException;
 import java.sql.*;
 
+import javax.swing.JTable;
+
+import net.proteanit.sql.DbUtils;
+
 public class Conexion {
 
-	String user;
-	String url;
-	char[] password;
-	Connection connection = null;
+	private String user;
+	private String url;
+	private char[] password;
+	private Connection connection = null;
+	private ResultSet rs = null;
+	
 
+	public Connection getConnection() {
+		return connection;
+	}
+	public void setConnection(Connection connection) {
+		this.connection = connection;
+	}
+	public ResultSet getRs() {
+		return rs;
+	}
+	public void setRs(ResultSet rs) {
+		this.rs = rs;
+	}
 	public Connection Conectar()
 	{//
 			try{
@@ -29,6 +47,12 @@ public class Conexion {
 		this.password =password;
 		this.user = usr;
 	}
+	
+	public Conexion(Connection conn)
+	{
+		this.setConnection(conn);
+	}
+	
 	public void cerrarConexion() throws ConnectException {
 		try {
 			this.connection.close();
@@ -37,5 +61,18 @@ public class Conexion {
 					+ "cerrar la conexion con PSQL. Error: "+ e.getMessage());
 		}
 		
+	}
+	
+	public void createQuery(String sql)
+	{
+		Statement st = null;
+		try {
+			st = getConnection().createStatement();
+			st.executeQuery(sql);
+			this.setRs(st.executeQuery(sql));
+		} catch (SQLException e) {
+			System.out.println("error en la ejecucion de la consulta: " + sql);
+			// TODO: handle exception
+		}
 	}
 }

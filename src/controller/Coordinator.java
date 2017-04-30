@@ -3,8 +3,9 @@ import java.sql.Connection;
 
 import javax.swing.JTable;
 
-import model.ModelTableIntegrate;
+import model.ModelTableEstudiante;
 import model.connection.Conexion;
+import net.proteanit.sql.DbUtils;
 import views.*;
 
 public class Coordinator {
@@ -12,8 +13,10 @@ public class Coordinator {
 	private Login myWindowLogin;
 	private WindowQueryCoordinator myWindowQueryCoordinator;
 	private WinQueryProgrammer myWindowQueryProgrammer;
-	private ModelTableIntegrate members;
+	private SearchByCi	mySearchByCi;
+	private ModelTableEstudiante members;
 	private Connection conect;
+	//private Conexion conn;
 	
 	// getters y setters de las ventanas
 	
@@ -21,11 +24,11 @@ public class Coordinator {
 		this.conect = (new Conexion (userName,password)).Conectar();
 	}
 	
-	public ModelTableIntegrate getMembers() {
+	public ModelTableEstudiante getMembers() {
 		return members;
 	}
 
-	public void setMembers(ModelTableIntegrate members) {
+	public void setMembers(ModelTableEstudiante members) {
 		this.members = members;
 	}
 
@@ -65,10 +68,24 @@ public class Coordinator {
 		this.myWindowQueryProgrammer = myWindowQueryProgrammer;
 	}
 	
+	public SearchByCi getMySearchByCi() {
+		return mySearchByCi;
+	}
 
+	public void setMySearchByCi(SearchByCi mySearchByCi) {
+		this.mySearchByCi = mySearchByCi;
+	}
 	/*metodos para mostrar y cerrar las ventanas*/
 	
 	
+	public void showWindowSearch(){
+		mySearchByCi.setVisible(true);
+	}
+	
+	public void hideWindowSearch(){
+		mySearchByCi.dispose();
+	}
+
 	public void showWindowLogin(){
 		myWindowLogin.setVisible(true);
 	}
@@ -120,17 +137,26 @@ public class Coordinator {
 		this.showWindowLogin();
 	}
 	
+	public void invokerWindowSearch(){
+		this.setMySearchByCi(new SearchByCi(this));
+		this.showWindowSearch();
+	}
+	
 	// metodos para obtener datos de la bd y actualizarlos
 	
 	public JTable listMembers(){
-		this.setMembers(new ModelTableIntegrate(this));
-		this.getMembers().showListMembers();
-		return (this.getMembers().getJtable());
+		Conexion conn = new Conexion(this.getConect());
+		String sql;
+		this.setMembers(new ModelTableEstudiante(this));
+		sql = this.getMembers().queryAllEstudents();
+		conn.createQuery(sql);
+		return (new JTable(DbUtils.resultSetToTableModel(conn.getRs())));
 	}
 	
-	public JTable listStudents(){
+	/*public JTable listStudents(){
+		
 		this.setMembers(new ModelTableIntegrate(this));
 		this.getMembers().showListStudents();
 		return (this.getMembers().getJtable());
-	}
+	}*/
 }
