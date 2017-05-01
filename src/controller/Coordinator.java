@@ -1,9 +1,14 @@
 package controller;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.TableModel;
 
-import model.ModelTableEstudiante;
+import model.ModelStudent;
 import model.connection.Conexion;
 import net.proteanit.sql.DbUtils;
 import views.*;
@@ -14,7 +19,7 @@ public class Coordinator {
 	private WindowQueryCoordinator myWindowQueryCoordinator;
 	private WinQueryProgrammer myWindowQueryProgrammer;
 	private SearchByCi	mySearchByCi;
-	private ModelTableEstudiante members;
+	private ModelStudent students;
 	private Connection conect;
 	//private Conexion conn;
 	
@@ -24,12 +29,12 @@ public class Coordinator {
 		this.conect = (new Conexion (userName,password)).Conectar();
 	}
 	
-	public ModelTableEstudiante getMembers() {
-		return members;
+	public ModelStudent getStudents() {
+		return students;
 	}
 
-	public void setMembers(ModelTableEstudiante members) {
-		this.members = members;
+	public void setStudent(ModelStudent students) {
+		this.students = students;
 	}
 
 	public Connection getConect() {
@@ -144,19 +149,43 @@ public class Coordinator {
 	
 	// metodos para obtener datos de la bd y actualizarlos
 	
-	public JTable listMembers(){
+	public JTable listAllStudents(){
 		Conexion conn = new Conexion(this.getConect());
 		String sql;
-		this.setMembers(new ModelTableEstudiante(this));
-		sql = this.getMembers().queryAllEstudents();
+		sql = ModelStudent.queryAllEstudents();
 		conn.createQuery(sql);
 		return (new JTable(DbUtils.resultSetToTableModel(conn.getRs())));
 	}
 	
-	/*public JTable listStudents(){
+	public void anStudent(String ci){
+		Conexion conn = new Conexion(this.getConect());
+		String sql;
+		//String carrer;
+		int year;
 		
-		this.setMembers(new ModelTableIntegrate(this));
-		this.getMembers().showListStudents();
-		return (this.getMembers().getJtable());
-	}*/
+		sql = ModelStudent.queryAnStudentByCi(ci);
+		conn.createQuery(sql);
+		try {
+			if(conn.getRs().next()){
+					year = Integer.parseInt(conn.getRs().getString(2));
+					this.setStudent(new ModelStudent(ci, year, "no"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//metodos para validaciones campos de texto etc
+	public void onlyNumbers(JTextField text){
+		text.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e){
+				char c = e.getKeyChar();
+				if(Character.isLetter(c)){
+					e.consume();
+				}
+			}
+		
+		});
+	}
 }

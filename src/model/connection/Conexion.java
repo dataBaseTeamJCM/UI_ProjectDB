@@ -37,7 +37,7 @@ public class Conexion {
 								(url,this.user,
 								new String(this.password));
 			}catch(Exception e){
-				System.out.println("error");
+				System.out.println("error en conectar a la base de datos");
 			}
 			return this.connection;
 	}
@@ -68,7 +68,6 @@ public class Conexion {
 		Statement st = null;
 		try {
 			st = getConnection().createStatement();
-			st.executeQuery(sql);
 			this.setRs(st.executeQuery(sql));
 		} catch (SQLException e) {
 			System.out.println("error en la ejecucion de la consulta: " + sql);

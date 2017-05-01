@@ -13,7 +13,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableModel;
 
 import controller.Coordinator;
-import model.ModelTableEstudiante;
+import model.ModelStudent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -62,20 +62,23 @@ import javax.swing.DefaultComboBoxModel;
 
 public class WinQueryProgrammer extends JFrame implements ActionListener {
 	private Coordinator myCoordinator;
-	private JTable table;
-	private JTable table_1;
 	private JMenuItem intemSalir;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textFieldCi;
+	private JTextField textFieldName;
+	private JTextField textFieldLastName;
+	private JTextField textFieldAdress;
 	private JMenuItem mntmInfoPersonal;
 	private JMenuItem mntmProblemaR;
 	private JMenuItem mntmCompetencia;
 	private JMenuItem mntmMiCoach;
+	private JComboBox comboBoxYear;
 	
 	public void setCoordinator(Coordinator myCoordinator) {
 		this.myCoordinator = myCoordinator;
+	}
+
+	public Coordinator getMyCoordinator() {
+		return myCoordinator;
 	}
 
 	/**
@@ -84,7 +87,7 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 	public WinQueryProgrammer(Coordinator myCoordinator) {
 		
 		this.myCoordinator = myCoordinator;
-		setBounds(0, 0, 800, 800);
+		setBounds(0, 0, 800, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		getContentPane().setBackground(new MaterialDesignColor("0288D1"));
@@ -117,7 +120,7 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 		
 		mntmMiCoach = new JMenuItem("Mi Coach y Representante");
 		mnVer.add(mntmMiCoach);
-		
+		//buildTabInformacionPersonal();   // quitar
 		intemSalir.addActionListener(this);
 		mntmInfoPersonal.addActionListener(this);
 		mntmProblemaR.addActionListener(this);
@@ -141,7 +144,7 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == mntmInfoPersonal){
 			this.myCoordinator.invokerWindowSearch();
-			this.buildTabInformacionPersonal();
+			//this.buildTabInformacionPersonal();
 			
 		}
 		if (e.getSource() == mntmCompetencia) {
@@ -192,8 +195,6 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 		panel_2.add(btnNewButton_3);
 		
 		
-		table = new JTable();
-		table = myCoordinator.listMembers();
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new MaterialDesignColor("03A9F4"));
@@ -201,9 +202,6 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 		
 		JLabel lblNewLabel = new JLabel("CI");
 		lblNewLabel.setForeground(Color.WHITE);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setForeground(Color.WHITE);
@@ -217,17 +215,23 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 		JLabel lblNewLabel_1 = new JLabel("Año");
 		lblNewLabel_1.setForeground(Color.WHITE);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		textFieldCi = new JTextField();
+		textFieldCi.setText(getMyCoordinator().getStudents().getCi());
+		textFieldCi.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		textFieldName = new JTextField();
+		textFieldName.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		textFieldLastName = new JTextField();
+		textFieldLastName.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(arrayItems));
+		textFieldAdress = new JTextField();
+		textFieldAdress.setColumns(10);
+		
+		comboBoxYear = new JComboBox();
+		comboBoxYear.setModel(new DefaultComboBoxModel(arrayItems));
+		comboBoxYear.setSelectedIndex(getMyCoordinator().getStudents().getYear());
+		
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -243,14 +247,14 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 								.addComponent(lblNewLabel_1))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBoxYear, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-									.addComponent(textField_3, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+									.addComponent(textFieldAdress, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
 									.addGroup(gl_panel_1.createSequentialGroup()
 										.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-											.addComponent(textField_2, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-											.addComponent(textField_1, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-											.addComponent(textField, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
+											.addComponent(textFieldLastName, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+											.addComponent(textFieldName, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+											.addComponent(textFieldCi, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
 										.addPreferredGap(ComponentPlacement.RELATED))))))
 					.addContainerGap(27, GroupLayout.PREFERRED_SIZE))
 		);
@@ -260,29 +264,29 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 					.addContainerGap()
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFieldCi, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblNombre)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFieldName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblApellido)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFieldLastName, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblAo)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFieldAdress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBoxYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(442))
 		);
 		panel_1.setLayout(gl_panel_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, BorderLayout.CENTER);
-		scrollPane.setViewportView(table);
+		//scrollPane.setViewportView(table);
 	}
 }
