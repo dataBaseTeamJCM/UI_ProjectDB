@@ -2,12 +2,12 @@ package model;
 
 public class Person {
 
-	private String ci;
-	private String name;
-	private	String lastName;
-	private String email;
-	private String phone;
-	private String adress;
+	private String ci;			// cedula de identidad
+	private String name;		// nombre
+	private	String lastName;	// apellido
+	private String email;		// correo electronico
+	private String phone;		// numero de telefono
+	private String adress;		// direccion donde vive
 	
 	
 	public Person() {
