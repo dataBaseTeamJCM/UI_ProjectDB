@@ -1,15 +1,14 @@
 package model;
 
-public class Professor {
+public class Professor extends Person{
 
 	private String type;				// tipo de profesor coach o tecnico
 	private String matter;				// materia del profesor
 	private String expertiseArea;		// area de experticia
 	private String position;			// cargo del profesor
 	
-	public Professor() {
+	public Professor(){
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Professor(String type, String matter, String expertiseArea, String position) {
@@ -18,6 +17,12 @@ public class Professor {
 		this.matter = matter;
 		this.expertiseArea = expertiseArea;
 		this.position = position;
+	}
+	
+
+	public Professor(String ci, String name, String lastName, String email, String phone, String adress) {
+		super(ci, name, lastName, email, phone, adress);
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getType() {
@@ -58,7 +63,5 @@ public class Professor {
 				+ ", expertiseArea=" + expertiseArea 
 				+ ", position="+ position + "]";
 	}
-	
-	
 	
 }
