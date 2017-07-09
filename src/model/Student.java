@@ -1,21 +1,21 @@
 package model;
 
-public class Estudent extends Person{
+public class Student extends Person{
 	private String 	carrer;		// carrera del estudiante
 	private int 	year;		// año del estudiante
 	
 	
-	public Estudent() {
+	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Estudent(String ci, String name, String lastName, String email, String phone, String adress) {
+	public Student(String ci, String name, String lastName, String email, String phone, String adress) {
 		super(ci, name, lastName, email, phone, adress);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Estudent(String carrer, int year) {
+	public Student(String carrer, int year) {
 		super();
 		this.carrer = carrer;
 		this.year = year;
