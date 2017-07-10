@@ -8,8 +8,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
+import db.Conexion;
 import model.ModelStudent;
-import model.connection.Conexion;
 import net.proteanit.sql.DbUtils;
 import views.*;
 
