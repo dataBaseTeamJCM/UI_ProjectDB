@@ -12,11 +12,23 @@ public class TeamCompetitor extends Team{
 	public TeamCompetitor() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.performance	= "none";
+		this.incentive		= "none";
+		this.site			= "none";
+		this.daysTravel		= 0;
+		this.hosting		= "none";
+		this.financier		= "none";
 	}
 	public TeamCompetitor(String id, String name, String university, String school, int year, ProfessorList professors,
 			StudentList students, ProblemSolvedList problemsSolved) {
 		super(id, name, university, school, year, professors, students, problemsSolved);
 		// TODO Auto-generated constructor stub
+		this.performance	= "none";
+		this.incentive		= "none";
+		this.site			= "none";
+		this.daysTravel		= 0;
+		this.hosting		= "none";
+		this.financier		= "none";
 	}
 	
 	public TeamCompetitor(String performance, String incentive, String site, int daysTravel, String hosting,
