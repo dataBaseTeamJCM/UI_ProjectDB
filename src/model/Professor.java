@@ -9,6 +9,10 @@ public class Professor extends Person{
 	
 	public Professor(){
 		super();
+		this.type 			= "none";
+		this.matter			= "none";
+		this.expertiseArea	= "none";
+		this.position		= "none";
 	}
 	
 	public Professor(String type, String matter, String expertiseArea, String position) {
@@ -23,6 +27,10 @@ public class Professor extends Person{
 	public Professor(String ci, String name, String lastName, String email, String phone, String adress) {
 		super(ci, name, lastName, email, phone, adress);
 		// TODO Auto-generated constructor stub
+		this.type 			= "none";
+		this.matter			= "none";
+		this.expertiseArea	= "none";
+		this.position		= "none";
 	}
 
 	public String getType() {
