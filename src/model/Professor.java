@@ -59,7 +59,7 @@ public class Professor extends Person{
 
 	@Override
 	public String toString() {
-		return "Professor [type=" + type + ", matter=" + matter 
+		return super.toString() +"Type: " + "Professor [type=" + type + ", matter=" + matter 
 				+ ", expertiseArea=" + expertiseArea 
 				+ ", position="+ position + "]";
 	}
