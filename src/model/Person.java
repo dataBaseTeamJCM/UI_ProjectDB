@@ -13,6 +13,12 @@ public class Person {
 	public Person() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.ci 		= "none";
+		this.name		= "none";
+		this.lastName	= "none";
+		this.email		= "none";
+		this.phone		= "none";
+		this.adress		= "none";
 	}
 
 	public Person(String ci, String name, String lastName, String email, String phone, String adress) {
