@@ -18,7 +18,7 @@ public class Team {
 	}
 
 	public Team(String id, String name, String university, String school, 
-			int year, ArrayList<Professor> professors,ArrayList<Student> students, 
+			int year, ProfessorList professors,StudentList students, 
 			ArrayList<ProblemSolved> problemsSolved) {
 		super();
 		this.id = id;
@@ -71,19 +71,19 @@ public class Team {
 		this.year = year;
 	}
 
-	public ArrayList<Professor> getProfessors() {
+	public ProfessorList getProfessors() {
 		return professors;
 	}
 
-	public void setProfessors(ArrayList<Professor> professors) {
+	public void setProfessors(ProfessorList professors) {
 		this.professors = professors;
 	}
 
-	public ArrayList<Student> getStudents() {
+	public StudentList getStudents() {
 		return students;
 	}
 
-	public void setStudents(ArrayList<Student> students) {
+	public void setStudents(StudentList students) {
 		this.students = students;
 	}
 
@@ -98,9 +98,7 @@ public class Team {
 	@Override
 	public String toString() {
 		return "Team [id=" + id + ", name=" + name + ", university=" + university 
-				+ ", school=" + school + ", year=" + year 
-				+ ", professors=" + professors.print() + ", students=" + students.print() + ", problemsSolved=" + problemsSolved.print()
-				+ "]";
+				+ ", school=" + school + ", year=" + year + "]";
 	}
 	
 	
