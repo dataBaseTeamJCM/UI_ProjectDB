@@ -19,7 +19,7 @@ public class Team {
 
 	public Team(String id, String name, String university, String school, 
 			int year, ProfessorList professors,StudentList students, 
-			ArrayList<ProblemSolved> problemsSolved) {
+			ProblemSolvedList problemsSolved) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -87,11 +87,11 @@ public class Team {
 		this.students = students;
 	}
 
-	public ArrayList<ProblemSolved> getProblemsSolved() {
+	public ProblemSolvedList getProblemsSolved() {
 		return problemsSolved;
 	}
 
-	public void setProblemsSolved(ArrayList<ProblemSolved> problemsSolved) {
+	public void setProblemsSolved(ProblemSolvedList problemsSolved) {
 		this.problemsSolved = problemsSolved;
 	}
 
