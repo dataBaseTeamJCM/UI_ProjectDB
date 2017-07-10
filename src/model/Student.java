@@ -22,7 +22,7 @@ public class Student extends Person{
 	public Student(String carrer, int year) {
 		super();
 		this.carrer = carrer;
-		this.year = year;
+		this.year 	= year;
 	}
 
 	public String getCarrer() {
@@ -43,7 +43,11 @@ public class Student extends Person{
 
 	@Override
 	public String toString() {
-		return super.toString() + "Type: " + "Estudent [carrer=" + carrer + ", year=" + year + "]";
+		return super.toString() 
+				+ "Type: " 
+				+ "Estudent [carrer=" 	+ carrer 
+				+ ", year=" 			+ year 
+				+ "]";
 	}
 
 	

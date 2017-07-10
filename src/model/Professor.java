@@ -20,11 +20,11 @@ public class Professor extends Person{
 		
 	public Professor(String type, String matter, String expertiseArea, String position, LessonList lessons) {
 		super();
-		this.type = type;
-		this.matter = matter;
-		this.expertiseArea = expertiseArea;
-		this.position = position;
-		this.lessons = lessons;
+		this.type 			= type;
+		this.matter 		= matter;
+		this.expertiseArea 	= expertiseArea;
+		this.position 		= position;
+		this.lessons 		= lessons;
 	}
 
 	public Professor(String ci, String name, String lastName, String email, String phone, String adress) {
@@ -79,9 +79,13 @@ public class Professor extends Person{
 
 	@Override
 	public String toString() {
-		return super.toString() +"Type: " + "Professor [type=" + type + ", matter=" + matter 
-				+ ", expertiseArea=" + expertiseArea 
-				+ ", position="+ position + "]";
+		return super.toString() 
+				+"Type: " 
+				+ "Professor [type=" 	+ type 
+				+ ", matter=" 			+ matter 
+				+ ", expertiseArea=" 	+ expertiseArea 
+				+ ", position="			+ position 
+				+ "]";
 	}
 	
 }

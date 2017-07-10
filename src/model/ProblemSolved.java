@@ -22,7 +22,7 @@ public class ProblemSolved extends Problem{
 	public ProblemSolved(String timeSolved, String language) {
 		super();
 		this.timeSolved = timeSolved;
-		this.language = language;
+		this.language 	= language;
 	}
 
 	public String getTimeSolved() {
@@ -43,7 +43,11 @@ public class ProblemSolved extends Problem{
 
 	@Override
 	public String toString() {
-		return super.toString() + "Type: "+ "ProblemSolved [timeSolved=" + timeSolved + ", language=" + language + "]";
+		return super.toString() 
+				+ "Type: "
+				+ "ProblemSolved [timeSolved=" 	+ timeSolved 
+				+ ", language=" 				+ language 
+				+ "]";
 	}
 	
 	

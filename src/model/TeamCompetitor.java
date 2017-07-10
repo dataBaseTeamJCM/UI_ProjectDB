@@ -19,9 +19,11 @@ public class TeamCompetitor extends Team{
 		this.hosting		= "none";
 		this.financier		= "none";
 	}
-	public TeamCompetitor(String id, String name, String university, String school, int year, ProfessorList professors,
-			StudentList students, ProblemSolvedList problemsSolved) {
-		super(id, name, university, school, year, professors, students, problemsSolved);
+	public TeamCompetitor(String id, String name, String university,
+			String school, int year, ProfessorList professors,
+			StudentList students, ProblemSolvedList problemsSolved, IncidentList incidents) {
+		
+		super(id, name, university, school, year, professors, students, problemsSolved, incidents);
 		// TODO Auto-generated constructor stub
 		this.performance	= "none";
 		this.incentive		= "none";
@@ -31,15 +33,17 @@ public class TeamCompetitor extends Team{
 		this.financier		= "none";
 	}
 	
-	public TeamCompetitor(String performance, String incentive, String site, int daysTravel, String hosting,
+	public TeamCompetitor(String performance, String incentive, 
+			String site, int daysTravel, String hosting,
 			String financier) {
+	
 		super();
-		this.performance = performance;
-		this.incentive = incentive;
-		this.site = site;
-		this.daysTravel = daysTravel;
-		this.hosting = hosting;
-		this.financier = financier;
+		this.performance 	= performance;
+		this.incentive 		= incentive;
+		this.site 			= site;
+		this.daysTravel 	= daysTravel;
+		this.hosting 		= hosting;
+		this.financier 		= financier;
 	}
 	
 	public String getPerformance() {
@@ -80,9 +84,15 @@ public class TeamCompetitor extends Team{
 	}
 	@Override
 	public String toString() {
-		return super.toString() + "type: " +"TeamCompetitor [performance=" + performance 
-				+ ", incentive=" + incentive + ", site=" + site + ", daysTravel=" + daysTravel + ", hosting=" 
-				+ hosting + ", financier=" + financier + "]";
+		return super.toString() 
+				+ "type: " 
+				+ "TeamCompetitor [performance=" 	+ performance 
+				+ ", incentive=" 					+ incentive 
+				+ ", site=" 						+ site 
+				+ ", daysTravel=" 					+ daysTravel 
+				+ ", hosting=" 						+ hosting 
+				+ ", financier=" 					+ financier 
+				+ "]";
 	}
 	
 	

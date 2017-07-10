@@ -2,11 +2,11 @@ package model;
 
 public class Competition {
 
-	private String id;								// indetificador de la competencia
-	private String name;							// nombre de la competencia
-	private String place;							// lugar de la competencia
-	private String level;							// nivel de la competencia
-	private String date;							// fecha de la competencia
+	private String 				id;					// indetificador de la competencia
+	private String 				name;				// nombre de la competencia
+	private String 				place;				// lugar de la competencia
+	private String 				level;				// nivel de la competencia
+	private String 				date;				// fecha de la competencia
 	private TeamCompetitorList	teamsCompetitors;	// equipos participantes de la competencia
 	private ActivityList		activitys;			// actividades realizadas por la competencia
 	private ProblemsList		problems;			// problemas propuestos
@@ -28,14 +28,14 @@ public class Competition {
 	public Competition(String id, String name, String place, String level, String date,
 			TeamCompetitorList teamsCompetitors, ActivityList activitys, ProblemsList problems) {
 		super();
-		this.id = id;
-		this.name = name;
-		this.place = place;
-		this.level = level;
-		this.date = date;
-		this.teamsCompetitors = teamsCompetitors;
-		this.activitys = activitys;
-		this.problems = problems;
+		this.id 				= id;
+		this.name 				= name;
+		this.place 				= place;
+		this.level 				= level;
+		this.date 				= date;
+		this.teamsCompetitors 	= teamsCompetitors;
+		this.activitys 			= activitys;
+		this.problems 			= problems;
 	}
 
 	public String getId() {
@@ -104,9 +104,12 @@ public class Competition {
 
 	@Override
 	public String toString() {
-		return "Competition [id=" + id + ", name=" + name 
-				+ ", place=" + place + ", level=" + level 
-				+ ", date=" + date + "]";
+		return "Competition [id=" 	+ id 
+				+ ", name=" 		+ name 
+				+ ", place=" 		+ place 
+				+ ", level=" 		+ level 
+				+ ", date=" 		+ date 
+				+ "]";
 	}
 	
 }

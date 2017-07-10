@@ -4,21 +4,21 @@ public class Lesson {
 
 	private String lesson;			// clase impartida por el profesor al equipo
 	private String ciProfessor;		// cedula del profesor que la impartio
-	private String idEquipo;		// indentificacion del equipo a la que fue impartido
+	private String idTeam;			// indentificacion del equipo a la que fue impartido
 	
 	public Lesson() {
 		super();
 		// TODO Auto-generated constructor stub
 		this.lesson			= "none";
 		this.ciProfessor	= "none";
-		this.idEquipo		= "none";
+		this.idTeam			= "none";
 	}
 
-	public Lesson(String lesson, String ciProfessor, String idEquipo) {
+	public Lesson(String lesson, String ciProfessor, String idTeam) {
 		super();
-		this.lesson = lesson;
-		this.ciProfessor = ciProfessor;
-		this.idEquipo = idEquipo;
+		this.lesson 		= lesson;
+		this.ciProfessor 	= ciProfessor;
+		this.idTeam 		= idTeam;
 	}
 
 	public String getLesson() {
@@ -37,18 +37,20 @@ public class Lesson {
 		this.ciProfessor = ciProfessor;
 	}
 
-	public String getIdEquipo() {
-		return idEquipo;
+	public String getIdTeam() {
+		return idTeam;
 	}
 
-	public void setIdEquipo(String idEquipo) {
-		this.idEquipo = idEquipo;
+	public void setIdTeam(String idTeam) {
+		this.idTeam = idTeam;
 	}
 
 	@Override
 	public String toString() {
-		return "Lesson [lesson=" + lesson + ", ciProfessor=" + ciProfessor 
-				+ ", idEquipo=" + idEquipo + "]";
+		return "Lesson [lesson=" 	+ lesson 
+				+ ", ciProfessor=" 	+ ciProfessor 
+				+ ", idTeam=" 		+ idTeam 
+				+ "]";
 	}
 	
 	

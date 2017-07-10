@@ -2,11 +2,11 @@ package model;
 
 public class Activity {
 
-	private String id;
-	private String idCompetencia;
-	private String name;
-	private String place;
-	private String date;
+	private String id;				// identificador de la actividad
+	private String idCompetencia;	// indentificador de la competencia
+	private String name;			// nombre de la actividad
+	private String place;			// lugar de la actividad
+	private String date;			// fecha de la actividad
 	
 	public Activity() {
 		super();
@@ -20,11 +20,11 @@ public class Activity {
 
 	public Activity(String id, String idCompetencia, String name, String place, String date) {
 		super();
-		this.id = id;
-		this.idCompetencia = idCompetencia;
-		this.name = name;
-		this.place = place;
-		this.date = date;
+		this.id 			= id;
+		this.idCompetencia 	= idCompetencia;
+		this.name 			= name;
+		this.place 			= place;
+		this.date 			= date;
 	}
 
 	public String getId() {
@@ -69,9 +69,12 @@ public class Activity {
 
 	@Override
 	public String toString() {
-		return "Activity [id=" + id + ", idCompetencia=" + idCompetencia 
-				+ ", name=" + name + ", place=" + place
-				+ ", date=" + date + "]";
+		return "Activity [id=" 			+ id 
+				+ ", idCompetencia=" 	+ idCompetencia 
+				+ ", name=" 			+ name 
+				+ ", place=" 			+ place
+				+ ", date=" 			+ date 
+				+ "]";
 	}
 	
 	

@@ -23,12 +23,12 @@ public class Person {
 
 	public Person(String ci, String name, String lastName, String email, String phone, String adress) {
 		super();
-		this.ci = ci;
-		this.name = name;
-		this.lastName = lastName;
-		this.email = email;
-		this.phone = phone;
-		this.adress = adress;
+		this.ci 		= ci;
+		this.name 		= name;
+		this.lastName	= lastName;
+		this.email 		= email;
+		this.phone 		= phone;
+		this.adress 	= adress;
 	}
 
 	public String getCi() {
@@ -81,8 +81,12 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "Person [ci=" + ci + ", name=" + name + ", lastName=" + lastName 
-				+ ", email=" + email + ", phone=" + phone 
-				+ ", adress=" + adress + "]";
+		return "Person [ci=" 	+ ci 
+				+ ", name=" 	+ name 
+				+ ", lastName=" + lastName 
+				+ ", email=" 	+ email 
+				+ ", phone="	+ phone 
+				+ ", adress=" 	+ adress 
+				+ "]";
 	}
 }

@@ -10,7 +10,8 @@ public class Team {
 	private int					year;			// año del equipo ej: 2005
 	private ProfessorList	  	professors;		// lista de profesores del equipo (coach y tecnico)
 	private StudentList		  	students;		// lista de estudiantes del equipo 		
-	private ProblemSolvedList 	problemsSolved;	// lista de problemas solucionados			
+	private ProblemSolvedList 	problemsSolved;	// lista de problemas solucionados
+	private IncidentList		incidents;		// lista de incidentes del equipo
 	
 	public Team() {
 		super();
@@ -24,20 +25,22 @@ public class Team {
 		professors		= new ProfessorList();
 		students		= new StudentList();
 		problemsSolved	= new ProblemSolvedList();	
+		incidents		= new IncidentList();
 	}
 
 	public Team(String id, String name, String university, String school, 
 			int year, ProfessorList professors,StudentList students, 
-			ProblemSolvedList problemsSolved) {
+			ProblemSolvedList problemsSolved, IncidentList incidentList) {
 		super();
-		this.id = id;
-		this.name = name;
-		this.university = university;
-		this.school = school;
-		this.year = year;
-		this.professors = professors;
-		this.students = students;
+		this.id 			= id;
+		this.name 			= name;
+		this.university 	= university;
+		this.school 		= school;
+		this.year 			= year;
+		this.professors 	= professors;
+		this.students 		= students;
 		this.problemsSolved = problemsSolved;
+		this.incidents		= incidentList;
 	}
 
 	public String getId() {
@@ -104,10 +107,22 @@ public class Team {
 		this.problemsSolved = problemsSolved;
 	}
 
+	public IncidentList getIncidents() {
+		return incidents;
+	}
+
+	public void setIncidents(IncidentList incidents) {
+		this.incidents = incidents;
+	}
+
 	@Override
 	public String toString() {
-		return "Team [id=" + id + ", name=" + name + ", university=" + university 
-				+ ", school=" + school + ", year=" + year + "]";
+		return "Team [id=" 			+ id 
+				+ ", name=" 		+ name
+				+ ", university=" 	+ university 
+				+ ", school=" 		+ school 
+				+ ", year=" 		+ year 
+				+ "]";
 	}
 	
 	

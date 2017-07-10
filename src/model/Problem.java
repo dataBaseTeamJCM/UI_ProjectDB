@@ -18,10 +18,10 @@ public class Problem {
 
 	public Problem(String id, String title, String enunciate, String difficulty) {
 		super();
-		this.id = id;
-		this.title = title;
-		this.enunciate = enunciate;
-		this.difficulty = difficulty;
+		this.id 			= id;
+		this.title 			= title;
+		this.enunciate 		= enunciate;
+		this.difficulty 	= difficulty;
 	}
 
 	public String getId() {
@@ -58,9 +58,11 @@ public class Problem {
 
 	@Override
 	public String toString() {
-		return "Problem [id=" + id + ", title=" + title 
-				+ ", enunciate=" + enunciate 
-				+ ", difficulty=" + difficulty + "]";
+		return "Problem [id=" 		+ id 
+				+ ", title=" 		+ title 
+				+ ", enunciate=" 	+ enunciate 
+				+ ", difficulty=" 	+ difficulty 
+				+ "]";
 	}
 	
 	
