@@ -39,7 +39,7 @@ public class Student extends Person{
 
 	@Override
 	public String toString() {
-		return "Estudent [carrer=" + carrer + ", year=" + year + "]";
+		return super.toString() + "Type: " + "Estudent [carrer=" + carrer + ", year=" + year + "]";
 	}
 
 	
