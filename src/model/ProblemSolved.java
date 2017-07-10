@@ -15,6 +15,8 @@ public class ProblemSolved extends Problem{
 	public ProblemSolved(String id, String title, String enunciate, String difficulty) {
 		super(id, title, enunciate, difficulty);
 		// TODO Auto-generated constructor stub
+		this.timeSolved = "none";
+		this.language	= "none";
 	}
 	
 	public ProblemSolved(String timeSolved, String language) {
