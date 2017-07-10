@@ -10,6 +10,10 @@ public class Problem {
 	public Problem() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.id 		= "none";
+		this.title		= "none";
+		this.enunciate	= "none";
+		this.difficulty	= "none";
 	}
 
 	public Problem(String id, String title, String enunciate, String difficulty) {
