@@ -8,6 +8,8 @@ public class ProblemSolved extends Problem{
 	public ProblemSolved() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.timeSolved = "none";
+		this.language	= "none";
 	}
 	
 	public ProblemSolved(String id, String title, String enunciate, String difficulty) {
