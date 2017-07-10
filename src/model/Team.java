@@ -10,7 +10,7 @@ public class Team {
 	private int					year;			// año del equipo ej: 2005
 	private ProfessorList	  	professors;		// lista de profesores del equipo (coach y tecnico)
 	private StudentList		  	students;		// lista de estudiantes del equipo 		
-	private ProblemSolvedList 	problemsSolved;	// lista de problemas solucionados
+	private ProblemSolvedList 	problemsSolved;	// lista de problemas solucionados			
 	
 	public Team() {
 		super();
