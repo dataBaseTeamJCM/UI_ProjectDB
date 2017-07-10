@@ -2,10 +2,11 @@ package model;
 
 public class Professor extends Person{
 
-	private String type;				// tipo de profesor coach o tecnico
-	private String matter;				// materia del profesor
-	private String expertiseArea;		// area de experticia
-	private String position;			// cargo del profesor
+	private String 		type;				// tipo de profesor coach o tecnico
+	private String 		matter;				// materia del profesor
+	private String 		expertiseArea;		// area de experticia
+	private String 		position;			// cargo del profesor
+	private LessonList	lessons;			// clases impartidas a los equipos o al equipo
 	
 	public Professor(){
 		super();
@@ -13,16 +14,18 @@ public class Professor extends Person{
 		this.matter			= "none";
 		this.expertiseArea	= "none";
 		this.position		= "none";
+		
+		lessons 			= new LessonList();
 	}
-	
-	public Professor(String type, String matter, String expertiseArea, String position) {
+		
+	public Professor(String type, String matter, String expertiseArea, String position, LessonList lessons) {
 		super();
 		this.type = type;
 		this.matter = matter;
 		this.expertiseArea = expertiseArea;
 		this.position = position;
+		this.lessons = lessons;
 	}
-	
 
 	public Professor(String ci, String name, String lastName, String email, String phone, String adress) {
 		super(ci, name, lastName, email, phone, adress);
@@ -31,6 +34,7 @@ public class Professor extends Person{
 		this.matter			= "none";
 		this.expertiseArea	= "none";
 		this.position		= "none";
+		lessons				= new LessonList();
 	}
 
 	public String getType() {
@@ -63,6 +67,14 @@ public class Professor extends Person{
 
 	public void setPosition(String position) {
 		this.position = position;
+	}
+
+	public LessonList getLessons() {
+		return lessons;
+	}
+
+	public void setLessons(LessonList lessons) {
+		this.lessons = lessons;
 	}
 
 	@Override

@@ -109,8 +109,5 @@ public class Competition {
 				+ ", date=" + date + "]";
 	}
 	
-	
-	
-	
 }
 
