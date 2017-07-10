@@ -15,6 +15,15 @@ public class Team {
 	public Team() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.id 		= "none";
+		this.name		= "none";
+		this.university	= "none";
+		this.school		= "none";
+		this.year		= 0;
+		
+		professors		= new ProfessorList();
+		students		= new StudentList();
+		problemsSolved	= new ProblemSolvedList();	
 	}
 
 	public Team(String id, String name, String university, String school, 
