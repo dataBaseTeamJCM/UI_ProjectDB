@@ -39,7 +39,7 @@ public class ProblemSolved extends Problem{
 
 	@Override
 	public String toString() {
-		return "ProblemSolved [timeSolved=" + timeSolved + ", language=" + language + "]";
+		return super.toString() + "Type: "+ "ProblemSolved [timeSolved=" + timeSolved + ", language=" + language + "]";
 	}
 	
 	
