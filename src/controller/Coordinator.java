@@ -128,7 +128,6 @@ public class Coordinator {
 		this.setMyWindowQueryProgrammer(new WinQueryProgrammer(this));
 		this.getMyWindowQueryProgrammer().setTitle("Hola " + name);
 		this.showWindowQueryProgrammer();
-		
 	}
 	
 	public void invokerWindowCoordinator(String name){
