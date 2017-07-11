@@ -9,7 +9,6 @@ import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
 import db.Conexion;
-import model.ModelStudent;
 import net.proteanit.sql.DbUtils;
 import views.*;
 
@@ -27,15 +26,43 @@ public class Coordinator {
 	
 	public void connect(String userName, char[] password){
 		this.conect = (new Conexion (userName,password)).Conectar();
+		
+		if(this.getConect() == null)
+		{	
+			/*
+			 * lblError.setVisible(true);
+			 */
+			System.out.println("Usuario y "
+					+ "Contraseña invalidos");
+		}
+		
+		else
+		{
+			System.out.println(userName);
+			if(userName.equals("coordinador"))
+			{
+				listAllStudents(); // prueba de la base de datos
+				System.out.println("Conexion exitosa");
+				//invokerWindowCoordinator(userName);
+				//hideWindowLogin();
+				
+			}
+			else if(userName.equals("programador"))
+			{
+				System.out.println("Conexion exitosa");
+				//invokerWindowProgrammer(userName);
+				//hideWindowLogin();
+			}
+		}
 	}
 	
-	public ModelStudent getStudents() {
-		return students;
+
+	private void listAllStudents() {
+		// TODO Auto-generated method stub
+		
+		
 	}
 
-	public void setStudent(ModelStudent students) {
-		this.students = students;
-	}
 
 	public Connection getConect() {
 		return conect;
