@@ -116,13 +116,15 @@ public class SearchByCi extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == this.btnSearch){
-			getMyCoordinator().anStudent(getTextFieldCi().getText());
+		/*
+		 *  getMyCoordinator().anStudent(getTextFieldCi().getText());
 			if( getMyCoordinator().getStudents() != null ){
 				getMyCoordinator().getMyWindowQueryProgrammer().buildTabInformacionPersonal();
 				getMyCoordinator().hideWindowSearch();
 			}
 			else
 				errorLabel();
+		*/
 		}
 		
 	}

@@ -42,7 +42,7 @@ public class Conexion {
 			return this.connection;
 	}
 	public Conexion(String usr, char[] password){
-		this.url ="jdbc:postgresql://localhost:5432/maraton";
+		this.url ="jdbc:postgresql://localhost:5432/" + DatabaseConstants.DATABASE_NAME;
 		System.out.println(this.url);
 		this.password =password;
 		this.user = usr;

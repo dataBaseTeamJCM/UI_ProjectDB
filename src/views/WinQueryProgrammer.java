@@ -13,7 +13,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableModel;
 
 import controller.Coordinator;
-import model.ModelStudent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -216,7 +215,7 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 		lblNewLabel_1.setForeground(Color.WHITE);
 		
 		textFieldCi = new JTextField();
-		textFieldCi.setText(getMyCoordinator().getStudents().getCi());
+		//textFieldCi.setText(getMyCoordinator().getStudents().getCi());
 		textFieldCi.setColumns(10);
 		
 		textFieldName = new JTextField();
@@ -230,7 +229,7 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 		
 		comboBoxYear = new JComboBox();
 		comboBoxYear.setModel(new DefaultComboBoxModel(arrayItems));
-		comboBoxYear.setSelectedIndex(getMyCoordinator().getStudents().getYear());
+	//	comboBoxYear.setSelectedIndex(getMyCoordinator().getStudents().getYear());
 		
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
