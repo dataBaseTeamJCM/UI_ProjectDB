@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
 import db.Conexion;
+import db.DatabaseQueries;
+import model.StudentList;
 import net.proteanit.sql.DbUtils;
 import views.*;
 
@@ -18,52 +20,12 @@ public class Coordinator {
 	private WindowQueryCoordinator myWindowQueryCoordinator;
 	private WinQueryProgrammer myWindowQueryProgrammer;
 	private SearchByCi	mySearchByCi;
-	private ModelStudent students;
 	private Connection conect;
 	//private Conexion conn;
 	
 	// getters y setters de las ventanas
 	
-	public void connect(String userName, char[] password){
-		this.conect = (new Conexion (userName,password)).Conectar();
-		
-		if(this.getConect() == null)
-		{	
-			/*
-			 * lblError.setVisible(true);
-			 */
-			System.out.println("Usuario y "
-					+ "Contraseña invalidos");
-		}
-		
-		else
-		{
-			System.out.println(userName);
-			if(userName.equals("coordinador"))
-			{
-				listAllStudents(); // prueba de la base de datos
-				System.out.println("Conexion exitosa");
-				//invokerWindowCoordinator(userName);
-				//hideWindowLogin();
-				
-			}
-			else if(userName.equals("programador"))
-			{
-				System.out.println("Conexion exitosa");
-				//invokerWindowProgrammer(userName);
-				//hideWindowLogin();
-			}
-		}
-	}
 	
-
-	private void listAllStudents() {
-		// TODO Auto-generated method stub
-		
-		
-	}
-
-
 	public Connection getConect() {
 		return conect;
 	}
@@ -173,17 +135,55 @@ public class Coordinator {
 		this.showWindowSearch();
 	}
 	
-	// metodos para obtener datos de la bd y actualizarlos
 	
-	public JTable listAllStudents(){
-		Conexion conn = new Conexion(this.getConect());
-		String sql;
-		sql = ModelStudent.queryAllEstudents();
-		conn.createQuery(sql);
-		return (new JTable(DbUtils.resultSetToTableModel(conn.getRs())));
+	public void connect(String userName, char[] password){
+		this.conect = (new Conexion (userName,password)).Conectar();
+		
+		if(this.getConect() == null)
+		{	
+			/*
+			 * lblError.setVisible(true);
+			 */
+			System.out.println("Usuario y "
+					+ "Contraseña invalidos");
+		}
+		
+		else
+		{
+			System.out.println(userName);
+			if(userName.equals("coordinador"))
+			{
+				listAllStudents(); // prueba de la base de datos
+				System.out.println("Conexion exitosa");
+				//invokerWindowCoordinator(userName);
+				//hideWindowLogin();
+				
+			}
+			else if(userName.equals("programador"))
+			{
+				System.out.println("Conexion exitosa");
+				//invokerWindowProgrammer(userName);
+				//hideWindowLogin();
+			}
+		}
 	}
 	
-	public void anStudent(String ci){
+	// metodos para obtener datos de la bd y actualizarlos
+	
+	public void listAllStudents(){
+		Conexion conn = new Conexion(this.getConect());
+		//String sql;
+		DatabaseQueries queries = new DatabaseQueries(conn);
+		StudentList studentList;
+		
+		studentList = queries.buildStudentList();
+		studentList.print();
+		//sql = ModelStudent.queryAllEstudents();
+		//conn.createQuery(sql);
+		//return (new JTable(DbUtils.resultSetToTableModel(conn.getRs())));
+	}
+	
+/*	public void anStudent(String ci){
 		Conexion conn = new Conexion(this.getConect());
 		String sql;
 		//String carrer;
@@ -201,7 +201,7 @@ public class Coordinator {
 			e.printStackTrace();
 		}
 	}
-	
+*/
 	//metodos para validaciones campos de texto etc
 	public void onlyNumbers(JTextField text){
 		text.addKeyListener(new KeyAdapter() {
