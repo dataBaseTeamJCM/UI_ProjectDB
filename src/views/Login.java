@@ -76,29 +76,8 @@ public class Login extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getSource()==btnAccess){	
+		if(e.getSource()==btnAccess){
 			myCoordinator.connect(userField.getText(), passwordField.getPassword());
-			if(myCoordinator.getConect() == null)
-			{	
-				lblError.setVisible(true);
-				System.out.println("Usuario y "
-						+ "Contraseña invalidos");
-			}
-			
-			else
-			{
-				System.out.println(userField.getText());
-				if(userField.getText().equals("coordinador")){
-					System.out.println("Conexion exitosa");
-					myCoordinator.invokerWindowCoordinator(userField.getText());
-					myCoordinator.hideWindowLogin();
-					
-				}else if(userField.getText().equals("programador")){
-					System.out.println("Conexion exitosa");
-					myCoordinator.invokerWindowProgrammer(userField.getText());
-					myCoordinator.hideWindowLogin();
-				}
-			}
 		}
 	}	
 }
