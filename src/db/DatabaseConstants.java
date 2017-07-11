@@ -1,0 +1,66 @@
+package db;
+
+public final class DatabaseConstants {
+	
+	public static final String DATABASE_NAME 			= "maraton"; 
+	public static final String DB_SCHEMA				= "mtn.";
+	public static final String TABLE_STUDENT			= DB_SCHEMA + "estudiante";
+	public static final String TABLE_UNIVERSITY			= DB_SCHEMA + "universidad_equipo";
+	public static final String TABLE_TEAM				= DB_SCHEMA + "equipo";
+	public static final String TABLE_PROFESSOR			= DB_SCHEMA + "profesor";
+	public static final String TABLE_TECHNICAL_BY_TEAM	= DB_SCHEMA + "prepara_a";
+	public static final String TABLE_COACH_BY_TEAM		= DB_SCHEMA + "profesor_representa";
+	public static final String TABLE_STUDENT_BY_TEAM	= DB_SCHEMA + "constituye_estudiante";
+	public static final String TABLE_COMPETITION		= DB_SCHEMA + "competencia";
+	public static final String TABLE_ACTIVITY			= DB_SCHEMA + "actividad";
+	public static final String TABLE_TRAVEL				= DB_SCHEMA + "viaja";
+	public static final String TABLE_COMPETITOR			= DB_SCHEMA + "participa";
+	public static final String TABLE_PROBLEM			= DB_SCHEMA + "problema";
+	public static final String TABLE_PROPOSED			= DB_SCHEMA + "propone";
+	public static final String TABLE_SOLVED				= DB_SCHEMA + "resuelve";
+	public static final String TABLE_INCIDENTS			= DB_SCHEMA + "tipo_incidente";
+	public static final String TABLE_LESSONS			= DB_SCHEMA + "clases";
+	public static final String KEY_CI_STUDENTS			= "ci_estudiante";
+	public static final String KEY_SCHOOL				= "facultad";
+	public static final String KEY_ID_TEAM				= "id_equipo";
+	public static final String KEY_CI_PROFESSOR			= "ci_profesor";
+	public static final String KEY_ID_COMPETITION		= "id_competencia";
+	public static final String KEY_ID_ACTIVITY			= "id_actividad";
+	public static final String KEY_ID_PROBLEM			= "id_problema";
+	public static final String KEY_INCIDENT				= "incidente";
+	public static final String KEY_TYPE_LESSONS			= "tipo_clases";
+	public static final String STUDENT_NAME				= "nombre_estudiante";
+	public static final String STUDENT_LASTNAME			= "apellido_estudiante";
+	public static final String STUDENT_PHONE			= "telefono_estudiante";
+	public static final String STUDENT_EMAIL			= "email_estudiante";
+	public static final String STUDENT_ADRESS			= "direccion_estudiante";
+	public static final String STUDENT_YEAR				= "año_estudiante";
+	public static final String STUDENT_CARRER			= "carrera";
+	public static final String UNIVERSITY_NAME			= "universidad";
+	public static final String TEAM_NAME				= "nombre_equipo";
+	public static final String TEAM_YEAR				= "año_equipo";
+	public static final String PROFESSOR_NAME			= "nombre_profesor";
+	public static final String PROFESSOR_LASTNAME		= "apellido_profesor";
+	public static final String PROFESSOR_PHONE			= "telefono_profesor";
+	public static final String PROFESSOR_EMAIL			= "email_profesor";
+	public static final String PROFESSOR_ADRESS			= "direccion_profesor";
+	public static final String PROFESSOR_TYPE			= "tipo_profesor";
+	public static final String PROFESSOR_POSITION		= "cargo";
+	public static final String PROFESSOR_AREA_EXPERTISE	= "area_experticia";
+	public static final String COMPETITION_NAME			= "nombre_competencia";
+	public static final String COMPETITION_LEVEL 		= "nivel";
+	public static final String COMPETITION_PLACE		= "lugar_competencia";
+	public static final String COMPETITION_DATE			= "fecha_competencia";
+	public static final String ACTIVITY_NAME			= "nombre_actividad";
+	public static final String ACTIVITY_PLACE 			= "lugar_actividad";
+	public static final String ACTIVITY_DATE			= "fecha_actividad";
+	public static final String COMPETITOR_INCENTIVE		= "incentivo";
+	public static final String COMPETITOR_SITE 			= "site";
+	public static final String COMPETITOR_PERFOMANCE 	= "rendimiento";
+	public static final String PROBLEM_TITLE			= "titulo";
+	public static final String PROBLEM_DIFFICULTY		= "dificultad";
+	public static final String PROBLEM_ENUNCIATE		= "enunciado";
+	public static final String SOLVED_LANGUAGE			= "lenguaje";
+	public static final String SOLVED_TIME				= "tiempo";
+		
+}
