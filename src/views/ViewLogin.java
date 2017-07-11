@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class Login extends JFrame implements ActionListener {
+public class ViewLogin extends JFrame implements ActionListener {
 
 	private Coordinator myCoordinator;
 	private JLabel lblError, lblUser, lblPass, lblVersion;
@@ -25,7 +25,7 @@ public class Login extends JFrame implements ActionListener {
 	/**
 	 * Create the application.
 	 */
-	public Login(Coordinator myCoordinator) {
+	public ViewLogin(Coordinator myCoordinator) {
 		this.myCoordinator = myCoordinator;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

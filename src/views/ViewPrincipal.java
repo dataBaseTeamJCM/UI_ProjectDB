@@ -17,7 +17,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class WindowPrincipal extends JFrame implements ActionListener{
+public class ViewPrincipal extends JFrame implements ActionListener{
 
 	private Coordinator myCoordinator;
 	private JTextArea txtpAreaInfo;
@@ -36,7 +36,7 @@ public class WindowPrincipal extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
-	public WindowPrincipal(Coordinator myCoordinator) {
+	public ViewPrincipal(Coordinator myCoordinator) {
 		this.myCoordinator = myCoordinator;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

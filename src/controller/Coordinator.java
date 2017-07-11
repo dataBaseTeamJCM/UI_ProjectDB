@@ -15,10 +15,10 @@ import net.proteanit.sql.DbUtils;
 import views.*;
 
 public class Coordinator {
-	private	WindowPrincipal myWindowPrincipal;
-	private Login myWindowLogin;
-	private WindowQueryCoordinator myWindowQueryCoordinator;
-	private WinQueryProgrammer myWindowQueryProgrammer;
+	private	ViewPrincipal myWindowPrincipal;
+	private ViewLogin myWindowLogin;
+	private ViewCoordinador myWindowQueryCoordinator;
+	private ViewProgrammer myWindowQueryProgrammer;
 	private SearchByCi	mySearchByCi;
 	private Connection conect;
 	//private Conexion conn;
@@ -34,31 +34,31 @@ public class Coordinator {
 		this.conect = conect;
 	}
 
-	public WindowPrincipal getMyWindowPrincipal() {
+	public ViewPrincipal getMyWindowPrincipal() {
 		return myWindowPrincipal;
 	}
-	public void setMyWindowPrincipal(WindowPrincipal myWindowPrincipal) {
+	public void setMyWindowPrincipal(ViewPrincipal myWindowPrincipal) {
 		this.myWindowPrincipal = myWindowPrincipal;
 	}
-	public Login getMyWindowLogin() {
+	public ViewLogin getMyWindowLogin() {
 		return myWindowLogin;
 	}
-	public void setMyWindowLogin(Login myWindowLogin) {
+	public void setMyWindowLogin(ViewLogin myWindowLogin) {
 		this.myWindowLogin = myWindowLogin;
 	}
 
-	public void setMyWindowQueryCoordinator(WindowQueryCoordinator myWindowQueryCoordinator) {
+	public void setMyWindowQueryCoordinator(ViewCoordinador myWindowQueryCoordinator) {
 		this.myWindowQueryCoordinator = myWindowQueryCoordinator;
 	}
 	
-	public WindowQueryCoordinator getMyWindowQueryCoordinator() {
+	public ViewCoordinador getMyWindowQueryCoordinator() {
 		return myWindowQueryCoordinator;
 	}
 
-	public WinQueryProgrammer getMyWindowQueryProgrammer() {
+	public ViewProgrammer getMyWindowQueryProgrammer() {
 		return myWindowQueryProgrammer;
 	}
-	public void setMyWindowQueryProgrammer(WinQueryProgrammer myWindowQueryProgrammer) {
+	public void setMyWindowQueryProgrammer(ViewProgrammer myWindowQueryProgrammer) {
 		this.myWindowQueryProgrammer = myWindowQueryProgrammer;
 	}
 	
@@ -114,19 +114,19 @@ public class Coordinator {
 	
 	//** metodos para invokar ventanas desde otras ventanas
 	public void invokerWindowProgrammer(String name){
-		this.setMyWindowQueryProgrammer(new WinQueryProgrammer(this));
+		this.setMyWindowQueryProgrammer(new ViewProgrammer(this));
 		this.getMyWindowQueryProgrammer().setTitle("Hola " + name);
 		this.showWindowQueryProgrammer();
 	}
 	
 	public void invokerWindowCoordinator(String name){
-		this.setMyWindowQueryCoordinator(new WindowQueryCoordinator(this));
+		this.setMyWindowQueryCoordinator(new ViewCoordinador(this));
 		this.getMyWindowQueryCoordinator().setTitle("Hola "+ name);
 		this.showWindowQueryCoordinator();
 	}
 	
 	public void invokerWindowLogin(){
-		this.setMyWindowLogin(new Login(this));
+		this.setMyWindowLogin(new ViewLogin(this));
 		this.showWindowLogin();
 	}
 	
@@ -153,10 +153,11 @@ public class Coordinator {
 			System.out.println(userName);
 			if(userName.equals("coordinador"))
 			{
+				invokerWindowCoordinator(userName);
 				listAllStudents(); // prueba de la base de datos
 				System.out.println("Conexion exitosa");
 				//invokerWindowCoordinator(userName);
-				//hideWindowLogin();
+				hideWindowLogin();
 				
 			}
 			else if(userName.equals("programador"))

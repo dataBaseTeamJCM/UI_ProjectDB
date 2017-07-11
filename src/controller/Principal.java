@@ -3,9 +3,9 @@ package controller;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
 
-import views.Login;
-import views.WindowPrincipal;
-import views.WindowQueryCoordinator;
+import views.ViewLogin;
+import views.ViewPrincipal;
+import views.ViewCoordinador;
 
 class Principal{
 
@@ -31,7 +31,7 @@ class Principal{
 			/*se instancian las clases
 			 */
 			myCoordinator = new Coordinator();
-			myCoordinator.setMyWindowPrincipal(new WindowPrincipal(myCoordinator));
+			myCoordinator.setMyWindowPrincipal(new ViewPrincipal(myCoordinator));
 			myCoordinator.showWindowPrincipal();
 			
 		}

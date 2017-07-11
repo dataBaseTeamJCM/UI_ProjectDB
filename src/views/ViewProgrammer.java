@@ -59,7 +59,7 @@ import javax.swing.JSeparator;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 
-public class WinQueryProgrammer extends JFrame implements ActionListener {
+public class ViewProgrammer extends JFrame implements ActionListener {
 	private Coordinator myCoordinator;
 	private JMenuItem intemSalir;
 	private JTextField textFieldCi;
@@ -83,7 +83,7 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public WinQueryProgrammer(Coordinator myCoordinator) {
+	public ViewProgrammer(Coordinator myCoordinator) {
 		
 		this.myCoordinator = myCoordinator;
 		setBounds(0, 0, 800, 400);
@@ -102,7 +102,7 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 		menuBar.add(mnMenu);
 		
 		intemSalir = new JMenuItem("Salir");
-		intemSalir.setIcon(new ImageIcon(WinQueryProgrammer.class.getResource("/views/icons/ic_close_black_16dp.png")));
+		intemSalir.setIcon(new ImageIcon(ViewProgrammer.class.getResource("/views/icons/ic_close_black_16dp.png")));
 		mnMenu.add(intemSalir);
 		
 		JMenu mnVer = new JMenu("Ver");
@@ -159,7 +159,7 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 	
 	public void buildTabInformacionPersonal(){
 		
-		ImageIcon iconEstTab = new ImageIcon(WinQueryProgrammer.class.getResource("/views/icons/ic_person_black_18dp.png"));
+		ImageIcon iconEstTab = new ImageIcon(ViewProgrammer.class.getResource("/views/icons/ic_person_black_18dp.png"));
 		String arrayItems[] = new String[] { "1","2","3","4","5"}; 
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -181,7 +181,7 @@ public class WinQueryProgrammer extends JFrame implements ActionListener {
 		btnNewButton.setOpaque(false);
 		btnNewButton.setContentAreaFilled(false);
 		btnNewButton.setBorderPainted(false);
-		btnNewButton.setIcon(new ImageIcon(WinQueryProgrammer.class.getResource("/views/icons/ic_archive_white_24dp.png")));
+		btnNewButton.setIcon(new ImageIcon(ViewProgrammer.class.getResource("/views/icons/ic_archive_white_24dp.png")));
 		panel_2.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Limpiar");
