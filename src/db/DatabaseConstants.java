@@ -34,11 +34,11 @@ public final class DatabaseConstants {
 	public static final String STUDENT_PHONE			= "telefono_estudiante";
 	public static final String STUDENT_EMAIL			= "email_estudiante";
 	public static final String STUDENT_ADRESS			= "direccion_estudiante";
-	public static final String STUDENT_YEAR				= "año_estudiante";
+	public static final String STUDENT_YEAR				= "aÑo_estudiante";
 	public static final String STUDENT_CARRER			= "carrera";
 	public static final String UNIVERSITY_NAME			= "universidad";
 	public static final String TEAM_NAME				= "nombre_equipo";
-	public static final String TEAM_YEAR				= "año_equipo";
+	public static final String TEAM_YEAR				= "aÑo_equipo";
 	public static final String PROFESSOR_NAME			= "nombre_profesor";
 	public static final String PROFESSOR_LASTNAME		= "apellido_profesor";
 	public static final String PROFESSOR_PHONE			= "telefono_profesor";
