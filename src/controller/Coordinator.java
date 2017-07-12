@@ -3,13 +3,22 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Enumeration;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JTree;
 import javax.swing.table.TableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 
 import db.Conexion;
+import db.DatabaseConstants;
 import db.DatabaseQueries;
+import model.Competition;
+import model.Student;
 import model.StudentList;
 import net.proteanit.sql.DbUtils;
 import views.*;
@@ -120,11 +129,36 @@ public class Coordinator {
 	}
 	
 	public void invokerWindowCoordinator(String name){
-		this.setMyWindowQueryCoordinator(new ViewCoordinador(this));
-		this.getMyWindowQueryCoordinator().setTitle("Hola "+ name);
+		setMyWindowQueryCoordinator(new ViewCoordinador(this));
+		getMyWindowQueryCoordinator().setTitle("Hola "+ name);
+		
+		
+		//-- prueba---
+		
+		//StudentList studentList = listAllStudents();
+		CompetitionList competitionList; 
+		JTree jTree = buildJTree(studentList);
+		//DefaultListModel<String> defaultListModel = studentList.toListModel();
+		//JList<String> jList = new JList<>(defaultListModel);
+		//jTree.setR(jList);
+		myWindowQueryCoordinator.getScrollPaneJtree().setViewportView(jTree);
+		//---end prueba---
 		this.showWindowQueryCoordinator();
 	}
 	
+	private JTree buildJTree(StudentList studentList) {
+		// TODO Auto-generated method stub
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode(DatabaseConstants.DATABASE_NAME);
+		
+		for (Student student : studentList) {
+			String name = student.getName() +" "+ student.getLastName();
+			DefaultMutableTreeNode studentNode = new DefaultMutableTreeNode(name);
+			root.add(studentNode);
+		}
+		JTree jTree = new JTree(root);
+		return jTree;
+	}
+
 	public void invokerWindowLogin(){
 		this.setMyWindowLogin(new ViewLogin(this));
 		this.showWindowLogin();
@@ -153,8 +187,7 @@ public class Coordinator {
 			System.out.println(userName);
 			if(userName.equals("coordinador"))
 			{
-				invokerWindowCoordinator(userName);
-				listAllStudents(); // prueba de la base de datos
+				invokerWindowCoordinator(userName);	
 				System.out.println("Conexion exitosa");
 				//invokerWindowCoordinator(userName);
 				hideWindowLogin();
@@ -171,14 +204,16 @@ public class Coordinator {
 	
 	// metodos para obtener datos de la bd y actualizarlos
 	
-	public void listAllStudents(){
+	public StudentList listAllStudents(){
 		Conexion conn = new Conexion(this.getConect());
 		//String sql;
 		DatabaseQueries queries = new DatabaseQueries(conn);
 		StudentList studentList;
 		
 		studentList = queries.buildStudentList();
-		studentList.print();
+		
+		return studentList;
+		//studentList.print();
 		//sql = ModelStudent.queryAllEstudents();
 		//conn.createQuery(sql);
 		//return (new JTable(DbUtils.resultSetToTableModel(conn.getRs())));
