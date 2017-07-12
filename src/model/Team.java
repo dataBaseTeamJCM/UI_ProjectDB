@@ -43,6 +43,21 @@ public class Team {
 		this.incidents		= incidentList;
 	}
 
+	public Team(String id, String name, String university, String school, int year) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.id 			= id;
+		this.name 			= name;
+		this.university 	= university;
+		this.school 		= school;
+		this.year 			= year;
+		
+		professors		= new ProfessorList();
+		students		= new StudentList();
+		problemsSolved	= new ProblemSolvedList();	
+		incidents		= new IncidentList();
+	}
+
 	public String getId() {
 		return id;
 	}
