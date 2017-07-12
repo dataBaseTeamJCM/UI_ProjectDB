@@ -27,6 +27,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.JInternalFrame;
+import javax.swing.JDesktopPane;
 
 public class ViewCoordinador extends JFrame implements ActionListener, IViews{
 
