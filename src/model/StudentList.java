@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 public class StudentList extends ArrayList<Student> implements ICustomList{
 
 	
@@ -29,6 +32,17 @@ public class StudentList extends ArrayList<Student> implements ICustomList{
 		}
 		System.out.println(print);
 	}
-	
+
+	@Override
+	public DefaultListModel<String> toListModel() {
+		// TODO Auto-generated method stub
+		
+		DefaultListModel<String> defaultListModel = new DefaultListModel<>();
+		for (Student student : this) {
+			String data = student.getName() + " " + student.getLastName();
+			defaultListModel.addElement(data);
+		}
+		return defaultListModel;
+	}
 
 }

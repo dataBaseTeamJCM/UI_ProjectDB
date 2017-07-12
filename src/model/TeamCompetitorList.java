@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
+
 public class TeamCompetitorList extends ArrayList<TeamCompetitor> implements ICustomList{
 
 	
@@ -30,6 +32,13 @@ public class TeamCompetitorList extends ArrayList<TeamCompetitor> implements ICu
 			print += teamCompetitor.toString() + "\n";
 		}
 		System.out.println(print);
+	}
+
+
+	@Override
+	public DefaultListModel<String> toListModel() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
+
 public class ProblemsList extends ArrayList<Problem> implements ICustomList{
 
 	
@@ -29,6 +31,12 @@ public class ProblemsList extends ArrayList<Problem> implements ICustomList{
 			print += problem.toString() + "\n";
 		}
 		System.out.println(print);
+	}
+
+	@Override
+	public DefaultListModel<String> toListModel() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

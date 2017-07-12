@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.swing.DefaultListModel;
+
 public class LessonList extends ArrayList<Lesson> implements ICustomList {
 
 	private LessonList instance;
@@ -31,6 +33,13 @@ public class LessonList extends ArrayList<Lesson> implements ICustomList {
 			print += lesson.toString() + "\n";
 		}
 		System.out.println(print);
+	}
+
+
+	@Override
+	public DefaultListModel<String> toListModel() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

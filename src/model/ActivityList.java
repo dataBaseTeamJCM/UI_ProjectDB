@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
+
 public class ActivityList extends ArrayList<Activity> implements ICustomList{
 
 	private ActivityList instance;
@@ -32,6 +34,14 @@ public class ActivityList extends ArrayList<Activity> implements ICustomList{
 			print += activity.toString() + "\n";
 		}
 		System.out.println(print);
+	}
+
+
+
+	@Override
+	public DefaultListModel<String> toListModel() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
