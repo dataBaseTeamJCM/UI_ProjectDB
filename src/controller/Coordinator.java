@@ -21,7 +21,10 @@ import model.Competition;
 import model.CompetitionList;
 import model.Student;
 import model.StudentList;
+import model.TeamCompetitor;
+import model.TeamCompetitorList;
 import net.proteanit.sql.DbUtils;
+import resources.values.Strings;
 import views.*;
 
 public class Coordinator {
@@ -160,20 +163,53 @@ public class Coordinator {
 		
 	}
 
+	// construye en Jtree principal con la lista de competencias
 	private JTree buildJTree(CompetitionList competitionList) {
 		// TODO Auto-generated method stub
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(DatabaseConstants.DATABASE_NAME);
 		
+		
+		
 		for (Competition competition : competitionList) {
-			String name = competition.getName() +" "+ competition.getDate();
-			DefaultMutableTreeNode competitionNode = new DefaultMutableTreeNode(name);
+			String name 			= competition.getName() +" "+ competition.getDate();
+			String idCompetition	= competition.getId();
+			DefaultMutableTreeNode competitionNode 	= new DefaultMutableTreeNode(name);
+			DefaultMutableTreeNode teamNode 		= new DefaultMutableTreeNode(Strings.TEAMS);
+			DefaultMutableTreeNode problemNode		= new DefaultMutableTreeNode(Strings.PROBLEMS);
+			DefaultMutableTreeNode activityNode		= new DefaultMutableTreeNode(Strings.ACTIVITYS);
+
+			TeamCompetitorList competitorList = listAllTeamsByCompetition(idCompetition);
+			for (TeamCompetitor teamCompetitor : competitorList) {
+				String nameTeam 	= teamCompetitor.getName() + " " + teamCompetitor.getSchool();
+				DefaultMutableTreeNode subTeamNode = new DefaultMutableTreeNode(nameTeam);
+				teamNode.add(subTeamNode);
+			}
+			competitionNode.add(teamNode);
+			competitionNode.add(problemNode);
+			competitionNode.add(activityNode);
+		
 			root.add(competitionNode);
 		}
+		
+		
 		
 		JTree jTree = new JTree(root);
 		return jTree;
 	}
 
+	private TeamCompetitorList listAllTeamsByCompetition(String idCompetition) {
+		// TODO Auto-generated method stub
+		Conexion conn = new Conexion(this.getConect());
+		//String sql;
+		DatabaseQueries queries = new DatabaseQueries(conn);
+		TeamCompetitorList teamCompetitorList;
+		
+		teamCompetitorList = queries.buildCompetitionList(idCompetition);
+		
+		return teamCompetitorList;
+	}
+
+	// contruye el jTree principal con la lsita de estudiantes
 	private JTree buildJTree(StudentList studentList) {
 		// TODO Auto-generated method stub
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(DatabaseConstants.DATABASE_NAME);
