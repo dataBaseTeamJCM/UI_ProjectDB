@@ -3,6 +3,8 @@ package db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.Competition;
+import model.CompetitionList;
 import model.Student;
 import model.StudentList;
 
@@ -55,6 +57,43 @@ public class DatabaseQueries {
 		}
 	
 		return studentList;
+	}
+
+	public CompetitionList buildCompetitionList() {
+		// TODO Auto-generated method stub
+		
+		CompetitionList competitionList = new CompetitionList();
+		
+		String sql = 	"SELECT * FROM " 	+ DatabaseConstants.TABLE_COMPETITION 
+						+ " ORDER BY " 		+ DatabaseConstants.KEY_ID_COMPETITION
+						+ " ASC";
+		
+		
+		if(conexion != null){
+			conexion.createQuery(sql);
+			ResultSet resultSet = conexion.getRs();
+			
+			try {
+				while(resultSet.next()){
+					String 	id 			= resultSet.getString(1);
+					String 	name		= resultSet.getString(2);
+					String	level 		= resultSet.getString(3);
+					String 	place		= resultSet.getString(4);
+					String 	date		= resultSet.getString(5);
+					
+					Competition competition = new Competition(id,name,level,place,date);
+					//competition.setYear(year);
+					//competition.setCarrer(carrer);
+					
+					competitionList.add(competition);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		}
+		return competitionList;
 	}
 	
 	
