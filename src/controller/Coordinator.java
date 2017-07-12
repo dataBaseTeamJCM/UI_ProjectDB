@@ -18,6 +18,7 @@ import db.Conexion;
 import db.DatabaseConstants;
 import db.DatabaseQueries;
 import model.Competition;
+import model.CompetitionList;
 import model.Student;
 import model.StudentList;
 import net.proteanit.sql.DbUtils;
@@ -136,8 +137,8 @@ public class Coordinator {
 		//-- prueba---
 		
 		//StudentList studentList = listAllStudents();
-		CompetitionList competitionList; 
-		JTree jTree = buildJTree(studentList);
+		CompetitionList competitionList = listAllCompetitions(); 
+		JTree jTree = buildJTree(competitionList);
 		//DefaultListModel<String> defaultListModel = studentList.toListModel();
 		//JList<String> jList = new JList<>(defaultListModel);
 		//jTree.setR(jList);
@@ -146,6 +147,33 @@ public class Coordinator {
 		this.showWindowQueryCoordinator();
 	}
 	
+	private CompetitionList listAllCompetitions() {
+		// TODO Auto-generated method stub
+		Conexion conn = new Conexion(this.getConect());
+		//String sql;
+		DatabaseQueries queries = new DatabaseQueries(conn);
+		CompetitionList competitionList;
+		
+		competitionList = queries.buildCompetitionList();
+		
+		return competitionList;
+		
+	}
+
+	private JTree buildJTree(CompetitionList competitionList) {
+		// TODO Auto-generated method stub
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode(DatabaseConstants.DATABASE_NAME);
+		
+		for (Competition competition : competitionList) {
+			String name = competition.getName() +" "+ competition.getDate();
+			DefaultMutableTreeNode competitionNode = new DefaultMutableTreeNode(name);
+			root.add(competitionNode);
+		}
+		
+		JTree jTree = new JTree(root);
+		return jTree;
+	}
+
 	private JTree buildJTree(StudentList studentList) {
 		// TODO Auto-generated method stub
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(DatabaseConstants.DATABASE_NAME);
