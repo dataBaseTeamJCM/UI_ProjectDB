@@ -20,9 +20,9 @@ public class Competition {
 		this.level	= "none";
 		this.date 	= "none";
 		
-		this.teamsCompetitors 	= new TeamCompetitorList();
-		this.activitys			= new ActivityList();
-		this.problems			= new ProblemsList();
+		this.teamsCompetitors 	= null;
+		this.activitys			= null;
+		this.problems			= null;
 	}
 
 	public Competition(String id, String name, String place, String level, String date,
@@ -36,6 +36,19 @@ public class Competition {
 		this.teamsCompetitors 	= teamsCompetitors;
 		this.activitys 			= activitys;
 		this.problems 			= problems;
+	}
+
+	public Competition(String id, String name, String level, String place, String date) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.id 				= id;
+		this.name 				= name;
+		this.place 				= place;
+		this.level 				= level;
+		this.date 				= date;
+		this.teamsCompetitors 	= null;
+		this.activitys 			= null;
+		this.problems 			= null;
 	}
 
 	public String getId() {
