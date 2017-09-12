@@ -68,7 +68,6 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 	private JTextField textFieldName;
 	private JTextField textFieldLastName;
 	private JTextField textFieldAdress;
-	private JMenuItem mntmInfoPersonal;
 	private JMenuItem mntmProblemaR;
 	private JMenuItem mntmCompetencia;
 	private JMenuItem mntmMiCoach;
@@ -140,9 +139,6 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 		JMenu mnViewGlobal = new JMenu("Vista General");
 		menuBar.add(mnViewGlobal);
 		
-		mntmInfoPersonal = new JMenuItem("Mi Informacion Personal");
-		mnViewGlobal.add(mntmInfoPersonal);
-		
 		mntmProblemaR = new JMenuItem("Problemas Resueltos");
 		mnViewGlobal.add(mntmProblemaR);
 		
@@ -152,7 +148,6 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 		mntmMiCoach = new JMenuItem("Mi Coach y Representante");
 		mnViewGlobal.add(mntmMiCoach);
 		intemIPVer.addActionListener(this);
-		mntmInfoPersonal.addActionListener(this);
 		mntmProblemaR.addActionListener(this);
 		mntmCompetencia.addActionListener(this);
 		mntmMiCoach.addActionListener(this);
@@ -192,8 +187,10 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 			myCoordinator.invokerWindowLogin();
 			myCoordinator.hideWindowQueryProgrammer();
 		}
-		if (e.getSource() == mntmInfoPersonal){
-			this.myCoordinator.invokerWindowSearch();	
+		if (e.getSource() == intemIPVer){
+			myCoordinator.invokerWindowSearch();	
+			System.out.println("fuck you");
+			myCoordinator.hideWindowQueryProgrammer();
 		}
 		if (e.getSource() == mntmCompetencia) {
 			

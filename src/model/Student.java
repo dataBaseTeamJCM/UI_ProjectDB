@@ -12,11 +12,11 @@ public class Student extends Person{
 		this.year	= 0;
 	}
 	
-	public Student(String ci, String name, String lastName, String email, String phone, String adress) {
+	public Student(String ci, String name, String lastName, String email, String phone, String adress, int year, String carrer) {
 		super(ci, name, lastName, email, phone, adress);
 		// TODO Auto-generated constructor stub
-		this.carrer = "none";
-		this.year	= 0;
+		this.carrer = carrer;
+		this.year	= year;
 	}
 	
 	public Student(String carrer, int year) {

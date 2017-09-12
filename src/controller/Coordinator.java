@@ -329,5 +329,41 @@ public class Coordinator {
 		
 		});
 	}
+	
+	/**
+	 * este metodo busca la informacion de un estudiante 
+	 * por su cedula de identidad
+	 */
+	public void SearchStudentByCi()
+	{
+		// TODO Auto-generated method stub
+		Student student = null;
+		String cedulaEstudiante = mySearchByCi.getTextFieldCi().getText();
+		
+		student = getStudentByCi(cedulaEstudiante);
+		
+		if(student != null)
+		{
+			// procesamiento de datos del estudiante
+			System.out.println( student.toString());
+		}else{
+			// aviso de error
+		}
+	}
+	/**
+	 * este metodo obtiene la informacion del estudiante en un objeto
+	 * de tipo estudiante
+	 * @param cedulaEstudiante
+	 * @return
+	 */
+	private Student getStudentByCi(String cedulaEstudiante)
+	{
+		// TODO Auto-generated method stub
+		Student student = null;
+		Conexion conn = new Conexion(this.getConect());
+		DatabaseQueries queries = new DatabaseQueries(conn);
+		student = queries.buildStudentByCi(cedulaEstudiante);
+		return student;
+	}
 
 }

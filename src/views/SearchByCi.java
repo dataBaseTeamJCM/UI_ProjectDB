@@ -20,7 +20,9 @@ import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 
 public class SearchByCi extends JDialog implements ActionListener {
 	private Coordinator myCoordinator;
@@ -30,8 +32,6 @@ public class SearchByCi extends JDialog implements ActionListener {
 	private JPanel panelButton;
 	private JPanel panelSearch;
 	private JLabel lblCi;
-	private JPanel panel;
-	private JLabel lblHeader;
 	private JLabel lblError;
 	
 	public Coordinator getMyCoordinator() {
@@ -57,83 +57,65 @@ public class SearchByCi extends JDialog implements ActionListener {
 	public SearchByCi(Coordinator coordinator) {
 		this.setMyCoordinator(coordinator);
 		setResizable(false);
-		setBounds(100, 100, 400, 200);
+		setBounds(0, 0, 400, 200);
+
+		/*
+		 * colocar la ventana  en el centro de la pantalla
+		 */
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		//obtenemos el tamaño de la ventana
+		Dimension ventana = getSize();
+		//para centrar la ventana lo hacemos con el siguiente calculo
+		setLocation((screenSize.width - ventana.width) / 2, (screenSize.height - ventana.height) / 2);
+		
+		setTitle("Busqueda");
+		
 		getContentPane().setLayout(new BorderLayout());
-		{
-			panelButton = new JPanel();
-			getContentPane().add(panelButton, BorderLayout.SOUTH);
-			panelButton.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			{
-				btnSearch = new JButton("Buscar");
-				btnSearch.setToolTipText("Buscar un estudiante");
-				panelButton.add(btnSearch);
-			}
-			{
-				btnCancel = new JButton("Cancelar");
-				btnCancel.setToolTipText("Cancelar busqueda");
-				panelButton.add(btnCancel);
-			}
-		}
-		{
-			panelSearch = new JPanel();
-			getContentPane().add(panelSearch, BorderLayout.CENTER);
-			panelSearch.setLayout(null);
-			{
-				lblCi = new JLabel("Ci");
-				lblCi.setBounds(94, 43, 24, 24);
-				panelSearch.add(lblCi);
-			}
-			{
-				textFieldCi = new JTextField();
-				textFieldCi.setBounds(123, 44, 133, 24);
-				getMyCoordinator().onlyNumbers(textFieldCi);
-				panelSearch.add(textFieldCi);
-				textFieldCi.setColumns(10);
-			}
-			{
-				//errorLabel();
-				/*lblError = new JLabel("No Existe En la base de datos");
-				lblError.setVisible(false);
-				lblError.setBounds(104, 74, 241, 24);
-				lblError.setForeground(Color.RED);
-				panelSearch.add(lblError);*/
-			}
-		}
-		{
-			panel = new JPanel();
-			getContentPane().add(panel, BorderLayout.NORTH);
-			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			{
-				lblHeader = new JLabel("Introduzca su cédula de indentidad");
-				panel.add(lblHeader);
-			}
-		}
+		panelButton = new JPanel();
+		getContentPane().add(panelButton, BorderLayout.SOUTH);
+		panelButton.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			
+		btnSearch = new JButton("Buscar");
+		btnSearch.setToolTipText("Buscar un estudiante");
+		panelButton.add(btnSearch);
+			
+		btnCancel = new JButton("Cancelar");
+		btnCancel.setToolTipText("Cancelar busqueda");
+		panelButton.add(btnCancel);
+		
+		panelSearch = new JPanel();
+		getContentPane().add(panelSearch, BorderLayout.CENTER);
+		panelSearch.setLayout(null);
+		
+		lblCi = new JLabel("Ingrese su cedula de Indentidad");
+		lblCi.setBounds(76, 41, 253, 24);
+		panelSearch.add(lblCi);
+		
+		textFieldCi = new JTextField();
+		textFieldCi.setBounds(123, 73, 133, 24);
+		getMyCoordinator().onlyNumbers(textFieldCi);
+		panelSearch.add(textFieldCi);
+		textFieldCi.setColumns(10);
+	
+	
 		btnCancel.addActionListener(this);
 		btnSearch.addActionListener(this);
+	
+		setVisible(true);
 	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource() == this.btnSearch){
-		/*
-		 *  getMyCoordinator().anStudent(getTextFieldCi().getText());
-			if( getMyCoordinator().getStudents() != null ){
-				getMyCoordinator().getMyWindowQueryProgrammer().buildTabInformacionPersonal();
-				getMyCoordinator().hideWindowSearch();
-			}
-			else
-				errorLabel();
-		*/
+		if(e.getSource() == btnSearch){
+			myCoordinator.SearchStudentByCi();
+		}
+		
+		if (e.getSource()== btnCancel){
+			myCoordinator.invokerWindowProgrammer("Programador");
+			myCoordinator.hideWindowSearch();
 		}
 		
 	}
-	public void errorLabel()
-	{
-		lblError = new JLabel("No Existe En la base de datos");
-		lblError.setBounds(104, 74, 241, 24);
-		lblError.setForeground(Color.RED);
-		panelSearch.add(lblError);
-	}
-	
 }

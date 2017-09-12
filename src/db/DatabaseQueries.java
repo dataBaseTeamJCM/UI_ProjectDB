@@ -65,10 +65,7 @@ public class DatabaseQueries {
 					int 	year		= resultSet.getInt(7);
 					String	carrer		= resultSet.getString(8);
 					
-					Student student = new Student(ci, name, lastName, email, phone, adress);
-					student.setYear(year);
-					student.setCarrer(carrer);
-					
+					Student student = new Student(ci, name, lastName, email, phone, adress, year, carrer);
 					studentList.add(student);
 				}
 			} catch (SQLException e) {
@@ -176,6 +173,40 @@ public class DatabaseQueries {
 		
 		}
 		return teamCompetitorList;
+	}
+
+	public Student buildStudentByCi(String cedulaEstudiante)
+	{
+		Student student = null;
+		// TODO Auto-generated method stub
+		String sql = "select * from mtn.estudiante AS e \n" +
+								"where (e.ci_estudiante = '" + cedulaEstudiante +"');" ;
+		
+		if(conexion != null){
+			conexion.createQuery(sql);
+			ResultSet resultSet = conexion.getRs();
+			
+			try {
+				while(resultSet.next()){
+					// extrae la informacion de las columnas al objeto
+					String 	ci						= resultSet.getString(DatabaseConstants.KEY_CI_STUDENTS);
+					String	name 			= resultSet.getString(DatabaseConstants.STUDENT_NAME);
+					String 	lastName		= resultSet.getString(DatabaseConstants.STUDENT_LASTNAME);
+					String 	phone			= resultSet.getString(DatabaseConstants.STUDENT_PHONE);
+					String 	email				= resultSet.getString(DatabaseConstants.STUDENT_EMAIL);
+					String 	adress			= resultSet.getString(DatabaseConstants.STUDENT_ADRESS);
+					int year							= resultSet.getInt(DatabaseConstants.STUDENT_YEAR);
+					String carrer				= resultSet.getString(DatabaseConstants.STUDENT_CARRER);
+					
+					student = new Student(ci,name,lastName,email, phone, adress,  year, carrer);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		}
+		return student;
 	}
 	
 	
