@@ -29,12 +29,7 @@ public class DatabaseQueries {
 	private static final String TAG_UNIVERSITY 	= "ue";
 	private static final String IN 				= " IN ";
 	
-	
-	
-	
-	
-	
-	
+
 	private Conexion conexion;
 	
 	public DatabaseQueries() {
