@@ -9,6 +9,8 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class ViewLogin extends JFrame implements ActionListener {
 
@@ -28,6 +30,17 @@ public class ViewLogin extends JFrame implements ActionListener {
 	public ViewLogin(Coordinator myCoordinator) {
 		this.myCoordinator = myCoordinator;
 
+		setBounds(0, 0, 450, 300);
+		
+		/*
+		 * colocar la ventana  en el centro de la pantalla
+		 */
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		//obtenemos el tamaño de la ventana
+		Dimension ventana = getSize();
+		//para centrar la ventana lo hacemos con el siguiente calculo
+		setLocation((screenSize.width - ventana.width) / 2, (screenSize.height - ventana.height) / 2);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		textError="Error "
@@ -67,7 +80,6 @@ public class ViewLogin extends JFrame implements ActionListener {
 		getContentPane().add(btnAccess);
 		getContentPane().add(lblVersion);
 		setTitle("Login");
-		setBounds(100, 100, 450, 300);
 		setResizable(false);
 		getContentPane().setLayout(null);
 		

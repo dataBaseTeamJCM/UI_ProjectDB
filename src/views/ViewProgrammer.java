@@ -45,6 +45,8 @@ import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Toolkit;
+
 import net.miginfocom.swing.MigLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -59,7 +61,7 @@ import javax.swing.JSeparator;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 
-public class ViewProgrammer extends JFrame implements ActionListener {
+public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddons {
 	private Coordinator myCoordinator;
 	private JMenuItem intemIPVer;
 	private JTextField textFieldCi;
@@ -73,6 +75,10 @@ public class ViewProgrammer extends JFrame implements ActionListener {
 	private JComboBox comboBoxYear;
 	private JMenu mnViajes;
 	private JMenuItem mntmVerViajes;
+	private JPanel panelButtons;
+	private JButton btnGuardar;
+	private JButton btnCancelar;
+	private JButton btnSalir;
 	
 	public void setCoordinator(Coordinator myCoordinator) {
 		this.myCoordinator = myCoordinator;
@@ -89,11 +95,30 @@ public class ViewProgrammer extends JFrame implements ActionListener {
 		
 		this.myCoordinator = myCoordinator;
 		setBounds(0, 0, 800, 400);
+		
+		/*
+		 * colocar la ventana  en el centro de la pantalla
+		 */
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		//obtenemos el tamaño de la ventana
+		Dimension ventana = getSize();
+		//para centrar la ventana lo hacemos con el siguiente calculo
+		setLocation((screenSize.width - ventana.width) / 2, (screenSize.height - ventana.height) / 2);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
-		getContentPane().setLayout(new CardLayout(0, 0));
 		
-		//this.buildTabInformacionPersonal(); // recuerda eliminar cuando se termine la edicion
+		addJmenuBar();
+		addPanelButtons();
+	}
+
+	@Override
+	/**
+	 * se agrega el panel del menu de la vista
+	 */
+	public void addJmenuBar()
+	{
+		// TODO Auto-generated method stub
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(192, 192, 192));
@@ -126,19 +151,46 @@ public class ViewProgrammer extends JFrame implements ActionListener {
 		
 		mntmMiCoach = new JMenuItem("Mi Coach y Representante");
 		mnViewGlobal.add(mntmMiCoach);
-		//buildTabInformacionPersonal();   // quitar
 		intemIPVer.addActionListener(this);
 		mntmInfoPersonal.addActionListener(this);
 		mntmProblemaR.addActionListener(this);
 		mntmCompetencia.addActionListener(this);
 		mntmMiCoach.addActionListener(this);
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		
 	}
-
+	@Override
+	/**
+	 * Se agrega el panel de los botones de la vista
+	 */
+	public void addPanelButtons()
+	{
+		panelButtons = new JPanel();
+		getContentPane().add(panelButtons, BorderLayout.SOUTH);
+		panelButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		btnGuardar = new JButton("Cuardar");
+		panelButtons.add(btnGuardar);
+		btnGuardar.setEnabled(false);
+		btnGuardar.addActionListener(this);
+		
+		btnCancelar = new JButton("Cancelar");
+		panelButtons.add(btnCancelar);
+		btnCancelar.setEnabled(false);
+		btnCancelar.addActionListener(this);
+		
+		btnSalir = new JButton("Salir");
+		panelButtons.add(btnSalir);
+		btnSalir.addActionListener(this);
+		// TODO Auto-generated method stub
+		
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getSource()==intemIPVer) {
-			
+		if (e.getSource()==btnSalir) {
+			myCoordinator.invokerWindowLogin();
+			myCoordinator.hideWindowQueryProgrammer();
 		}
 		if (e.getSource() == mntmInfoPersonal){
 			this.myCoordinator.invokerWindowSearch();	
@@ -153,4 +205,8 @@ public class ViewProgrammer extends JFrame implements ActionListener {
 			
 		}
 	}
+
+
+
+	
 }
