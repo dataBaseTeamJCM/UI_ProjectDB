@@ -203,6 +203,13 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 		}
 	}
 
+	@Override
+	public void addPanelForm()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 	

@@ -88,7 +88,7 @@ public class SearchByCi extends JDialog implements ActionListener {
 		panelSearch.setLayout(null);
 		
 		lblCi = new JLabel("Ingrese su cedula de Indentidad");
-		lblCi.setBounds(76, 41, 253, 24);
+		lblCi.setBounds(94, 37, 253, 24);
 		panelSearch.add(lblCi);
 		
 		textFieldCi = new JTextField();

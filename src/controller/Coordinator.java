@@ -38,6 +38,7 @@ public class Coordinator {
 	private ViewProgrammer myWindowQueryProgrammer;
 	private ViewAd myViewAd;
 	private SearchByCi	mySearchByCi;
+	private ViewProgrammerForm myProgrammerForm;
 	private Connection conect;
 	//private Conexion conn;
 	
@@ -124,7 +125,6 @@ public class Coordinator {
 	 */
 	public void hideWindowAd()
 	{
-		showWindowLogin();
 		myViewAd.dispose();
 		// TODO Auto-generated method stub
 	}
@@ -256,7 +256,6 @@ public class Coordinator {
 			 */
 			
 			this.myViewAd = new ViewAd(Strings.INVALID_USER, this);
-			hideWindowLogin();
 			System.out.println("Usuario y "
 					+ "Contraseña invalidos");
 		}
@@ -345,9 +344,10 @@ public class Coordinator {
 		if(student != null)
 		{
 			// procesamiento de datos del estudiante
+			myProgrammerForm  = new ViewProgrammerForm(this, student.getName());
 			System.out.println( student.toString());
 		}else{
-			// aviso de error
+			myViewAd = new ViewAd(Strings.CI_NO_EXISTS, this);
 		}
 	}
 	/**
