@@ -14,6 +14,8 @@ import javax.swing.table.TableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
+import org.eclipse.jface.viewers.ViewerDropAdapter;
+
 import db.Conexion;
 import db.DatabaseConstants;
 import db.DatabaseQueries;
@@ -28,17 +30,23 @@ import resources.values.Strings;
 import views.*;
 
 public class Coordinator {
-	private	ViewPrincipal myWindowPrincipal;
+	
+
+	//private	ViewPrincipal myWindowPrincipal;
 	private ViewLogin myWindowLogin;
 	private ViewCoordinador myWindowQueryCoordinator;
 	private ViewProgrammer myWindowQueryProgrammer;
+	private ViewAd myViewAd;
 	private SearchByCi	mySearchByCi;
 	private Connection conect;
 	//private Conexion conn;
 	
 	// getters y setters de las ventanas
 	
-	
+	public Coordinator(){
+		this.myWindowLogin = new ViewLogin(this);
+		showWindowLogin();
+	}
 	public Connection getConect() {
 		return conect;
 	}
@@ -47,12 +55,6 @@ public class Coordinator {
 		this.conect = conect;
 	}
 
-	public ViewPrincipal getMyWindowPrincipal() {
-		return myWindowPrincipal;
-	}
-	public void setMyWindowPrincipal(ViewPrincipal myWindowPrincipal) {
-		this.myWindowPrincipal = myWindowPrincipal;
-	}
 	public ViewLogin getMyWindowLogin() {
 		return myWindowLogin;
 	}
@@ -117,15 +119,20 @@ public class Coordinator {
 		myWindowQueryProgrammer.dispose();
 	}
 	
-	public void showWindowPrincipal(){
-		myWindowPrincipal.setVisible(true);
+	/**
+	 * Este metodo cierra la ventana de aviso
+	 */
+	public void hideWindowAd()
+	{
+		showWindowLogin();
+		myViewAd.dispose();
+		// TODO Auto-generated method stub
 	}
 	
-	public void hideWindowPrincipal(){
-		myWindowPrincipal.dispose();
-	}
-	
-	//** metodos para invokar ventanas desde otras ventanas
+	/**
+	 * metodo que invoca una ventana de programador nueva
+	 * @param name
+	 */
 	public void invokerWindowProgrammer(String name){
 		this.setMyWindowQueryProgrammer(new ViewProgrammer(this));
 		this.getMyWindowQueryProgrammer().setTitle("Hola " + name);
@@ -233,15 +240,23 @@ public class Coordinator {
 		this.showWindowSearch();
 	}
 	
-	
+	/**
+	 *  Esta funcion se encarga de controlar el inicio de los usuarios 
+	 *  a la bd para los usuarios coordinador y programador
+	 */
 	public void connect(String userName, char[] password){
 		this.conect = (new Conexion (userName,password)).Conectar();
 		
 		if(this.getConect() == null)
 		{	
+			
 			/*
-			 * lblError.setVisible(true);
+			 *  Invocar ventana de aviso para indicar que se ingreso un
+			 *  usuario o una contraseña incorrecta.
 			 */
+			
+			this.myViewAd = new ViewAd(Strings.INVALID_USER, this);
+			hideWindowLogin();
 			System.out.println("Usuario y "
 					+ "Contraseña invalidos");
 		}
@@ -260,8 +275,8 @@ public class Coordinator {
 			else if(userName.equals("programador"))
 			{
 				System.out.println("Conexion exitosa");
-				//invokerWindowProgrammer(userName);
-				//hideWindowLogin();
+				invokerWindowProgrammer(userName);
+				hideWindowLogin();
 			}
 		}
 	}
@@ -314,4 +329,5 @@ public class Coordinator {
 		
 		});
 	}
+
 }

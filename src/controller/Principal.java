@@ -31,8 +31,8 @@ class Principal{
 			/*se instancian las clases
 			 */
 			myCoordinator = new Coordinator();
-			myCoordinator.setMyWindowPrincipal(new ViewPrincipal(myCoordinator));
-			myCoordinator.showWindowPrincipal();
+			//myCoordinator.setMyWindowPrincipal(new ViewPrincipal(myCoordinator));
+			//myCoordinator.showWindowPrincipal();
 			
 		}
 }
