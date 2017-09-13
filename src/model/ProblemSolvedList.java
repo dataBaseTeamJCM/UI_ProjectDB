@@ -32,7 +32,7 @@ public class ProblemSolvedList extends ArrayList<ProblemSolved> implements ICust
 	}
 
 	@Override
-	public DefaultListModel<String> toListModel() {
+	public DefaultListModel toListModel() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -5,5 +5,5 @@ import javax.swing.DefaultListModel;
 public interface ICustomList {
 
 	public void print();
-	public DefaultListModel<String> toListModel();
+	public DefaultListModel toListModel();
 }

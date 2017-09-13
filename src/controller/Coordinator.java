@@ -532,7 +532,7 @@ public class Coordinator {
 		String phone				= myProgrammerForm.getTextFieldPhone().getText();	
 		String email				= myProgrammerForm.getTextFieldEmail().getText();
 		String adress				= myProgrammerForm.getTextFieldAdress().getText();
-		int year							= (int) numberModel.getValue();
+		int year							= Integer.parseInt(numberModel.getValue().toString());
 		String carrer				= myProgrammerForm.getTextFieldCarrer().getText();
 	
 		student = new Student(ci, name, lastName, email, phone, adress, year, carrer);

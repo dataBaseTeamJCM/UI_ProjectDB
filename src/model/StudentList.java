@@ -34,10 +34,10 @@ public class StudentList extends ArrayList<Student> implements ICustomList{
 	}
 
 	@Override
-	public DefaultListModel<String> toListModel() {
+	public DefaultListModel toListModel() {
 		// TODO Auto-generated method stub
 		
-		DefaultListModel<String> defaultListModel = new DefaultListModel<>();
+		DefaultListModel defaultListModel = new DefaultListModel();
 		for (Student student : this) {
 			String data = student.getName() + " " + student.getLastName();
 			defaultListModel.addElement(data);

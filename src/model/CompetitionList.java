@@ -36,7 +36,7 @@ public class CompetitionList extends ArrayList<Competition> implements ICustomLi
 	}
 
 	@Override
-	public DefaultListModel<String> toListModel() {
+	public DefaultListModel toListModel() {
 		// TODO Auto-generated method stub
 		return null;
 	}

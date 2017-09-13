@@ -209,31 +209,8 @@ public class ViewCoordinador extends JFrame implements ActionListener, IViews{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		switch (e.getActionCommand()) {
-		
-			case ActionConstants.KEY_UP:
+		if(e.getSource() == btnUp){
 			
-				break;
-			case ActionConstants.KEY_DOWN:
-			
-				break;
-			case ActionConstants.KEY_DELETE:
-			
-				break;
-			case ActionConstants.KEY_INSERT:
-	
-				break;
-			case ActionConstants.KEY_EDIT:
-	
-				break;
-			case ActionConstants.KEY_EXIT:
-	
-				break;
-			default:
-				break;
 		}
 	}
-
-	
-
 }

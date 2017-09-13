@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry exported="true" kind="lib" path="/home/marwilc/.p2/pool/plugins/org.eclipse.osgi_3.11.0.v20160603-1336.jar" sourcepath="/home/marwilc/.p2/pool/plugins/org.eclipse.osgi_3.11.0.v20160603-1336.jar"/>
 	<classpathentry exported="true" kind="lib" path="/home/marwilc/.p2/pool/plugins/org.eclipse.core.commands_3.8.0.v20160316-1921.jar" sourcepath="/home/marwilc/.p2/pool/plugins/org.eclipse.core.commands_3.8.0.v20160316-1921.jar"/>
 	<classpathentry exported="true" kind="lib" path="/home/marwilc/.p2/pool/plugins/org.eclipse.equinox.common_3.8.0.v20160509-1230.jar" sourcepath="/home/marwilc/.p2/pool/plugins/org.eclipse.equinox.common_3.8.0.v20160509-1230.jar"/>

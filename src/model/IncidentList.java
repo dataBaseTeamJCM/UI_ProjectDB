@@ -28,7 +28,7 @@ public class IncidentList extends ArrayList<Incident> implements ICustomList{
 	}
 
 	@Override
-	public DefaultListModel<String> toListModel() {
+	public DefaultListModel toListModel() {
 		// TODO Auto-generated method stub
 		return null;
 	}

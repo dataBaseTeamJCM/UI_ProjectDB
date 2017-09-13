@@ -36,7 +36,7 @@ public class TeamCompetitorList extends ArrayList<TeamCompetitor> implements ICu
 
 
 	@Override
-	public DefaultListModel<String> toListModel() {
+	public DefaultListModel toListModel() {
 		// TODO Auto-generated method stub
 		return null;
 	}
