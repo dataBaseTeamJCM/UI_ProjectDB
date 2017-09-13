@@ -36,6 +36,7 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 	private JToggleButton tglbtnEdit;
 	private JButton btnSave;
 	private JButton btnCancel;
+	private JSpinner spinnerYear;
 
 	/**
 	 * Create the frame.
@@ -63,6 +64,73 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 		addPanelButtons();
 		addPanelForm();
 	}
+	
+	public JTextField getTextFieldCi()
+	{
+		return textFieldCi;
+	}
+	public void setTextFieldCi(JTextField textFieldCi)
+	{
+		this.textFieldCi = textFieldCi;
+	}
+	public JTextField getTextFieldName()
+	{
+		return textFieldName;
+	}
+	public void setTextFieldName(JTextField textFieldName)
+	{
+		this.textFieldName = textFieldName;
+	}
+	public JTextField getTextFieldLastName()
+	{
+		return textFieldLastName;
+	}
+	public void setTextFieldLastName(JTextField textFieldLastName)
+	{
+		this.textFieldLastName = textFieldLastName;
+	}
+	public JTextField getTextFieldPhone()
+	{
+		return textFieldPhone;
+	}
+	public void setTextFieldPhone(JTextField textFieldPhone)
+	{
+		this.textFieldPhone = textFieldPhone;
+	}
+	public JTextField getTextFieldEmail()
+	{
+		return textFieldEmail;
+	}
+	public void setTextFieldEmail(JTextField textFieldEmail)
+	{
+		this.textFieldEmail = textFieldEmail;
+	}
+	public JTextField getTextFieldAdress()
+	{
+		return textFieldAdress;
+	}
+	public void setTextFieldAdress(JTextField textFieldAdress)
+	{
+		this.textFieldAdress = textFieldAdress;
+	}
+	public JTextField getTextFieldCarrer()
+	{
+		return textFieldCarrer;
+	}
+	public void setTextFieldCarrer(JTextField textFieldCarrer)
+	{
+		this.textFieldCarrer = textFieldCarrer;
+	}
+
+	public JSpinner getSpinnerYear()
+	{
+		return spinnerYear;
+	}
+
+	public void setSpinnerYear(JSpinner spinnerYear)
+	{
+		this.spinnerYear = spinnerYear;
+	}
 
 	@Override
 	public void addPanelButtons()
@@ -83,6 +151,7 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 		
 		btnCancel = new JButton("Cancelar");
 		btnCancel.addActionListener(this);
+		btnSave.setEnabled(false);
 		panelButtons.add(btnCancel);
 		
 		
@@ -197,10 +266,17 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 		JLabel lblCarrer = new JLabel("Carrera");
 		panelForm.add(lblCarrer, "12, 16");
 		
-		JSpinner spinnerYear = new JSpinner();
+		spinnerYear = new JSpinner();
 		panelForm.add(spinnerYear, "4, 18");
 		
 		textFieldCarrer = new JTextField();
+		textFieldAdress.setEditable(false);
+		textFieldCarrer.setEditable(false);
+		textFieldCi.setEditable(false);
+		textFieldEmail.setEditable(false);
+		textFieldLastName.setEditable(false);
+		textFieldPhone.setEditable(false);
+		spinnerYear.setEnabled(false);
 		panelForm.add(textFieldCarrer, "12, 18, 9, 1, fill, default");
 		textFieldCarrer.setColumns(10);
 		// TODO Auto-generated method stub
@@ -211,6 +287,35 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 	public void actionPerformed(ActionEvent e)
 	{
 		// TODO Auto-generated method stub
-		
+	
+		if(e.getSource() == btnCancel){
+			myCoordinator.showWindowSearch();
+			myCoordinator.hideWindowProgrammerForm();
+		}
+		if (e.getSource() == tglbtnEdit){
+			
+		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

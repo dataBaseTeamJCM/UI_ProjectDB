@@ -186,6 +186,7 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 		if (e.getSource()==btnSalir) {
 			myCoordinator.invokerWindowLogin();
 			myCoordinator.hideWindowQueryProgrammer();
+			myCoordinator.closeConnect();
 		}
 		if (e.getSource() == intemIPVer){
 			myCoordinator.invokerWindowSearch();	

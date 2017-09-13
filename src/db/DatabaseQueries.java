@@ -1,7 +1,9 @@
 package db;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.xml.crypto.Data;
 
@@ -29,41 +31,51 @@ public class DatabaseQueries {
 	private static final String TAG_UNIVERSITY 	= "ue";
 	private static final String IN 				= " IN ";
 	
-
-	private Conexion conexion;
+	private Connection conn;
 	
 	public DatabaseQueries() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public DatabaseQueries(Conexion conexion) {
+	public DatabaseQueries(Connection conn) {
 		super();
-		this.conexion = conexion;
+		this.conn = conn;
 	}
 
 	public StudentList buildStudentList() {
 		// TODO Auto-generated method stub
+		
+		Connection connection = conn;
+		
+		Statement st = null;
+		
+		ResultSet rs = null;
+		
 		StudentList studentList = new StudentList();
 		String sql = 	SELECT_ALL 
 						+ FROM 		+ DatabaseConstants.TABLE_STUDENT 
 						+ ORDER_BY 	+ DatabaseConstants.KEY_CI_STUDENTS
 						+ ASC;
-		
-		if(conexion != null){
-			conexion.createQuery(sql);
-			ResultSet resultSet = conexion.getRs();
 			
 			try {
-				while(resultSet.next()){
-					String 	ci 			= resultSet.getString(1);
-					String 	name		= resultSet.getString(2);
-					String	lastName 	= resultSet.getString(3);
-					String 	phone		= resultSet.getString(4);
-					String 	email		= resultSet.getString(5);
-					String 	adress		= resultSet.getString(6);
-					int 	year		= resultSet.getInt(7);
-					String	carrer		= resultSet.getString(8);
+				// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+				st = connection.createStatement();
+				
+				 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+                // Con "executeQuery" realizamos una consulta a la base de datos
+				rs = st.executeQuery(sql) ;
+				
+				// En este bucle vamos recorriendo valores mientras existan
+				while(rs.next()){
+					String 	ci 					= rs.getString(1);
+					String 	name				= rs.getString(2);
+					String	lastName 	= rs.getString(3);
+					String 	phone			= rs.getString(4);
+					String 	email				= rs.getString(5);
+					String 	adress			= rs.getString(6);
+					int 	year						= rs.getInt(7);
+					String	carrer			= rs.getString(8);
 					
 					Student student = new Student(ci, name, lastName, email, phone, adress, year, carrer);
 					studentList.add(student);
@@ -71,14 +83,45 @@ public class DatabaseQueries {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				 // Cerramos las conexiones, en orden inverso a su apertura
+				try
+				{
+					rs.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				
+				try
+				{
+					st.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				try
+				{
+					connection.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
 			}
-		}
-	
 		return studentList;
 	}
 
 	public CompetitionList buildCompetitionList() {
 		// TODO Auto-generated method stub
+		
+		Connection connection = conn;
+		
+		Statement st = null;
+		
+		ResultSet rs = null;
 		
 		CompetitionList competitionList = new CompetitionList();
 		
@@ -88,17 +131,21 @@ public class DatabaseQueries {
 						+ ASC;
 		
 		
-		if(conexion != null){
-			conexion.createQuery(sql);
-			ResultSet resultSet = conexion.getRs();
+		try {
+			// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+			st = connection.createStatement();
 			
-			try {
-				while(resultSet.next()){
-					String 	id 			= resultSet.getString(1);
-					String 	name		= resultSet.getString(2);
-					String	level 		= resultSet.getString(3);
-					String 	place		= resultSet.getString(4);
-					String 	date		= resultSet.getString(5);
+			 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+            // Con "executeQuery" realizamos una consulta a la base de datos
+			rs = st.executeQuery(sql) ;
+			
+			// En este bucle vamos recorriendo valores mientras existan
+			while(rs.next()){
+					String 	id 			= rs.getString(1);
+					String 	name		= rs.getString(2);
+					String	level 		= rs.getString(3);
+					String 	place		= rs.getString(4);
+					String 	date		= rs.getString(5);
 					
 					Competition competition = new Competition(id,name,level,place,date);
 					//competition.setYear(year);
@@ -109,14 +156,47 @@ public class DatabaseQueries {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				 // Cerramos las conexiones, en orden inverso a su apertura
+				try
+				{
+					rs.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				
+				try
+				{
+					st.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				try
+				{
+					connection.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
 			}
 		
-		}
 		return competitionList;
 	}
 
 	public TeamCompetitorList buildCompetitionList(String idCompetition) {
 		// TODO Auto-generated method stub
+		
+		Connection connection = conn;
+		
+		Statement st = null;
+		
+		ResultSet rs = null;
+		
 		TeamCompetitorList teamCompetitorList = new TeamCompetitorList();
 
 		String idTeamLeft 	= TAG_COMPETITOR 	+"."+ DatabaseConstants.KEY_ID_TEAM;
@@ -145,20 +225,25 @@ public class DatabaseQueries {
 						+ ASC + ";";
 		
 	
-		if(conexion != null){
-			conexion.createQuery(sql);
-			ResultSet resultSet = conexion.getRs();
+		try {
+			// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+			st = connection.createStatement();
 			
-			try {
-				while(resultSet.next()){
-					String 	id				= resultSet.getString(1);
-					String	name 			= resultSet.getString(2);
-					String 	incentive		= resultSet.getString(3);
-					String 	performance		= resultSet.getString(4);
-					String 	site			= resultSet.getString(5);
-					String 	school			= resultSet.getString(6);
-					String 	university		= resultSet.getString(7);
-					int		year			= resultSet.getInt(8);
+			 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+            // Con "executeQuery" realizamos una consulta a la base de datos
+			rs = st.executeQuery(sql) ;
+			
+			// En este bucle vamos recorriendo valores mientras existan
+			while(rs.next()){
+					
+					String 	id								= rs.getString(1);
+					String	name 					= rs.getString(2);
+					String 	incentive				= rs.getString(3);
+					String 	performance		= rs.getString(4);
+					String 	site							= rs.getString(5);
+					String 	school					= rs.getString(6);
+					String 	university			= rs.getString(7);
+					int		year							= rs.getInt(8);
 					
 					TeamCompetitor competitor = new TeamCompetitor(id,name,university,school,year, incentive, performance, site);
 					//competition.setYear(year);
@@ -169,43 +254,104 @@ public class DatabaseQueries {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				 // Cerramos las conexiones, en orden inverso a su apertura
+				try
+				{
+					rs.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				
+				try
+				{
+					st.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				try
+				{
+					connection.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
 			}
-		
-		}
 		return teamCompetitorList;
 	}
 
 	public Student buildStudentByCi(String cedulaEstudiante)
 	{
+		
+		Connection connection = conn;
+		
+		Statement st = null;
+		
+		ResultSet rs = null;
+		
 		Student student = null;
 		// TODO Auto-generated method stub
 		String sql = "select * from mtn.estudiante AS e \n" +
 								"where (e.ci_estudiante = '" + cedulaEstudiante +"');" ;
 		
-		if(conexion != null){
-			conexion.createQuery(sql);
-			ResultSet resultSet = conexion.getRs();
+		try {
+			// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+			st = connection.createStatement();
 			
-			try {
-				while(resultSet.next()){
+			 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+            // Con "executeQuery" realizamos una consulta a la base de datos
+			rs = st.executeQuery(sql) ;
+			
+			// En este bucle vamos recorriendo valores mientras existan
+			while(rs.next()){
 					// extrae la informacion de las columnas al objeto
-					String 	ci						= resultSet.getString(DatabaseConstants.KEY_CI_STUDENTS);
-					String	name 			= resultSet.getString(DatabaseConstants.STUDENT_NAME);
-					String 	lastName		= resultSet.getString(DatabaseConstants.STUDENT_LASTNAME);
-					String 	phone			= resultSet.getString(DatabaseConstants.STUDENT_PHONE);
-					String 	email				= resultSet.getString(DatabaseConstants.STUDENT_EMAIL);
-					String 	adress			= resultSet.getString(DatabaseConstants.STUDENT_ADRESS);
-					int year							= resultSet.getInt(DatabaseConstants.STUDENT_YEAR);
-					String carrer				= resultSet.getString(DatabaseConstants.STUDENT_CARRER);
+					String 	ci						= rs.getString(DatabaseConstants.KEY_CI_STUDENTS);
+					String	name 			= rs.getString(DatabaseConstants.STUDENT_NAME);
+					String 	lastName		= rs.getString(DatabaseConstants.STUDENT_LASTNAME);
+					String 	phone			= rs.getString(DatabaseConstants.STUDENT_PHONE);
+					String 	email				= rs.getString(DatabaseConstants.STUDENT_EMAIL);
+					String 	adress			= rs.getString(DatabaseConstants.STUDENT_ADRESS);
+					int year							= rs.getInt(DatabaseConstants.STUDENT_YEAR);
+					String carrer				= rs.getString(DatabaseConstants.STUDENT_CARRER);
 					
 					student = new Student(ci,name,lastName,email, phone, adress,  year, carrer);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				 // Cerramos las conexiones, en orden inverso a su apertura
+				try
+				{
+					rs.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				
+				try
+				{
+					st.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				try
+				{
+					connection.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
 			}
-		
-		}
 		return student;
 	}
 	

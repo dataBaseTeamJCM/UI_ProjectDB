@@ -118,6 +118,7 @@ public class Coordinator {
 	
 	public void hideWindowQueryProgrammer(){
 		myWindowQueryProgrammer.dispose();
+		
 	}
 	
 	/**
@@ -127,6 +128,16 @@ public class Coordinator {
 	{
 		myViewAd.dispose();
 		// TODO Auto-generated method stub
+	}
+	
+	/**
+	 * Este metodo se encarga de cerrar la ventana de
+	 * formulario del programador
+	 */
+	public void hideWindowProgrammerForm()
+	{
+		// TODO Auto-generated method stub
+		myProgrammerForm.dispose();
 	}
 	
 	/**
@@ -161,10 +172,10 @@ public class Coordinator {
 		// TODO Auto-generated method stub
 		Conexion conn = new Conexion(this.getConect());
 		//String sql;
-		DatabaseQueries queries = new DatabaseQueries(conn);
-		CompetitionList competitionList;
+		//DatabaseQueries queries = new DatabaseQueries(conn);
+		CompetitionList competitionList = null;
 		
-		competitionList = queries.buildCompetitionList();
+		//competitionList = queries.buildCompetitionList();
 		
 		return competitionList;
 		
@@ -208,10 +219,10 @@ public class Coordinator {
 		// TODO Auto-generated method stub
 		Conexion conn = new Conexion(this.getConect());
 		//String sql;
-		DatabaseQueries queries = new DatabaseQueries(conn);
-		TeamCompetitorList teamCompetitorList;
+		//DatabaseQueries queries = new DatabaseQueries(conn);
+		TeamCompetitorList teamCompetitorList = null;
 		
-		teamCompetitorList = queries.buildCompetitionList(idCompetition);
+		//teamCompetitorList = queries.buildCompetitionList(idCompetition);
 		
 		return teamCompetitorList;
 	}
@@ -285,10 +296,10 @@ public class Coordinator {
 	public StudentList listAllStudents(){
 		Conexion conn = new Conexion(this.getConect());
 		//String sql;
-		DatabaseQueries queries = new DatabaseQueries(conn);
-		StudentList studentList;
+		//atabaseQueries queries = new DatabaseQueries(conn);
+		StudentList studentList = null;
 		
-		studentList = queries.buildStudentList();
+		//studentList = queries.buildStudentList();
 		
 		return studentList;
 		//studentList.print();
@@ -336,6 +347,7 @@ public class Coordinator {
 	public void SearchStudentByCi()
 	{
 		// TODO Auto-generated method stub
+		
 		Student student = null;
 		String cedulaEstudiante = mySearchByCi.getTextFieldCi().getText();
 		
@@ -343,8 +355,26 @@ public class Coordinator {
 		
 		if(student != null)
 		{
+			hideWindowSearch();
 			// procesamiento de datos del estudiante
 			myProgrammerForm  = new ViewProgrammerForm(this, student.getName());
+			String ci 						= student.getCi();
+			String name 				= student.getName();
+			String lastName 		= student.getLastName();
+			String phone				= student.getPhone();
+			String email				= student.getEmail();
+			String adress				= student.getAdress();
+			int year							= student.getYear();
+			String carrer				= student.getCarrer();
+			
+			myProgrammerForm.getTextFieldCi().setText(ci);
+			myProgrammerForm.getTextFieldName().setText(name);
+			myProgrammerForm.getTextFieldLastName().setText(lastName);
+			myProgrammerForm.getTextFieldPhone().setText(phone);
+			myProgrammerForm.getTextFieldEmail().setText(email);
+			myProgrammerForm.getTextFieldAdress().setText(adress);
+			myProgrammerForm.getSpinnerYear().setValue(year);
+			myProgrammerForm.getTextFieldCarrer().setText(carrer);
 			System.out.println( student.toString());
 		}else{
 			myViewAd = new ViewAd(Strings.CI_NO_EXISTS, this);
@@ -360,10 +390,28 @@ public class Coordinator {
 	{
 		// TODO Auto-generated method stub
 		Student student = null;
-		Conexion conn = new Conexion(this.getConect());
-		DatabaseQueries queries = new DatabaseQueries(conn);
+		DatabaseQueries queries = new DatabaseQueries(conect);
 		student = queries.buildStudentByCi(cedulaEstudiante);
 		return student;
 	}
+	
+	/**
+	 * este metodo cierra la conexion con la base de datos
+	 */
+	public void closeConnect()
+	{
+		// TODO Auto-generated method stub
+		try
+		{
+			conect.close();
+			System.out.println("Conexion Cerrada");
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 
 }

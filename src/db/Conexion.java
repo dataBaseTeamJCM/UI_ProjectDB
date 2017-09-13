@@ -14,6 +14,7 @@ public class Conexion {
 	private char[] password;
 	private Connection connection = null;
 	private ResultSet rs = null;
+	private Statement st = null;
 	
 
 	public Connection getConnection() {
@@ -53,7 +54,7 @@ public class Conexion {
 		this.setConnection(conn);
 	}
 	
-	public void cerrarConexion() throws ConnectException {
+	/*public void cerrarConexion() throws ConnectException {
 		try {
 			this.connection.close();
 		}catch (SQLException e) {
@@ -61,17 +62,17 @@ public class Conexion {
 					+ "cerrar la conexion con PSQL. Error: "+ e.getMessage());
 		}
 		
-	}
+	}*/
 	
-	public void createQuery(String sql)
+	/*public void createQuery(String sql)
 	{
-		Statement st = null;
 		try {
 			st = getConnection().createStatement();
-			this.setRs(st.executeQuery(sql));
+			rs = st.executeQuery(sql);
 		} catch (SQLException e) {
 			System.out.println("error en la ejecucion de la consulta: " + sql);
 			// TODO: handle exception
 		}
 	}
+	*/
 }
