@@ -10,6 +10,8 @@ import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.TableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
@@ -26,6 +28,7 @@ import model.StudentList;
 import model.TeamCompetitor;
 import model.TeamCompetitorList;
 import net.proteanit.sql.DbUtils;
+import resources.values.Events;
 import resources.values.Strings;
 import views.*;
 
@@ -40,7 +43,9 @@ public class Coordinator {
 	private SearchByCi	mySearchByCi;
 	private ViewProgrammerForm myProgrammerForm;
 	private Connection conect;
+	private int varEvent = -1;
 	//private Conexion conn;
+	private DialogCheckSave myDialogCheckSave = null;
 	
 	// getters y setters de las ventanas
 	
@@ -116,6 +121,11 @@ public class Coordinator {
 		myWindowQueryProgrammer.setVisible(true);
 	}
 	
+	public void showWindowCheckSave()
+	{
+		// TODO Auto-generated method stub
+		myDialogCheckSave.setVisible(true);
+	}
 	public void hideWindowQueryProgrammer(){
 		myWindowQueryProgrammer.dispose();
 		
@@ -166,6 +176,26 @@ public class Coordinator {
 		myWindowQueryCoordinator.getScrollPaneJtree().setViewportView(jTree);
 		//---end prueba---
 		this.showWindowQueryCoordinator();
+	}
+	
+
+	public void invokerWindowLogin(){
+		this.setMyWindowLogin(new ViewLogin(this));
+		this.showWindowLogin();
+	}
+	
+	public void invokerWindowSearch(){
+		this.setMySearchByCi(new SearchByCi(this));
+		this.showWindowSearch();
+	}
+	
+	public void invokerWindowCheckSave()
+	{
+		// TODO Auto-generated method stub
+		if(myDialogCheckSave ==null)
+			myDialogCheckSave = new DialogCheckSave(this);
+		else
+			myDialogCheckSave.setVisible(true);
 	}
 	
 	private CompetitionList listAllCompetitions() {
@@ -239,16 +269,6 @@ public class Coordinator {
 		}
 		JTree jTree = new JTree(root);
 		return jTree;
-	}
-
-	public void invokerWindowLogin(){
-		this.setMyWindowLogin(new ViewLogin(this));
-		this.showWindowLogin();
-	}
-	
-	public void invokerWindowSearch(){
-		this.setMySearchByCi(new SearchByCi(this));
-		this.showWindowSearch();
 	}
 	
 	/**
@@ -357,6 +377,7 @@ public class Coordinator {
 		{
 			hideWindowSearch();
 			// procesamiento de datos del estudiante
+			// invocacion de la ventana de formulario del programador
 			myProgrammerForm  = new ViewProgrammerForm(this, student.getName());
 			String ci 						= student.getCi();
 			String name 				= student.getName();
@@ -442,6 +463,93 @@ public class Coordinator {
 		myProgrammerForm.getSpinnerYear().setEnabled(b);
 		myProgrammerForm.getBtnSave().setEnabled(b);
 	}
+	
+	/**
+	 * este metodo se encarga de controlar el evento
+	 * creado por el boton no de la ventana de confirmacion
+	 */
+	public void EventNot()
+	{
+		// TODO Auto-generated method stub
+		switch (varEvent )
+		{
+			case Events.I_PERSONAL:
+				/*
+				 * cierra la ventana de de dialogo y
+				 * muestra la ventana anterior del
+				 * formulario del programador 
+				 */
+				myDialogCheckSave.dispose();
+				break;
+
+			default:
+				break;
+		}
+	}
+	/**
+	 *  este metodo se encargar de controlar el evento creado 
+	 *  por el boton yes de la ventana de confirmacion
+	 */
+	public void EventYes()
+	{
+		// TODO Auto-generated method stub
+		switch (varEvent)
+		{
+			case Events.I_PERSONAL:
+				saveDataStudent();
+				break;
+
+			default:
+				break;
+		}
+	}
+	
+	/**
+	 * este metodo se encarga de guardar la informacion del 
+	 * estudiante en la base de datos
+	 */
+	private void saveDataStudent()
+	{
+		// TODO Auto-generated method stub
+		int result;
+		DatabaseQueries databaseQueries = new DatabaseQueries(conect);
+		SpinnerModel numberModel = myProgrammerForm.getSpinnerYear().getModel();
+		Student student;
+		String ci 						= myProgrammerForm.getTextFieldCi().getText();
+		String name 				= myProgrammerForm.getTextFieldName().getText();
+		String lastName 		= myProgrammerForm.getTextFieldLastName().getText();
+		String phone				= myProgrammerForm.getTextFieldPhone().getText();	
+		String email				= myProgrammerForm.getTextFieldEmail().getText();
+		String adress				= myProgrammerForm.getTextFieldAdress().getText();
+		int year							= (int) numberModel.getValue();
+		String carrer				= myProgrammerForm.getTextFieldCarrer().getText();
+	
+		student = new Student(ci, name, lastName, email, phone, adress, year, carrer);
+		
+		result = databaseQueries.updateStudent(student);
+		
+		if(result > 0){
+			// ventana de guardado satisfactorio
+			System.out.println("actualizacion correcta");
+		}else{
+			// ventana de guardado incorrecto
+			System.out.println("actualizacion incorrecta");
+		}
+	}
+	/**
+	 * este metodo modifica la variable global
+	 * var event que es importante para 
+	 * las operaciones de las acciones 
+	 * @param iPersonal
+	 */
+	public void setVarEvent(int event)
+	{
+		varEvent = event;
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 
 
 }

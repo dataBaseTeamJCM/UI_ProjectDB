@@ -330,6 +330,11 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 		if (e.getSource() == tglbtnEdit){
 			myCoordinator.editToggleFormProgrammer();
 		}
+		
+		if(e.getSource() == btnSave){
+			myCoordinator.invokerWindowCheckSave();
+		}
+			
 	}
 	
 	

@@ -1,10 +1,12 @@
 package db;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.sound.midi.SysexMessage;
 import javax.xml.crypto.Data;
 
 import model.Competition;
@@ -102,14 +104,7 @@ public class DatabaseQueries {
 				{
 					// TODO: handle exception
 				}
-				try
-				{
-					connection.close();
-				}
-				catch (Exception e2)
-				{
-					// TODO: handle exception
-				}
+		
 			}
 		return studentList;
 	}
@@ -175,14 +170,7 @@ public class DatabaseQueries {
 				{
 					// TODO: handle exception
 				}
-				try
-				{
-					connection.close();
-				}
-				catch (Exception e2)
-				{
-					// TODO: handle exception
-				}
+		
 			}
 		
 		return competitionList;
@@ -273,14 +261,7 @@ public class DatabaseQueries {
 				{
 					// TODO: handle exception
 				}
-				try
-				{
-					connection.close();
-				}
-				catch (Exception e2)
-				{
-					// TODO: handle exception
-				}
+			
 			}
 		return teamCompetitorList;
 	}
@@ -343,18 +324,62 @@ public class DatabaseQueries {
 				{
 					// TODO: handle exception
 				}
-				try
-				{
-					connection.close();
-				}
-				catch (Exception e2)
-				{
-					// TODO: handle exception
-				}
 			}
 		return student;
 	}
-	
-	
+
+	public int updateStudent(Student student)
+	{
+		// TODO Auto-generated method stub
+		Connection connection = conn;
+		
+		PreparedStatement pst = null;
+		
+		int result = 0;
+		
+		String sql = "update mtn.estudiante " +
+								"set nombre_estudiante = ?, "
+								+ "apellido_estudiante = ?,"
+								+ "telefono_estudiante = ?, "
+								+ "email_estudiante = ?, "
+								+ "direccion_estudiante = ?, "
+								+ "aÑo_estudiante = ?, "
+								+ "carrera = ? "
+								+ "where ci_estudiante = ?";
+		
+		try {
+			// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+			pst = connection.prepareStatement(sql);
+			
+			 //  agregamos los datos a prepared statement
+			pst.setString(1, student.getName());
+			pst.setString(2, student.getLastName());
+			pst.setString(3, student.getPhone());
+			pst.setString(4, student.getEmail());
+			pst.setString(5, student.getAdress());
+			pst.setInt(6, student.getYear());
+			pst.setString(7, student.getCarrer());
+			pst.setString(8, student.getCi());
+			
+			result = pst.executeUpdate();  //valida si se guardaron los datos; si pst>0 entonces se guardaron
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(sql);
+		} finally {
+			 // Cerramos las conexiones, en orden inverso a su apertura
+			try
+			{
+				pst.close();
+			}
+			catch (Exception e2)
+			{
+				// TODO: handle exception
+			}
+			
+		}
+		return result;
+	}
 
 }

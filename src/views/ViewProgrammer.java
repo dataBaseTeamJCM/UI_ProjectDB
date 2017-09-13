@@ -24,6 +24,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
+import resources.values.Events;
 import views.colorMD.MaterialDesignColor;
 
 import javax.swing.JMenuBar;
@@ -190,8 +191,9 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 		}
 		if (e.getSource() == intemIPVer){
 			myCoordinator.invokerWindowSearch();	
-			System.out.println("fuck you");
+			myCoordinator.setVarEvent(Events.I_PERSONAL);
 			myCoordinator.hideWindowQueryProgrammer();
+			
 		}
 		if (e.getSource() == mntmCompetencia) {
 			
