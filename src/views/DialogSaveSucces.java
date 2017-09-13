@@ -13,23 +13,22 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.Coordinator;
-
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.BoxLayout;
 
-public class DialogCheckSave extends JDialog implements ActionListener, ViewsAddons
+public class DialogSaveSucces extends JDialog implements ActionListener, ViewsAddons
 {
 
+	private final JPanel contentPanel = new JPanel();
+	private JButton btnAcept;
 
-	private JButton btnYes;
-	private JButton btnNot;
-	private Coordinator myCoordinator;
 
 	/**
 	 * Create the dialog.
 	 */
-	public DialogCheckSave(Coordinator coordinator)
+	public DialogSaveSucces()
 	{
-		myCoordinator = coordinator;
 		setResizable(false);
 		setBounds(0, 0, 450, 200);
 		/*
@@ -42,33 +41,28 @@ public class DialogCheckSave extends JDialog implements ActionListener, ViewsAdd
 		setLocation((screenSize.width - ventana.width) / 2, (screenSize.height - ventana.height) / 2);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
+		setTitle("Aviso");
+		
 		addPanelButtons();
 		addPanelForm();
 		setVisible(true);
 		
-	}
+
+}
+
 
 	@Override
 	public void addPanelButtons()
 	{
 		// TODO Auto-generated method stub
-		{
-			JPanel panelButtons = new JPanel();
-			getContentPane().add(panelButtons, BorderLayout.SOUTH);
-			panelButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			{
-				btnYes = new JButton("Si");
-				panelButtons.add(btnYes);
-			}
-			{
-				btnNot = new JButton("No");
-				panelButtons.add(btnNot);
-			}
-		}
+		JPanel panelButtons = new JPanel();
+		getContentPane().add(panelButtons, BorderLayout.SOUTH);
 		
-		btnNot.addActionListener(this);
-		btnYes.addActionListener(this);
+		btnAcept = new JButton("Aceptar");
+		btnAcept.addActionListener(this);
+		panelButtons.add(btnAcept);
 	}
+
 
 	@Override
 	public void addJmenuBar()
@@ -77,34 +71,30 @@ public class DialogCheckSave extends JDialog implements ActionListener, ViewsAdd
 		
 	}
 
+
 	@Override
 	public void addPanelForm()
 	{
 		// TODO Auto-generated method stub
-		{
-			JPanel panelForm = new JPanel();
-			getContentPane().add(panelForm, BorderLayout.CENTER);
-			panelForm.setLayout(null);
-			{
-				JLabel lblCheckSave = new JLabel("¿ Desea Guardar los Cambios ?");
-				lblCheckSave.setBounds(108, 126, 239, 15);
-				panelForm.add(lblCheckSave);
-			}
-		}
+		JPanel panelForm = new JPanel();
+		getContentPane().add(panelForm, BorderLayout.CENTER);
+		panelForm.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Cambios efectuados correctamente");
+		lblNewLabel.setBounds(80, 65, 252, 15);
+		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panelForm.add(lblNewLabel);
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		// TODO Auto-generated method stub
-		if(e.getSource() == btnYes){
-			myCoordinator.EventYes();
+		if(e.getSource()== btnAcept){
+			this.dispose();
 		}
-		
-		if (e.getSource() == btnNot){
-			myCoordinator.EventNot();
-		}
-		
 	}
-
 }
+

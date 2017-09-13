@@ -529,7 +529,10 @@ public class Coordinator {
 		result = databaseQueries.updateStudent(student);
 		
 		if(result > 0){
-			// ventana de guardado satisfactorio
+			myDialogCheckSave.dispose();
+			myProgrammerForm.dispose();
+			DialogSaveSucces dialogSaveSucces = new DialogSaveSucces();
+			invokerWindowProgrammer("Programador");
 			System.out.println("actualizacion correcta");
 		}else{
 			// ventana de guardado incorrecto
