@@ -132,6 +132,36 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 		this.spinnerYear = spinnerYear;
 	}
 
+	public JToggleButton getTglbtnEdit()
+	{
+		return tglbtnEdit;
+	}
+
+	public void setTglbtnEdit(JToggleButton tglbtnEdit)
+	{
+		this.tglbtnEdit = tglbtnEdit;
+	}
+
+	public JButton getBtnSave()
+	{
+		return btnSave;
+	}
+
+	public void setBtnSave(JButton btnSave)
+	{
+		this.btnSave = btnSave;
+	}
+
+	public JButton getBtnCancel()
+	{
+		return btnCancel;
+	}
+
+	public void setBtnCancel(JButton btnCancel)
+	{
+		this.btnCancel = btnCancel;
+	}
+
 	@Override
 	public void addPanelButtons()
 	{
@@ -293,7 +323,7 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 			myCoordinator.hideWindowProgrammerForm();
 		}
 		if (e.getSource() == tglbtnEdit){
-			
+			myCoordinator.editToggleFormProgrammer();
 		}
 	}
 	

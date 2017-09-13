@@ -412,6 +412,37 @@ public class Coordinator {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * este metodo se encarga de manejar el evento de 
+	 * boton de edicion en el formulario del programador
+	 */
+	public void editToggleFormProgrammer()
+	{
+		// TODO Auto-generated method stub
+		if(myProgrammerForm.getTglbtnEdit().isSelected())
+			setEnableFieldsFormProgrammer(true);
+		else
+			setEnableFieldsFormProgrammer(false);
+	}
+	/**
+	 * este metodo se encarga de activar o desactivar
+	 * los campos del formulario del programador
+	 * @param b
+	 */
+	private void setEnableFieldsFormProgrammer(boolean b)
+	{
+		// TODO Auto-generated method stub
+		myProgrammerForm.getTextFieldName().setEditable(b);
+		myProgrammerForm.getTextFieldCi().setEditable(b);
+		myProgrammerForm.getTextFieldAdress().setEditable(b);
+		myProgrammerForm.getTextFieldLastName().setEditable(b);
+		myProgrammerForm.getTextFieldEmail().setEditable(b);
+		myProgrammerForm.getTextFieldPhone().setEditable(b);
+		myProgrammerForm.getTextFieldCarrer().setEditable(b);
+		myProgrammerForm.getSpinnerYear().setEnabled(b);
+		myProgrammerForm.getBtnSave().setEnabled(b);
+	}
 
 
 }
