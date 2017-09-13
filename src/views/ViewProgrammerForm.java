@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.JToggleButton;
+import javax.swing.SpinnerNumberModel;
 
 public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsAddons
 {
@@ -296,7 +297,10 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 		JLabel lblCarrer = new JLabel("Carrera");
 		panelForm.add(lblCarrer, "12, 16");
 		
-		spinnerYear = new JSpinner();
+		SpinnerNumberModel numberModel = new SpinnerNumberModel();
+		numberModel.setMaximum(5);
+		numberModel.setMinimum(1);
+		spinnerYear = new JSpinner(numberModel);
 		panelForm.add(spinnerYear, "4, 18");
 		
 		textFieldCarrer = new JTextField();
@@ -306,6 +310,7 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 		textFieldEmail.setEditable(false);
 		textFieldLastName.setEditable(false);
 		textFieldPhone.setEditable(false);
+		textFieldName.setEditable(false);
 		spinnerYear.setEnabled(false);
 		panelForm.add(textFieldCarrer, "12, 18, 9, 1, fill, default");
 		textFieldCarrer.setColumns(10);

@@ -434,7 +434,6 @@ public class Coordinator {
 	{
 		// TODO Auto-generated method stub
 		myProgrammerForm.getTextFieldName().setEditable(b);
-		myProgrammerForm.getTextFieldCi().setEditable(b);
 		myProgrammerForm.getTextFieldAdress().setEditable(b);
 		myProgrammerForm.getTextFieldLastName().setEditable(b);
 		myProgrammerForm.getTextFieldEmail().setEditable(b);
