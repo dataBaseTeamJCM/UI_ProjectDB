@@ -531,11 +531,12 @@ public class Coordinator {
 		if(result > 0){
 			myDialogCheckSave.dispose();
 			myProgrammerForm.dispose();
-			DialogSaveSucces dialogSaveSucces = new DialogSaveSucces();
+			DialogSaveSucces dialogSaveSucces = new DialogSaveSucces("Cambios efectuados correctamente");
 			invokerWindowProgrammer("Programador");
 			System.out.println("actualizacion correcta");
 		}else{
 			// ventana de guardado incorrecto
+			DialogSaveSucces dialogSaveError = new DialogSaveSucces("Error al efectuar los cambios");
 			System.out.println("actualizacion incorrecta");
 		}
 	}

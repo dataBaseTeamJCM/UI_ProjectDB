@@ -22,12 +22,13 @@ public class DialogSaveSucces extends JDialog implements ActionListener, ViewsAd
 
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnAcept;
+	private JLabel lblNewLabel;
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public DialogSaveSucces()
+	public DialogSaveSucces(String message)
 	{
 		setResizable(false);
 		setBounds(0, 0, 450, 200);
@@ -42,6 +43,8 @@ public class DialogSaveSucces extends JDialog implements ActionListener, ViewsAd
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		setTitle("Aviso");
+	
+		lblNewLabel = new JLabel(message);
 		
 		addPanelButtons();
 		addPanelForm();
@@ -80,7 +83,7 @@ public class DialogSaveSucces extends JDialog implements ActionListener, ViewsAd
 		getContentPane().add(panelForm, BorderLayout.CENTER);
 		panelForm.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Cambios efectuados correctamente");
+		
 		lblNewLabel.setBounds(80, 65, 252, 15);
 		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
