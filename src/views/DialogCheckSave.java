@@ -87,7 +87,7 @@ public class DialogCheckSave extends JDialog implements ActionListener, ViewsAdd
 			panelForm.setLayout(null);
 			{
 				JLabel lblCheckSave = new JLabel("¿ Desea Guardar los Cambios ?");
-				lblCheckSave.setBounds(108, 126, 239, 15);
+				lblCheckSave.setBounds(139, 60, 239, 15);
 				panelForm.add(lblCheckSave);
 			}
 		}
@@ -104,6 +104,13 @@ public class DialogCheckSave extends JDialog implements ActionListener, ViewsAdd
 		if (e.getSource() == btnNot){
 			myCoordinator.EventNot();
 		}
+		
+	}
+
+	@Override
+	public void addPanelList()
+	{
+		// TODO Auto-generated method stub
 		
 	}
 

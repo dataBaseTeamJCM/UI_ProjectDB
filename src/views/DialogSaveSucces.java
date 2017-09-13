@@ -99,5 +99,13 @@ public class DialogSaveSucces extends JDialog implements ActionListener, ViewsAd
 			this.dispose();
 		}
 	}
+
+
+	@Override
+	public void addPanelList()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
 

@@ -18,10 +18,8 @@ public class ViewAd extends JDialog implements ActionListener {
 	
 	private JButton btnAcept;
 	private Coordinator myCoordinator;
-	public ViewAd(String message, Coordinator coordinator) {
+	public ViewAd(String message) {
 	
-		// asigna una instancia del controlador
-		this.myCoordinator = coordinator; 		
 		
 		//  esta instruccion hace que la ventana no se pueda cambiar su tamaño
 		setResizable(false);
@@ -60,7 +58,7 @@ public class ViewAd extends JDialog implements ActionListener {
 	{
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnAcept ){
-			myCoordinator.hideWindowAd();
+			this.dispose();
 		}
 	}
 }

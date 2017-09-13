@@ -6,43 +6,52 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.JTextComponent;
 
 import controller.Coordinator;
-import java.awt.FlowLayout;
+import javax.swing.JList;
 import javax.swing.JButton;
+import java.awt.FlowLayout;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JSpinner;
+import javax.swing.JSeparator;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 import javax.swing.JToggleButton;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.JScrollPane;
 
-public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsAddons
+public class ViewTravelForm extends JFrame implements ActionListener, ViewsAddons
 {
+
+	private JPanel contentPane;
 	private Coordinator myCoordinator;
-	private JTextField textFieldCi;
-	private JTextField textFieldName;
-	private JTextField textFieldLastName;
-	private JTextField textFieldPhone;
-	private JTextField textFieldEmail;
-	private JTextField textFieldAdress;
-	private JTextField textFieldCarrer;
+	private JTextField textFieldHostage;
+	private JTextField  textFieldCi;
+	private JTextField  textFieldFinancer;
+	private JTextField  textFieldLastName;
+	private JTextField  textFieldDays;
+	private JTextField  textFieldName;
 	private JToggleButton tglbtnEdit;
 	private JButton btnSave;
 	private JButton btnCancel;
-	private JSpinner spinnerYear;
+	private JList list;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the frame.
 	 */
-	public ViewProgrammerForm(Coordinator coordinator, String name)
+	public ViewTravelForm(Coordinator coordinator, String name)
 	{
 		this.myCoordinator =coordinator;
 		setBounds(0, 0, 600, 350);
@@ -59,78 +68,72 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		
-		setTitle("Informacion Personal del Programador: " + name);
+		setTitle("Informacion De los viajes del programador: " + name);
 		getContentPane().setLayout(new BorderLayout(0, 0));
-	
+		
+		addPanelList();
 		addPanelButtons();
 		addPanelForm();
 	}
 	
+	public JTextField getTextFieldHostage()
+	{
+		return textFieldHostage;
+	}
+
+	public void setTextFieldHostage(JTextField textFieldHostage)
+	{
+		this.textFieldHostage = textFieldHostage;
+	}
+
 	public JTextField getTextFieldCi()
 	{
 		return textFieldCi;
 	}
+
 	public void setTextFieldCi(JTextField textFieldCi)
 	{
 		this.textFieldCi = textFieldCi;
 	}
-	public JTextField getTextFieldName()
+
+	public JTextField getTextFieldFinancer()
 	{
-		return textFieldName;
+		return textFieldFinancer;
 	}
-	public void setTextFieldName(JTextField textFieldName)
+
+	public void setTextFieldFinancer(JTextField textFieldFinancer)
 	{
-		this.textFieldName = textFieldName;
+		this.textFieldFinancer = textFieldFinancer;
 	}
+
 	public JTextField getTextFieldLastName()
 	{
 		return textFieldLastName;
 	}
+
 	public void setTextFieldLastName(JTextField textFieldLastName)
 	{
 		this.textFieldLastName = textFieldLastName;
 	}
-	public JTextField getTextFieldPhone()
+
+	public JTextField getTextFieldDays()
 	{
-		return textFieldPhone;
-	}
-	public void setTextFieldPhone(JTextField textFieldPhone)
-	{
-		this.textFieldPhone = textFieldPhone;
-	}
-	public JTextField getTextFieldEmail()
-	{
-		return textFieldEmail;
-	}
-	public void setTextFieldEmail(JTextField textFieldEmail)
-	{
-		this.textFieldEmail = textFieldEmail;
-	}
-	public JTextField getTextFieldAdress()
-	{
-		return textFieldAdress;
-	}
-	public void setTextFieldAdress(JTextField textFieldAdress)
-	{
-		this.textFieldAdress = textFieldAdress;
-	}
-	public JTextField getTextFieldCarrer()
-	{
-		return textFieldCarrer;
-	}
-	public void setTextFieldCarrer(JTextField textFieldCarrer)
-	{
-		this.textFieldCarrer = textFieldCarrer;
+		return textFieldDays;
 	}
 
-	public JSpinner getSpinnerYear()
+	public void setTextFieldDays(JTextField textFieldDays)
 	{
-		return spinnerYear;
+		this.textFieldDays = textFieldDays;
 	}
 
-	public void setSpinnerYear(JSpinner spinnerYear)
+	public JTextField getTextFieldName()
 	{
-		this.spinnerYear = spinnerYear;
+		return textFieldName;
+	}
+
+	public void setTextFieldName(JTextField textFieldName)
+	{
+		this.textFieldName = textFieldName;
 	}
 
 	public JToggleButton getTglbtnEdit()
@@ -163,11 +166,30 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 		this.btnCancel = btnCancel;
 	}
 
+	public JList getList()
+	{
+		return list;
+	}
+
+	public void setList(JList list)
+	{
+		this.list = list;
+	}
+
+	public JScrollPane getScrollPane()
+	{
+		return scrollPane;
+	}
+
+	public void setScrollPane(JScrollPane scrollPane)
+	{
+		this.scrollPane = scrollPane;
+	}
+
 	@Override
 	public void addPanelButtons()
 	{
 		// TODO Auto-generated method stub
-		
 		JPanel panelButtons = new JPanel();
 		getContentPane().add(panelButtons, BorderLayout.SOUTH);
 		panelButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -176,16 +198,18 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 		tglbtnEdit.addActionListener(this);
 		panelButtons.add(tglbtnEdit);
 		
-		btnSave = new JButton("Guardar");
-		btnSave.addActionListener(this);
-		panelButtons.add(btnSave);
-		
-		btnCancel = new JButton("Cancelar");
-		btnCancel.addActionListener(this);
-		btnSave.setEnabled(false);
-		panelButtons.add(btnCancel);
-		
-		
+		{
+			btnSave = new JButton("Guardar");
+			btnSave.addActionListener(this);
+			
+			btnSave.setEnabled(false);
+			panelButtons.add(btnSave);
+		}
+		{
+			btnCancel = new JButton("Cancelar");
+			btnCancel.addActionListener(this);
+			panelButtons.add(btnCancel);
+		}
 	}
 
 	@Override
@@ -194,8 +218,6 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 
 	@Override
 	public void addPanelForm()
@@ -207,6 +229,8 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -247,122 +271,98 @@ public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsA
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		JLabel lblCI = new JLabel("CI");
 		panelForm.add(lblCI, "4, 4");
 		
 		JLabel lblName = new JLabel("Nombre");
-		panelForm.add(lblName, "12, 4");
+		panelForm.add(lblName, "8, 4");
 		
 		JLabel lblLastName = new JLabel("Apellido");
-		panelForm.add(lblLastName, "18, 4");
+		panelForm.add(lblLastName, "16, 4");
 		
 		textFieldCi = new JTextField();
-		panelForm.add(textFieldCi, "4, 6, 6, 1, fill, default");
+		panelForm.add(textFieldCi, "4, 6, fill, default");
 		textFieldCi.setColumns(10);
+		textFieldCi.setEditable(false);
 		
 		textFieldName = new JTextField();
-		panelForm.add(textFieldName, "12, 6, 4, 1, fill, default");
+		panelForm.add(textFieldName, "8, 6, 5, 1, fill, default");
 		textFieldName.setColumns(10);
+		textFieldName.setEditable(false);
 		
 		textFieldLastName = new JTextField();
-		panelForm.add(textFieldLastName, "18, 6, 3, 1, fill, default");
+		panelForm.add(textFieldLastName, "16, 6, 7, 1, fill, default");
 		textFieldLastName.setColumns(10);
-		
-		JLabel lblPhone = new JLabel("Telefono");
-		panelForm.add(lblPhone, "4, 8");
-		
-		JLabel lblEmail = new JLabel("Email");
-		panelForm.add(lblEmail, "12, 8");
-		
-		textFieldPhone = new JTextField();
-		panelForm.add(textFieldPhone, "4, 10, 6, 1, fill, default");
-		textFieldPhone.setColumns(10);
-		
-		textFieldEmail = new JTextField();
-		panelForm.add(textFieldEmail, "12, 10, 9, 1, fill, default");
-		textFieldEmail.setColumns(10);
-		
-		JLabel lblDireccion = new JLabel("Direccion");
-		panelForm.add(lblDireccion, "4, 12");
-		
-		textFieldAdress = new JTextField();
-		panelForm.add(textFieldAdress, "4, 14, 17, 1, fill, default");
-		textFieldAdress.setColumns(10);
-		
-		JLabel lblYear = new JLabel("Año Estudiante");
-		panelForm.add(lblYear, "4, 16");
-		
-		JLabel lblCarrer = new JLabel("Carrera");
-		panelForm.add(lblCarrer, "12, 16");
-		
-		SpinnerNumberModel numberModel = new SpinnerNumberModel();
-		numberModel.setMaximum(5);
-		numberModel.setMinimum(1);
-		spinnerYear = new JSpinner(numberModel);
-		panelForm.add(spinnerYear, "4, 18");
-		
-		textFieldCarrer = new JTextField();
-		textFieldAdress.setEditable(false);
-		textFieldCarrer.setEditable(false);
-		textFieldCi.setEditable(false);
-		textFieldEmail.setEditable(false);
 		textFieldLastName.setEditable(false);
-		textFieldPhone.setEditable(false);
-		textFieldName.setEditable(false);
-		spinnerYear.setEnabled(false);
-		panelForm.add(textFieldCarrer, "12, 18, 9, 1, fill, default");
-		textFieldCarrer.setColumns(10);
+		
+		JLabel lblTitleDataTravel = DefaultComponentFactory.getInstance().createTitle("Informacion de los viajes");
+		panelForm.add(lblTitleDataTravel, "4, 10");
+		
+		JSeparator separator = new JSeparator();
+		panelForm.add(separator, "4, 12, 19, 1");
+		
+		JLabel lblDays = new JLabel("Dias de viaje");
+		panelForm.add(lblDays, "4, 14");
+		
+		JLabel lblFinancer = new JLabel("Financista");
+		panelForm.add(lblFinancer, "8, 14");
+		
+		textFieldDays = new JTextField();
+		panelForm.add(textFieldDays, "4, 16, fill, default");
+		textFieldDays.setColumns(10);
+		textFieldDays.setEditable(false);
+		
+		textFieldFinancer = new JTextField();
+		panelForm.add(textFieldFinancer, "8, 16, 15, 1, fill, default");
+		textFieldFinancer.setColumns(10);
+		textFieldFinancer.setEditable(false);
+		
+		JLabel lblHostage = new JLabel("Lugar de hospedaje ");
+		panelForm.add(lblHostage, "4, 18");
+		
+		textFieldHostage = new JTextField();
+		panelForm.add(textFieldHostage, "4, 20, 19, 1, fill, default");
+		textFieldHostage.setColumns(10);
+		textFieldHostage.setEditable(false);
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		// TODO Auto-generated method stub
-	
-		if(e.getSource() == btnCancel){
+		if(e.getSource()== btnCancel){
 			myCoordinator.showWindowQueryProgrammer();
-			myCoordinator.hideWindowProgrammerForm();
-		}
-		if (e.getSource() == tglbtnEdit){
-			myCoordinator.editToggleFormProgrammer();
+			myCoordinator.hideWindowViewTravelForm();
 		}
 		
-		if(e.getSource() == btnSave){
+		if(e.getSource()==btnSave){
 			myCoordinator.invokerWindowCheckSave();
 		}
-			
+		
+		if(e.getSource() == tglbtnEdit){
+			myCoordinator.editToggleFormTravelProgrammer();
+		}
+		
 	}
 
 	@Override
 	public void addPanelList()
 	{
 		// TODO Auto-generated method stub
-		
+		JPanel panelList = new JPanel();
+		getContentPane().add(panelList, BorderLayout.WEST);
+		scrollPane = new JScrollPane(list);
+		panelList.add(scrollPane);
+	
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

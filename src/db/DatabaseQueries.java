@@ -9,6 +9,7 @@ import java.sql.Statement;
 import javax.sound.midi.SysexMessage;
 import javax.xml.crypto.Data;
 
+import model.ActivityList;
 import model.Competition;
 import model.CompetitionList;
 import model.Student;
@@ -266,6 +267,12 @@ public class DatabaseQueries {
 		return teamCompetitorList;
 	}
 
+	/**
+	 * este metodo colsulta en la base de datso toda la informacion
+	 * personal del programador y la devuelve como un estudiante
+	 * @param cedulaEstudiante
+	 * @return
+	 */
 	public Student buildStudentByCi(String cedulaEstudiante)
 	{
 		
@@ -328,6 +335,12 @@ public class DatabaseQueries {
 		return student;
 	}
 
+	/** 
+	 * este metodo actualiza la informacion
+	 * del estudiante en la base de datos
+	 * @param student
+	 * @return
+	 */
 	public int updateStudent(Student student)
 	{
 		// TODO Auto-generated method stub
@@ -380,6 +393,127 @@ public class DatabaseQueries {
 			
 		}
 		return result;
+	}
+
+	/**
+	 * este metodo consulta la informacion personal de los 
+	 * viajes del programador
+	 * @param ci
+	 * @return
+	 */
+	public TeamCompetitorList buildListTravelFromStudent(String ci)
+	{
+		// TODO Auto-generated method stub
+		
+		Connection connection = conn;
+		
+		Statement st = null;
+		
+		ResultSet rs = null;
+		
+		TeamCompetitorList  competitorList = new TeamCompetitorList();
+		
+		String sql = "select v.id_equipo, v.dias, v.financista, v.hospedaje "
+				+ "from mtn.estudiante as e "
+				+ "join mtn.constituye_estudiante as ce on e.ci_estudiante = ce.ci_estudiante "
+				+ "join mtn.viaja  as v on v.id_equipo = ce.id_equipo "
+				+ "where e.ci_estudiante = '" + ci + "';" ;
+		
+		try {
+			// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+			st = connection.createStatement();
+			
+			 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+            // Con "executeQuery" realizamos una consulta a la base de datos
+			rs = st.executeQuery(sql) ;
+			
+			// En este bucle vamos recorriendo valores mientras existan
+			while(rs.next()){
+					// extrae la informacion de las columnas al objeto
+					String id_equipo 		= rs.getString(DatabaseConstants.KEY_ID_TEAM);
+					int 	dias						= rs.getInt(DatabaseConstants.TRAVEL_DAYS);
+					String	financista 	= rs.getString(DatabaseConstants.TRAVEL_FINANCER);
+					String 	hospedaje	= rs.getString(DatabaseConstants.TRAVEL_HOSTAGE);
+					TeamCompetitor  teamCompetitor = new TeamCompetitor(id_equipo,dias, financista, hospedaje);
+					competitorList.add(teamCompetitor);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println(sql);
+			} finally {
+				 // Cerramos las conexiones, en orden inverso a su apertura
+				try
+				{
+					rs.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				
+				try
+				{
+					st.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+			}
+		return competitorList;
+	}
+
+	/**
+	 * este metodo se encarga de actualizar los viajes del programador
+	 * en la base de datos
+	 * @param teamCompetitor
+	 * @return
+	 */
+	public int updateTravel(TeamCompetitor teamCompetitor)
+	{
+		// TODO Auto-generated method stub
+				Connection connection = conn;
+				
+				PreparedStatement pst = null;
+				
+				int result = 0;
+				
+				String sql = "update mtn.viaja " +
+										"set dias = ?, "
+										+ "financista = ?,"
+										+ "hospedaje = ? "
+										+ "where id_equipo = ?";
+				
+				try {
+					// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+					pst = connection.prepareStatement(sql);
+					
+					 //  agregamos los datos a prepared statement
+					pst.setInt(1, teamCompetitor.getDaysTravel());
+					pst.setString(2, teamCompetitor.getFinancier());
+					pst.setString(3, teamCompetitor.getHosting());
+					pst.setString(4, teamCompetitor.getId());
+					
+					result = pst.executeUpdate();  //valida si se guardaron los datos; si pst>0 entonces se guardaron
+						
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println(sql);
+				} finally {
+					 // Cerramos las conexiones, en orden inverso a su apertura
+					try
+					{
+						pst.close();
+					}
+					catch (Exception e2)
+					{
+						// TODO: handle exception
+					}
+					
+				}
+				return result;
 	}
 
 }

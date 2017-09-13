@@ -152,6 +152,7 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 		mntmProblemaR.addActionListener(this);
 		mntmCompetencia.addActionListener(this);
 		mntmMiCoach.addActionListener(this);
+		mntmVerViajes.addActionListener(this);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 	}
@@ -189,11 +190,12 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 			myCoordinator.hideWindowQueryProgrammer();
 			myCoordinator.closeConnect();
 		}
-		if (e.getSource() == intemIPVer){
-			myCoordinator.invokerWindowSearch();	
-			myCoordinator.setVarEvent(Events.I_PERSONAL);
-			myCoordinator.hideWindowQueryProgrammer();
-			
+		if (e.getSource() == intemIPVer){	
+			myCoordinator.invokerWindowProgrammerForm();
+		}
+		if(e.getSource() == mntmVerViajes){
+			// activa la ventana de viajes
+			myCoordinator.invokerWindowViajesForm();
 		}
 		if (e.getSource() == mntmCompetencia) {
 			
@@ -208,6 +210,13 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 
 	@Override
 	public void addPanelForm()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addPanelList()
 	{
 		// TODO Auto-generated method stub
 		

@@ -55,6 +55,15 @@ public class TeamCompetitor extends Team{
 		this.site 			= site;
 		
 	}
+	public TeamCompetitor(String id_equipo, int dias, String financista, String hospedaje)
+	{
+		// TODO Auto-generated constructor stub
+		super(id_equipo,"none" , "none", "none", 0, null, null, null, null);
+		this.daysTravel		= dias;
+		this.hosting				= hospedaje;
+		this.financier			= financista;
+		
+	}
 	public String getPerformance() {
 		return performance;
 	}

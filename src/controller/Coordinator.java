@@ -1,6 +1,8 @@
 package controller;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -21,6 +23,8 @@ import org.eclipse.jface.viewers.ViewerDropAdapter;
 import db.Conexion;
 import db.DatabaseConstants;
 import db.DatabaseQueries;
+import model.Activity;
+import model.ActivityList;
 import model.Competition;
 import model.CompetitionList;
 import model.Student;
@@ -46,6 +50,10 @@ public class Coordinator {
 	private int varEvent = -1;
 	//private Conexion conn;
 	private DialogCheckSave myDialogCheckSave = null;
+	private Student student;
+	private ViewTravelForm myTravelForm;
+	private JList jListaTravel = null;
+	private TeamCompetitorList competitorList;
 	
 	// getters y setters de las ventanas
 	
@@ -148,6 +156,16 @@ public class Coordinator {
 	{
 		// TODO Auto-generated method stub
 		myProgrammerForm.dispose();
+	}
+	
+	/**
+	 * este metodo se encargar de cerra la ventana de formulario
+	 * de los viajes de programador 
+	 */
+	public void hideWindowViewTravelForm()
+	{
+		// TODO Auto-generated method stub
+		myTravelForm.dispose();
 	}
 	
 	/**
@@ -286,7 +304,7 @@ public class Coordinator {
 			 *  usuario o una contraseña incorrecta.
 			 */
 			
-			this.myViewAd = new ViewAd(Strings.INVALID_USER, this);
+			this.myViewAd = new ViewAd(Strings.INVALID_USER);
 			System.out.println("Usuario y "
 					+ "Contraseña invalidos");
 		}
@@ -305,7 +323,8 @@ public class Coordinator {
 			else if(userName.equals("programador"))
 			{
 				System.out.println("Conexion exitosa");
-				invokerWindowProgrammer(userName);
+				invokerWindowSearch();
+				//invokerWindowProgrammer(userName);
 				hideWindowLogin();
 			}
 		}
@@ -327,26 +346,7 @@ public class Coordinator {
 		//conn.createQuery(sql);
 		//return (new JTable(DbUtils.resultSetToTableModel(conn.getRs())));
 	}
-	
-/*	public void anStudent(String ci){
-		Conexion conn = new Conexion(this.getConect());
-		String sql;
-		//String carrer;
-		int year;
-		
-		sql = ModelStudent.queryAnStudentByCi(ci);
-		conn.createQuery(sql);
-		try {
-			if(conn.getRs().next()){
-					year = Integer.parseInt(conn.getRs().getString(2));
-					this.setStudent(new ModelStudent(ci, year, "no"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-*/
+
 	//metodos para validaciones campos de texto etc
 	public void onlyNumbers(JTextField text){
 		text.addKeyListener(new KeyAdapter() {
@@ -368,7 +368,7 @@ public class Coordinator {
 	{
 		// TODO Auto-generated method stub
 		
-		Student student = null;
+		student = null;
 		String cedulaEstudiante = mySearchByCi.getTextFieldCi().getText();
 		
 		student = getStudentByCi(cedulaEstudiante);
@@ -378,27 +378,11 @@ public class Coordinator {
 			hideWindowSearch();
 			// procesamiento de datos del estudiante
 			// invocacion de la ventana de formulario del programador
-			myProgrammerForm  = new ViewProgrammerForm(this, student.getName());
-			String ci 						= student.getCi();
-			String name 				= student.getName();
-			String lastName 		= student.getLastName();
-			String phone				= student.getPhone();
-			String email				= student.getEmail();
-			String adress				= student.getAdress();
-			int year							= student.getYear();
-			String carrer				= student.getCarrer();
-			
-			myProgrammerForm.getTextFieldCi().setText(ci);
-			myProgrammerForm.getTextFieldName().setText(name);
-			myProgrammerForm.getTextFieldLastName().setText(lastName);
-			myProgrammerForm.getTextFieldPhone().setText(phone);
-			myProgrammerForm.getTextFieldEmail().setText(email);
-			myProgrammerForm.getTextFieldAdress().setText(adress);
-			myProgrammerForm.getSpinnerYear().setValue(year);
-			myProgrammerForm.getTextFieldCarrer().setText(carrer);
+			//myProgrammerForm  = new ViewProgrammerForm(this, student.getName());
+			myWindowQueryProgrammer = new ViewProgrammer(this);	
 			System.out.println( student.toString());
 		}else{
-			myViewAd = new ViewAd(Strings.CI_NO_EXISTS, this);
+			myViewAd = new ViewAd(Strings.CI_NO_EXISTS);
 		}
 	}
 	/**
@@ -471,20 +455,9 @@ public class Coordinator {
 	public void EventNot()
 	{
 		// TODO Auto-generated method stub
-		switch (varEvent )
-		{
-			case Events.I_PERSONAL:
-				/*
-				 * cierra la ventana de de dialogo y
-				 * muestra la ventana anterior del
-				 * formulario del programador 
-				 */
-				myDialogCheckSave.dispose();
-				break;
+	
+		myDialogCheckSave.dispose();
 
-			default:
-				break;
-		}
 	}
 	/**
 	 *  este metodo se encargar de controlar el evento creado 
@@ -499,11 +472,50 @@ public class Coordinator {
 				saveDataStudent();
 				break;
 
+			case Events.I_VIAJES:
+				saveDataTravel();
+				break;
 			default:
 				break;
 		}
 	}
-	
+	/**
+	 * este metodo se encarga de guardar la informacion
+	 * de los viajes en la base de datos
+	 */
+	private void saveDataTravel()
+	{
+		// TODO Auto-generated method stub
+				int result;
+				DatabaseQueries databaseQueries = new DatabaseQueries(conect);
+				
+				int days 					= Integer.parseInt(myTravelForm.getTextFieldDays().getText());
+				String hostage 		= myTravelForm.getTextFieldHostage().getText();
+				String financer 		= myTravelForm.getTextFieldFinancer().getText();
+				
+				int indexTravel 		= jListaTravel.getSelectedIndex(); 
+				String id_equipo	= competitorList.get(indexTravel).getId();
+				TeamCompetitor teamCompetitor= new TeamCompetitor(id_equipo,days,financer, hostage);
+				
+				result = databaseQueries.updateTravel(teamCompetitor);
+				
+				if(result > 0){
+					myDialogCheckSave.dispose();
+					myTravelForm.dispose();
+					DialogSaveSucces dialogSaveSucces = new DialogSaveSucces("Cambios efectuados correctamente");
+					invokerWindowProgrammer("Programador");
+					System.out.println("actualizacion correcta");
+				}else{
+					// ventana de guardado incorrecto
+					DialogSaveSucces dialogSaveError = new DialogSaveSucces("Error al efectuar los cambios \n "
+							+ "revise la conexion con el servidor");
+					myDialogCheckSave.dispose();
+					myTravelForm.dispose();
+					invokerWindowProgrammer("Programador");
+					System.out.println("actualizacion incorrecta");
+				}
+		
+	}
 	/**
 	 * este metodo se encarga de guardar la informacion del 
 	 * estudiante en la base de datos
@@ -514,7 +526,6 @@ public class Coordinator {
 		int result;
 		DatabaseQueries databaseQueries = new DatabaseQueries(conect);
 		SpinnerModel numberModel = myProgrammerForm.getSpinnerYear().getModel();
-		Student student;
 		String ci 						= myProgrammerForm.getTextFieldCi().getText();
 		String name 				= myProgrammerForm.getTextFieldName().getText();
 		String lastName 		= myProgrammerForm.getTextFieldLastName().getText();
@@ -536,7 +547,11 @@ public class Coordinator {
 			System.out.println("actualizacion correcta");
 		}else{
 			// ventana de guardado incorrecto
-			DialogSaveSucces dialogSaveError = new DialogSaveSucces("Error al efectuar los cambios");
+			DialogSaveSucces dialogSaveError = new DialogSaveSucces("Error al efectuar los cambios \n "
+					+ "revise la conexion con el servidor");
+			myDialogCheckSave.dispose();
+			myProgrammerForm.dispose();
+			invokerWindowProgrammer("Programador");
 			System.out.println("actualizacion incorrecta");
 		}
 	}
@@ -552,8 +567,182 @@ public class Coordinator {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
+	/**
+	 * este metodo invoca la ventana de formulario del 
+	 * programador
+	 */
+	public void invokerWindowProgrammerForm()
+	{
+		// TODO Auto-generated method stub
+		
+		if(student!=null){
+			hideWindowQueryProgrammer();
+			setVarEvent(Events.I_PERSONAL);
+			
+			String ci 						= student.getCi();
+			String name 				= student.getName();
+			String lastName 		= student.getLastName();
+			String phone				= student.getPhone();
+			String email				= student.getEmail();
+			String adress				= student.getAdress();
+			int year							= student.getYear();
+			String carrer				= student.getCarrer();
+			
+			myProgrammerForm = new ViewProgrammerForm(this, name);
+			
+			myProgrammerForm.getTextFieldCi().setText(ci);
+			myProgrammerForm.getTextFieldName().setText(name);
+			myProgrammerForm.getTextFieldLastName().setText(lastName);
+			myProgrammerForm.getTextFieldPhone().setText(phone);
+			myProgrammerForm.getTextFieldEmail().setText(email);
+			myProgrammerForm.getTextFieldAdress().setText(adress);
+			myProgrammerForm.getSpinnerYear().setValue(year);
+			myProgrammerForm.getTextFieldCarrer().setText(carrer);
 
-
+		}			
+	}
+	
+	/**
+	 * este metodo muestra una pantalla
+	 * de formulario para los viajes del programador
+	 */
+	public void invokerWindowViajesForm()
+	{
+		// TODO Auto-generated method stub
+		String ci = student.getCi();
+		String[] datos = {""} ;
+		competitorList = null;
+		DatabaseQueries queries = new DatabaseQueries(conect);
+		competitorList = queries.buildListTravelFromStudent(ci);
+		
+		if(!competitorList .isEmpty()){
+			setVarEvent(Events.I_VIAJES);
+			hideWindowQueryProgrammer();
+			for (int i = 0; i < competitorList.size(); i++)
+			{
+				datos[i]= "Viaje "+ i+1;
+			} 
+			jListaTravel = new JList(datos);
+			jListaTravel.addMouseListener(new MouseListener()
+			{
+				
+				@Override
+				public void mouseReleased(MouseEvent e)
+				{
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent e)
+				{
+					// TODO Auto-generated method stub
+					fillFormTravel();
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e)
+				{
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent e)
+				{
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent e)
+				{
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			myTravelForm = new ViewTravelForm(this, student.getName());
+			myTravelForm.getScrollPane().setViewportView(jListaTravel);
+			
+			myTravelForm.getTextFieldCi().setText(student.getCi());
+			myTravelForm.getTextFieldName().setText(student.getName());
+			myTravelForm.getTextFieldLastName().setText(student.getLastName());
+		}else{
+			myViewAd = new ViewAd("Usted no posee Viajes");
+		}
+			
+	}
+	/**
+	 * este metodo se encarga de rellenar
+	 * el formulario de viajes cada vez que 
+	 * se selecciona un nuevo item de la jList
+	 */
+	public void fillFormTravel()
+	{
+		// TODO Auto-generated method stub
+		if(jListaTravel != null){
+			int indexTravel = jListaTravel.getSelectedIndex();
+			TeamCompetitor teamCompetitor = competitorList.get(indexTravel);
+			int days = teamCompetitor.getDaysTravel();
+			String hostage = teamCompetitor.getHosting();
+			String  financer= teamCompetitor.getFinancier();
+			
+			myTravelForm.getTextFieldDays().setText(Integer.toString(days));
+			myTravelForm.getTextFieldFinancer().setText(financer);
+			myTravelForm.getTextFieldHostage().setText(hostage);
+			
+		}
+	}
+	
+	/**
+	 * este metodo se encarga de habilitar o deshabilitar
+	 * la edicion del formilario de los viajes de programador
+	 */
+	public void editToggleFormTravelProgrammer()
+	{
+		// TODO Auto-generated method stub
+		if(myTravelForm.getTglbtnEdit().isSelected())
+			setEnableFieldsFormTravelProgrammer(true);
+		else
+			setEnableFieldsFormTravelProgrammer(false);
+	}
+	/**
+	 * habilita o dehabilita la edicion del formulario
+	 * @param b
+	 */
+	private void setEnableFieldsFormTravelProgrammer(boolean b)
+	{
+		// TODO Auto-generated method stub
+		myTravelForm.getTextFieldDays().setEditable(b);
+		myTravelForm.getTextFieldFinancer().setEditable(b);
+		myTravelForm.getTextFieldHostage().setEditable(b);
+		myTravelForm.getBtnSave().setEnabled(b);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

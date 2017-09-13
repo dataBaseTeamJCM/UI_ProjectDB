@@ -62,5 +62,8 @@ public final class DatabaseConstants {
 	public static final String PROBLEM_ENUNCIATE		= "enunciado";
 	public static final String SOLVED_LANGUAGE			= "lenguaje";
 	public static final String SOLVED_TIME				= "tiempo";
+	public static final String TRAVEL_DAYS				= "dias";
+	public static final String TRAVEL_FINANCER	= "financista";
+	public static final String TRAVEL_HOSTAGE	= "hospedaje";
 		
 }
