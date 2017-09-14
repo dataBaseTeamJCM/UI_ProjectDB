@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
@@ -54,6 +55,9 @@ public class Coordinator {
 	private ViewTravelForm myTravelForm;
 	private JList jListaTravel = null;
 	private TeamCompetitorList competitorList;
+	private TeamCompetitorList equipos;
+	private JTable jTable;
+	private CompetitionList competitionList;
 	
 	// getters y setters de las ventanas
 	
@@ -181,18 +185,6 @@ public class Coordinator {
 	public void invokerWindowCoordinator(String name){
 		setMyWindowQueryCoordinator(new ViewCoordinador(this));
 		getMyWindowQueryCoordinator().setTitle("Hola "+ name);
-		
-		
-		//-- prueba---
-		
-		//StudentList studentList = listAllStudents();
-		CompetitionList competitionList = listAllCompetitions(); 
-		JTree jTree = buildJTree(competitionList);
-		//DefaultListModel<String> defaultListModel = studentList.toListModel();
-		//JList<String> jList = new JList<>(defaultListModel);
-		//jTree.setR(jList);
-		myWindowQueryCoordinator.getScrollPaneJtree().setViewportView(jTree);
-		//---end prueba---
 		this.showWindowQueryCoordinator();
 	}
 	
@@ -316,7 +308,6 @@ public class Coordinator {
 			{
 				invokerWindowCoordinator(userName);	
 				System.out.println("Conexion exitosa");
-				//invokerWindowCoordinator(userName);
 				hideWindowLogin();
 				
 			}
@@ -324,7 +315,6 @@ public class Coordinator {
 			{
 				System.out.println("Conexion exitosa");
 				invokerWindowSearch();
-				//invokerWindowProgrammer(userName);
 				hideWindowLogin();
 			}
 		}
@@ -842,6 +832,139 @@ public class Coordinator {
 			ViewAd viewAd = new ViewAd("No tienes participaciones en competencias");
 			System.out.println("no existen datos en  la bd");
 		}
+	}
+	
+	
+	/**
+	 * este metodo se encargara de editar los equipos
+	 * agregar o quitar informacion
+	 */
+	public void invokerWindowVerEquipos()
+	{
+				equipos = null;
+				DatabaseQueries databaseQueries = new DatabaseQueries(conect);
+				equipos = databaseQueries.buildListEquipos();
+				varEvent = Events.EQUIPO;
+				if(!equipos.isEmpty()){
+					TableModel tableModel = equipos.toTableModel(); 
+					jTable = new JTable(tableModel);
+					
+					myWindowQueryCoordinator.getScrollPane().setViewportView(jTable);
+					//ViewFrameEditor viewFrame = new ViewFrameEditor("Editor de Equipos");
+					//jTable.setCellSelectionEnabled(false);
+					
+					//viewConsultas.getScrollPane().setViewportView(jTable);
+				}else{
+					ViewAd viewAd = new ViewAd("No tienes participaciones en competencias");
+					System.out.println("no existen datos en  la bd");
+				}
+	}
+	
+	/**
+	 * este metodo controla todas
+	 * las acciones de eliminar de
+	 * la ventana del coordinador
+	 */
+	public void EventoEliminar()
+	{
+		// TODO Auto-generated method stub
+		switch (varEvent)
+		{
+			case Events.EQUIPO:
+				eliminarEquipo();
+				break;
+				
+			case Events.COMPETENCIA:
+				eliminarCompetencia();
+				break;
+			case Events.PROBLEMA_RESUELTO:
+				//eliminarProblemaResuelto();
+				break;
+			case Events.VIAJE:
+				//eliminarViaje();
+				break;
+			case Events.PROGRAMADOR:
+				//eliminarProgramador();
+				break;
+			case Events.PROFESOR:
+				//eliminarProfesor();
+				break;
+
+			default:
+				break;
+		}
+	}
+	
+	/** 
+	 * este metodo se encarga de eliminar una 
+	 * competencia selecionada
+	 */
+	private void eliminarCompetencia()
+	{
+		// TODO Auto-generated method stub
+				int index = jTable.getSelectedRow();
+				if(index >= 0 && index <= competitionList.size()){
+					String id = competitionList.get(index).getId();
+					competitionList.remove(index);
+					DatabaseQueries databaseQueries = new DatabaseQueries(conect);
+					DefaultTableModel tableModel = competitionList.toTableModel();
+					jTable.setModel(tableModel);
+					tableModel.fireTableDataChanged();
+					int result = databaseQueries.eliminarCompetenciaById(id);
+					if(result > 0){
+						ViewAd ad = new ViewAd("Se ha Borrado La competencia correctamente");
+					}else{
+						ViewAd ad = new ViewAd("No se ha borrado el equipo consulte su conexion");
+					}
+				}
+	}
+	/**
+	 * elimina el equipo seleccionado 
+	 * del jtable
+	 */
+	private void eliminarEquipo()
+	{
+		// TODO Auto-generated method stub
+		int index = jTable.getSelectedRow();
+		if(index >= 0 && index <= equipos.size()){
+			String id = equipos.get(index).getId();
+			equipos.remove(index);
+			DatabaseQueries databaseQueries = new DatabaseQueries(conect);
+			DefaultTableModel tableModel = equipos.toTableModel();
+			jTable.setModel(tableModel);
+			tableModel.fireTableDataChanged();
+			int result = databaseQueries.eliminarEquipoById(id);
+			if(result > 0){
+				ViewAd ad = new ViewAd("Se ha Borrado el Equipo correctamente");
+			}else{
+				ViewAd ad = new ViewAd("No se ha borrado el equipo consulte su conexion");
+			}
+		}
+	}
+	
+	/**
+	 * construye el jtable de las competencias
+	 */
+	public void invokerWindowVerCompetencias()
+	{
+		competitionList = null;
+		DatabaseQueries databaseQueries = new DatabaseQueries(conect);
+		competitionList = databaseQueries.buildListCompetition();
+		varEvent = Events.COMPETENCIA;
+		if(!competitionList.isEmpty()){
+			TableModel tableModel = competitionList.toTableModel(); 
+			jTable = new JTable(tableModel);
+			
+			myWindowQueryCoordinator.getScrollPane().setViewportView(jTable);
+			//ViewFrameEditor viewFrame = new ViewFrameEditor("Editor de Equipos");
+			//jTable.setCellSelectionEnabled(false);
+			
+			//viewConsultas.getScrollPane().setViewportView(jTable);
+		}else{
+			ViewAd viewAd = new ViewAd("No tienes participaciones en competencias");
+			System.out.println("no existen datos en  la bd");
+		}
+		
 	}
 }
 

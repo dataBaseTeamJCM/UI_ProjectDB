@@ -16,6 +16,7 @@ import model.Competition;
 import model.CompetitionList;
 import model.Student;
 import model.StudentList;
+import model.Team;
 import model.TeamCompetitor;
 import model.TeamCompetitorList;
 import net.proteanit.sql.DbUtils;
@@ -1004,6 +1005,224 @@ Connection connection = conn;
 						}
 					}
 				return tableModel;
+	}
+
+	/**
+	 * consulta la informacion de los equipos de la base de datos
+	 * @return
+	 */
+	public TeamCompetitorList buildListEquipos()
+	{
+		// TODO Auto-generated method stub
+		Connection connection = conn;
+		
+		Statement st = null;
+		
+		ResultSet rs = null;
+		
+		TeamCompetitorList  equipos  = new TeamCompetitorList();
+		String sql = "select *"
+				+ "from mtn.equipo" ;
+		
+		try {
+			// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+			st = connection.createStatement();
+			
+			 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+            // Con "executeQuery" realizamos una consulta a la base de datos
+			rs = st.executeQuery(sql) ;
+				// convierte el resultset a table model
+			while(rs.next()){
+				// extrae la informacion de las columnas al objeto
+				String id_equipo 		= rs.getString(DatabaseConstants.KEY_ID_TEAM);
+				String nombre			= rs.getString(DatabaseConstants.TEAM_NAME);
+				int año 							= rs.getInt(DatabaseConstants.TEAM_YEAR);
+				String facultad			= rs.getString(DatabaseConstants.KEY_SCHOOL);
+				TeamCompetitor  teamCompetitor = new TeamCompetitor(id_equipo,nombre,"none" ,facultad, año );
+				equipos.add(teamCompetitor);
+			}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println(sql);
+			} finally {
+				 // Cerramos las conexiones, en orden inverso a su apertura
+				try
+				{
+					rs.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				
+				try
+				{
+					st.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+			}
+		return equipos;
+	}
+
+	/**
+	 * elimina un equipo por su id de la bd
+	 * @param id
+	 * @return
+	 */
+	public int eliminarEquipoById(String id)
+	{
+		// TODO Auto-generated method stub
+		Connection connection = conn;
+		
+		PreparedStatement pst = null;
+		
+		int result = 0;
+		
+		String sql = "delete " +
+								"from mtn.equipo "
+								+ "where id_equipo = ?";
+		
+		try {
+			// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+			pst = connection.prepareStatement(sql);
+			
+			 //  agregamos los datos a prepared statement
+			pst.setString(1, id);
+			
+			result = pst.executeUpdate();  //valida si se guardaron los datos; si pst>0 entonces se guardaron
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(sql);
+		} finally {
+			 // Cerramos las conexiones, en orden inverso a su apertura
+			try
+			{
+				pst.close();
+			}
+			catch (Exception e2)
+			{
+				// TODO: handle exception
+			}
+			
+		}
+		return result;
+	}
+
+	/**
+	 * trae toda la data de la base de datos de 
+	 * competencia
+	 * @return
+	 */
+	public CompetitionList buildListCompetition()
+	{
+		// TODO Auto-generated method stub
+				Connection connection = conn;
+				
+				Statement st = null;
+				
+				ResultSet rs = null;
+				
+				CompetitionList  competencias  = new CompetitionList();
+				String sql = "select *"
+						+ "from mtn.competencia" ;
+				
+				try {
+					// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+					st = connection.createStatement();
+					
+					 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+		            // Con "executeQuery" realizamos una consulta a la base de datos
+					rs = st.executeQuery(sql) ;
+						// convierte el resultset a table model
+					while(rs.next()){
+						// extrae la informacion de las columnas al objeto
+						String id 					= rs.getString(DatabaseConstants.KEY_ID_COMPETITION);
+						String nombre		= rs.getString(DatabaseConstants.COMPETITION_NAME);
+						String nivel				= rs.getString(DatabaseConstants.COMPETITION_LEVEL);
+						String lugar				= rs.getString(DatabaseConstants.COMPETITION_PLACE);
+						String fecha			= rs.getString(DatabaseConstants.COMPETITION_DATE);
+						Competition  competition = new Competition(id,nombre,nivel ,lugar,fecha );
+						competencias.add(competition);
+					}
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						System.out.println(sql);
+					} finally {
+						 // Cerramos las conexiones, en orden inverso a su apertura
+						try
+						{
+							rs.close();
+						}
+						catch (Exception e2)
+						{
+							// TODO: handle exception
+						}
+						
+						try
+						{
+							st.close();
+						}
+						catch (Exception e2)
+						{
+							// TODO: handle exception
+						}
+					}
+				return competencias;
+	}
+
+	/**
+	 * elimina de la base de datos una competencia
+	 * @param id
+	 * @return
+	 */
+	public int eliminarCompetenciaById(String id)
+	{
+		// TODO Auto-generated method stub
+				Connection connection = conn;
+				
+				PreparedStatement pst = null;
+				
+				int result = 0;
+				
+				String sql = "delete " +
+										"from mtn.competencia "
+										+ "where id_competencia = ?";
+				
+				try {
+					// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+					pst = connection.prepareStatement(sql);
+					
+					 //  agregamos los datos a prepared statement
+					pst.setString(1, id);
+					
+					result = pst.executeUpdate();  //valida si se guardaron los datos; si pst>0 entonces se guardaron
+						
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println(sql);
+				} finally {
+					 // Cerramos las conexiones, en orden inverso a su apertura
+					try
+					{
+						pst.close();
+					}
+					catch (Exception e2)
+					{
+						// TODO: handle exception
+					}
+					
+				}
+				return result;
 	}
 
 }

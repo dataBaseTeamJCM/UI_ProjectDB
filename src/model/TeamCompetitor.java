@@ -64,6 +64,17 @@ public class TeamCompetitor extends Team{
 		this.financier			= financista;
 		
 	}
+	public TeamCompetitor(String id_equipo, String nombre, String string, String facultad, int año)
+	{
+		super (id_equipo, nombre, string, facultad, año);
+		// TODO Auto-generated constructor stub
+		this.performance	= "none";
+		this.incentive		= "none";
+		this.site			= "none";
+		this.daysTravel		= 0;
+		this.hosting		= "none";
+		this.financier		= "none";
+	}
 	public String getPerformance() {
 		return performance;
 	}
