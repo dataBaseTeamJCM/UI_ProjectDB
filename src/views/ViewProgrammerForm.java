@@ -2,15 +2,12 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import controller.Coordinator;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
@@ -24,6 +21,7 @@ import javax.swing.JSpinner;
 import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
 
+@SuppressWarnings("serial")
 public class ViewProgrammerForm extends JFrame implements ActionListener, ViewsAddons
 {
 	private Coordinator myCoordinator;

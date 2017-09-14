@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
+@SuppressWarnings("serial")
 public class CompetitionList extends ArrayList<Competition> implements ICustomList {
 
 	private CompetitionList instance;

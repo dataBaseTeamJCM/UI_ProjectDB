@@ -5,34 +5,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Enumeration;
-
-import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JTree;
 import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
-
-import org.eclipse.jface.viewers.ViewerDropAdapter;
-
 import db.Conexion;
-import db.DatabaseConstants;
 import db.DatabaseQueries;
-import model.Activity;
-import model.ActivityList;
-import model.Competition;
 import model.CompetitionList;
 import model.Student;
 import model.StudentList;
 import model.TeamCompetitor;
 import model.TeamCompetitorList;
-import net.proteanit.sql.DbUtils;
 import resources.values.Events;
 import resources.values.Strings;
 import views.*;
@@ -208,79 +193,6 @@ public class Coordinator {
 			myDialogCheckSave.setVisible(true);
 	}
 	
-	private CompetitionList listAllCompetitions() {
-		// TODO Auto-generated method stub
-		Conexion conn = new Conexion(this.getConect());
-		//String sql;
-		//DatabaseQueries queries = new DatabaseQueries(conn);
-		CompetitionList competitionList = null;
-		
-		//competitionList = queries.buildCompetitionList();
-		
-		return competitionList;
-		
-	}
-
-	// construye en Jtree principal con la lista de competencias
-	private JTree buildJTree(CompetitionList competitionList) {
-		// TODO Auto-generated method stub
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode(DatabaseConstants.DATABASE_NAME);
-		
-		
-		
-		for (Competition competition : competitionList) {
-			String name 			= competition.getName() +" "+ competition.getDate();
-			String idCompetition	= competition.getId();
-			DefaultMutableTreeNode competitionNode 	= new DefaultMutableTreeNode(name);
-			DefaultMutableTreeNode teamNode 		= new DefaultMutableTreeNode(Strings.TEAMS);
-			DefaultMutableTreeNode problemNode		= new DefaultMutableTreeNode(Strings.PROBLEMS);
-			DefaultMutableTreeNode activityNode		= new DefaultMutableTreeNode(Strings.ACTIVITYS);
-
-			TeamCompetitorList competitorList = listAllTeamsByCompetition(idCompetition);
-			for (TeamCompetitor teamCompetitor : competitorList) {
-				String nameTeam 	= teamCompetitor.getName() + " " + teamCompetitor.getSchool();
-				DefaultMutableTreeNode subTeamNode = new DefaultMutableTreeNode(nameTeam);
-				teamNode.add(subTeamNode);
-			}
-			competitionNode.add(teamNode);
-			competitionNode.add(problemNode);
-			competitionNode.add(activityNode);
-		
-			root.add(competitionNode);
-		}
-		
-		
-		
-		JTree jTree = new JTree(root);
-		return jTree;
-	}
-
-	private TeamCompetitorList listAllTeamsByCompetition(String idCompetition) {
-		// TODO Auto-generated method stub
-		Conexion conn = new Conexion(this.getConect());
-		//String sql;
-		//DatabaseQueries queries = new DatabaseQueries(conn);
-		TeamCompetitorList teamCompetitorList = null;
-		
-		//teamCompetitorList = queries.buildCompetitionList(idCompetition);
-		
-		return teamCompetitorList;
-	}
-
-	// contruye el jTree principal con la lsita de estudiantes
-	private JTree buildJTree(StudentList studentList) {
-		// TODO Auto-generated method stub
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode(DatabaseConstants.DATABASE_NAME);
-		
-		for (Student student : studentList) {
-			String name = student.getName() +" "+ student.getLastName();
-			DefaultMutableTreeNode studentNode = new DefaultMutableTreeNode(name);
-			root.add(studentNode);
-		}
-		JTree jTree = new JTree(root);
-		return jTree;
-	}
-	
 	/**
 	 *  Esta funcion se encarga de controlar el inicio de los usuarios 
 	 *  a la bd para los usuarios coordinador y programador
@@ -323,7 +235,7 @@ public class Coordinator {
 	// metodos para obtener datos de la bd y actualizarlos
 	
 	public StudentList listAllStudents(){
-		Conexion conn = new Conexion(this.getConect());
+		new Conexion(this.getConect());
 		//String sql;
 		//atabaseQueries queries = new DatabaseQueries(conn);
 		StudentList studentList = null;
@@ -491,12 +403,11 @@ public class Coordinator {
 				if(result > 0){
 					myDialogCheckSave.dispose();
 					myTravelForm.dispose();
-					DialogSaveSucces dialogSaveSucces = new DialogSaveSucces("Cambios efectuados correctamente");
+					new DialogSaveSucces("Cambios efectuados correctamente");
 					invokerWindowProgrammer("Programador");
 					System.out.println("actualizacion correcta");
 				}else{
-					// ventana de guardado incorrecto
-					DialogSaveSucces dialogSaveError = new DialogSaveSucces("Error al efectuar los cambios \n "
+					new DialogSaveSucces("Error al efectuar los cambios \n "
 							+ "revise la conexion con el servidor");
 					myDialogCheckSave.dispose();
 					myTravelForm.dispose();
@@ -531,12 +442,11 @@ public class Coordinator {
 		if(result > 0){
 			myDialogCheckSave.dispose();
 			myProgrammerForm.dispose();
-			DialogSaveSucces dialogSaveSucces = new DialogSaveSucces("Cambios efectuados correctamente");
+			new DialogSaveSucces("Cambios efectuados correctamente");
 			invokerWindowProgrammer("Programador");
 			System.out.println("actualizacion correcta");
 		}else{
-			// ventana de guardado incorrecto
-			DialogSaveSucces dialogSaveError = new DialogSaveSucces("Error al efectuar los cambios \n "
+			new DialogSaveSucces("Error al efectuar los cambios \n "
 					+ "revise la conexion con el servidor");
 			myDialogCheckSave.dispose();
 			myProgrammerForm.dispose();
@@ -723,7 +633,7 @@ public class Coordinator {
 			ViewConsultas viewConsultas = new ViewConsultas("Estudiante de facyt que ha participado en mas maratones de programacion en toda la historia");
 			viewConsultas.getScrollPane().setViewportView(jTable);
 		}else{
-			ViewAd viewAd = new ViewAd("No existen Estudiantes de Facyt");
+			new ViewAd("No existen Estudiantes de Facyt");
 			System.out.println("no existen datos en  la bd");
 		}
 	}
@@ -745,7 +655,7 @@ public class Coordinator {
 			ViewConsultas viewConsultas = new ViewConsultas("Los Mas Problemas Resueltos y sus integrantes");
 			viewConsultas.getScrollPane().setViewportView(jTable);
 		}else{
-			ViewAd viewAd = new ViewAd("No existen problemas");
+			new ViewAd("No existen problemas");
 			System.out.println("no existen datos en  la bd");
 		}
 	}
@@ -767,7 +677,7 @@ public class Coordinator {
 					ViewConsultas viewConsultas = new ViewConsultas("El profesor que ha entrenado a equipos y que en el pasado ha sido estudiante");
 					viewConsultas.getScrollPane().setViewportView(jTable);
 				}else{
-					ViewAd viewAd = new ViewAd("No existen profesores");
+					new ViewAd("No existen profesores");
 					System.out.println("no existen datos en  la bd");
 				}
 	}
@@ -789,7 +699,7 @@ public class Coordinator {
 			ViewConsultas viewConsultas = new ViewConsultas("Mis profesores");
 			viewConsultas.getScrollPane().setViewportView(jTable);
 		}else{
-			ViewAd viewAd = new ViewAd("No existen profesores");
+			new ViewAd("No existen profesores");
 			System.out.println("no existen datos en  la bd");
 		}
 	}
@@ -809,7 +719,7 @@ public class Coordinator {
 					ViewConsultas viewConsultas = new ViewConsultas("Mis problemas resueltos");
 					viewConsultas.getScrollPane().setViewportView(jTable);
 				}else{
-					ViewAd viewAd = new ViewAd("No tienes problemas resueltos");
+					new ViewAd("No tienes problemas resueltos");
 					System.out.println("no existen datos en  la bd");
 				}
 	}
@@ -829,7 +739,7 @@ public class Coordinator {
 			ViewConsultas viewConsultas = new ViewConsultas("Mis participaciones en competencias");
 			viewConsultas.getScrollPane().setViewportView(jTable);
 		}else{
-			ViewAd viewAd = new ViewAd("No tienes participaciones en competencias");
+			new ViewAd("No tienes participaciones en competencias");
 			System.out.println("no existen datos en  la bd");
 		}
 	}
@@ -855,7 +765,7 @@ public class Coordinator {
 					
 					//viewConsultas.getScrollPane().setViewportView(jTable);
 				}else{
-					ViewAd viewAd = new ViewAd("No tienes participaciones en competencias");
+					new ViewAd("No tienes participaciones en competencias");
 					System.out.println("no existen datos en  la bd");
 				}
 	}
@@ -912,9 +822,9 @@ public class Coordinator {
 					tableModel.fireTableDataChanged();
 					int result = databaseQueries.eliminarCompetenciaById(id);
 					if(result > 0){
-						ViewAd ad = new ViewAd("Se ha Borrado La competencia correctamente");
+						new ViewAd("Se ha Borrado La competencia correctamente");
 					}else{
-						ViewAd ad = new ViewAd("No se ha borrado el equipo consulte su conexion");
+						new ViewAd("No se ha borrado el equipo consulte su conexion");
 					}
 				}
 	}
@@ -935,9 +845,9 @@ public class Coordinator {
 			tableModel.fireTableDataChanged();
 			int result = databaseQueries.eliminarEquipoById(id);
 			if(result > 0){
-				ViewAd ad = new ViewAd("Se ha Borrado el Equipo correctamente");
+				new ViewAd("Se ha Borrado el Equipo correctamente");
 			}else{
-				ViewAd ad = new ViewAd("No se ha borrado el equipo consulte su conexion");
+				new ViewAd("No se ha borrado el equipo consulte su conexion");
 			}
 		}
 	}
@@ -961,7 +871,7 @@ public class Coordinator {
 			
 			//viewConsultas.getScrollPane().setViewportView(jTable);
 		}else{
-			ViewAd viewAd = new ViewAd("No tienes participaciones en competencias");
+			new ViewAd("No tienes participaciones en competencias");
 			System.out.println("no existen datos en  la bd");
 		}
 		

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class ViewFrameEditor extends JFrame implements ActionListener, ViewsAddons
 {
 

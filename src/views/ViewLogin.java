@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+@SuppressWarnings("serial")
 public class ViewLogin extends JFrame implements ActionListener {
 
 	private Coordinator myCoordinator;

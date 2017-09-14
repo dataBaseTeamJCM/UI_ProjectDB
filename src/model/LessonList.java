@@ -1,10 +1,9 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.swing.DefaultListModel;
 
+@SuppressWarnings("serial")
 public class LessonList extends ArrayList<Lesson> implements ICustomList {
 
 	private LessonList instance;

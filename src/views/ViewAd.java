@@ -4,17 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import controller.Coordinator;
-
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class ViewAd extends JDialog implements ActionListener {
 	
 	private JButton btnAcept;

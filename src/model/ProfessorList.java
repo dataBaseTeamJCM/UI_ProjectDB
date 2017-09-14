@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 
+@SuppressWarnings("serial")
 public class ProfessorList extends ArrayList<Professor> implements ICustomList{
 	
 	private ProfessorList instance;

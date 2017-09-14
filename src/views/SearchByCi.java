@@ -9,21 +9,14 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
-
 import controller.Coordinator;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 
+@SuppressWarnings("serial")
 public class SearchByCi extends JDialog implements ActionListener {
 	private Coordinator myCoordinator;
 	private JButton btnCancel;
@@ -32,8 +25,6 @@ public class SearchByCi extends JDialog implements ActionListener {
 	private JPanel panelButton;
 	private JPanel panelSearch;
 	private JLabel lblCi;
-	private JLabel lblError;
-	
 	public Coordinator getMyCoordinator() {
 		return myCoordinator;
 	}

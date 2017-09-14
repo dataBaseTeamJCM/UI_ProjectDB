@@ -16,6 +16,7 @@ import controller.Coordinator;
 
 import javax.swing.JLabel;
 
+@SuppressWarnings({ "unused", "serial" })
 public class DialogCheckSave extends JDialog implements ActionListener, ViewsAddons
 {
 

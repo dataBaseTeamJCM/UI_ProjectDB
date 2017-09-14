@@ -3,10 +3,6 @@ package controller;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
 
-import views.ViewLogin;
-import views.ViewPrincipal;
-import views.ViewCoordinador;
-
 class Principal{
 
 		Coordinator myCoordinator;

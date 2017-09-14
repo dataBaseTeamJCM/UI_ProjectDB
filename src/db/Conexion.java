@@ -1,11 +1,6 @@
 package db;
 
-import java.net.ConnectException;
 import java.sql.*;
-
-import javax.swing.JTable;
-
-import net.proteanit.sql.DbUtils;
 
 public class Conexion {
 
@@ -14,9 +9,6 @@ public class Conexion {
 	private char[] password;
 	private Connection connection = null;
 	private ResultSet rs = null;
-	private Statement st = null;
-	
-
 	public Connection getConnection() {
 		return connection;
 	}

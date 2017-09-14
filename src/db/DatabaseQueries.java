@@ -6,17 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.sound.midi.SysexMessage;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import javax.xml.crypto.Data;
-
-import model.ActivityList;
 import model.Competition;
 import model.CompetitionList;
 import model.Student;
 import model.StudentList;
-import model.Team;
 import model.TeamCompetitor;
 import model.TeamCompetitorList;
 import net.proteanit.sql.DbUtils;
@@ -537,6 +532,11 @@ public class DatabaseQueries {
 		
 		DefaultTableModel tableModel = new DefaultTableModel()
 		{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public boolean isCellEditable(int row, int column)
 			{
@@ -620,6 +620,11 @@ Connection connection = conn;
 		
 		DefaultTableModel tableModel = new DefaultTableModel()
 		{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public boolean isCellEditable(int row, int column)
 			{
@@ -711,6 +716,11 @@ Connection connection = conn;
 		
 		DefaultTableModel tableModel = new DefaultTableModel()
 		{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public boolean isCellEditable(int row, int column)
 			{
@@ -797,6 +807,11 @@ Connection connection = conn;
 				
 				DefaultTableModel tableModel = new DefaultTableModel()
 				{
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public boolean isCellEditable(int row, int column)
 					{
@@ -877,6 +892,11 @@ Connection connection = conn;
 		
 		DefaultTableModel tableModel = new DefaultTableModel()
 		{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public boolean isCellEditable(int row, int column)
 			{
@@ -951,6 +971,11 @@ Connection connection = conn;
 				
 				DefaultTableModel tableModel = new DefaultTableModel()
 				{
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public boolean isCellEditable(int row, int column)
 					{

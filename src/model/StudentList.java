@@ -3,8 +3,8 @@ package model;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 
+@SuppressWarnings("serial")
 public class StudentList extends ArrayList<Student> implements ICustomList{
 
 	

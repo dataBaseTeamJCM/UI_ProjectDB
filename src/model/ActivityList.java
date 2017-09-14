@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 
+@SuppressWarnings("serial")
 public class ActivityList extends ArrayList<Activity> implements ICustomList{
 
 	private ActivityList instance;

@@ -2,39 +2,27 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import controller.ActionConstants;
 import controller.Coordinator;
-import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 
 import javax.swing.BoxLayout;
-import javax.swing.JTabbedPane;
 import javax.swing.JScrollPane;
-import javax.swing.JList;
-import javax.swing.JTable;
-import javax.swing.JTree;
-import javax.swing.JInternalFrame;
-import javax.swing.JDesktopPane;
 
 public class ViewCoordinador extends JFrame implements ActionListener, ViewsAddons{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Coordinator myCoordinator;
 	private JPanel contentPane;
 	private JPanel panelList;

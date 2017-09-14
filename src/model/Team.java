@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Team {
 	private String 				id;				// identificador unico del equipo		
 	private String 				name;			// nombre del equipo

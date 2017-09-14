@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 
+@SuppressWarnings("serial")
 public class IncidentList extends ArrayList<Incident> implements ICustomList{
 
 	private IncidentList instance;
