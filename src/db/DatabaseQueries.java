@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.sound.midi.SysexMessage;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.xml.crypto.Data;
 
@@ -533,7 +534,15 @@ public class DatabaseQueries {
 		
 		ResultSet rs = null;
 		
-		TableModel  tableModel = null;
+		DefaultTableModel tableModel = new DefaultTableModel()
+		{
+			@Override
+			public boolean isCellEditable(int row, int column)
+			{
+				//* set editable false table model */
+				return false;
+			}
+		};
 		
 		String sql = "SELECT  distinct "
 				+ "PARTICIPACIONES, "
@@ -566,7 +575,7 @@ public class DatabaseQueries {
             // Con "executeQuery" realizamos una consulta a la base de datos
 			rs = st.executeQuery(sql) ;
 				// convierte el resultset a table model
-			tableModel = DbUtils.resultSetToTableModel(rs);
+			tableModel = (DefaultTableModel) DbUtils.resultSetToTableModel(rs);
 			DbUtils.resultSetToTableModel(rs);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -608,7 +617,15 @@ Connection connection = conn;
 		
 		ResultSet rs = null;
 		
-		TableModel  tableModel = null;
+		DefaultTableModel tableModel = new DefaultTableModel()
+		{
+			@Override
+			public boolean isCellEditable(int row, int column)
+			{
+				//* set editable false table model */
+				return false;
+			}
+		};
 		
 		String sql = "SELECT  co.nombre_competencia as COMPETENCIA, "
 				+ "pro.titulo as PROBLEMA, "
@@ -648,7 +665,7 @@ Connection connection = conn;
             // Con "executeQuery" realizamos una consulta a la base de datos
 			rs = st.executeQuery(sql) ;
 				// convierte el resultset a table model
-			tableModel = DbUtils.resultSetToTableModel(rs);
+			tableModel = (DefaultTableModel) DbUtils.resultSetToTableModel(rs);
 			DbUtils.resultSetToTableModel(rs);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -691,7 +708,15 @@ Connection connection = conn;
 		
 		ResultSet rs = null;
 		
-		TableModel  tableModel = null;
+		DefaultTableModel tableModel = new DefaultTableModel()
+		{
+			@Override
+			public boolean isCellEditable(int row, int column)
+			{
+				//* set editable false table model */
+				return false;
+			}
+		};
 		
 		String sql = "SELECT  prof.ci_profesor	  	as CEDULA, "
 				+ "prof.nombre_profesor  	AS Nombre, "
@@ -726,7 +751,7 @@ Connection connection = conn;
             // Con "executeQuery" realizamos una consulta a la base de datos
 			rs = st.executeQuery(sql) ;
 				// convierte el resultset a table model
-			tableModel = DbUtils.resultSetToTableModel(rs);
+			tableModel = (DefaultTableModel) DbUtils.resultSetToTableModel(rs);
 			DbUtils.resultSetToTableModel(rs);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -753,6 +778,232 @@ Connection connection = conn;
 				}
 			}
 		return tableModel;
+	}
+
+	/**
+	 *  este metodo construye un table model con la data de
+	 * la consulta para saber quienes son los profesores del programador
+	 * @return
+	 */
+	public TableModel buildTableModelConsultaProfesores(String ci)
+	{
+		// TODO Auto-generated method stub
+				Connection connection = conn;
+				
+				Statement st = null;
+				
+				ResultSet rs = null;
+				
+				DefaultTableModel tableModel = new DefaultTableModel()
+				{
+					@Override
+					public boolean isCellEditable(int row, int column)
+					{
+						//* set editable false table model */
+						return false;
+					}
+				};
+				
+				String sql = "select ci_profesor, nombre_profesor, apellido_profesor, tipo_profesor "
+						+ "from "
+						+ "(	select ci_profesor as profesor "
+						+ "from mtn.prepara_a "
+						+ "where id_equipo in "
+						+ "(select id_equipo "
+						+ "from mtn.constituye_estudiante "
+						+ "where ci_estudiante = '"+ ci +"') "
+						+ "union "
+						+ "select ci_profesor "
+						+ "from mtn.profesor_representa "
+						+ "where id_equipo in "
+						+ "(select id_equipo "
+						+ "from mtn.constituye_estudiante "
+						+ "where ci_estudiante = '"+ ci +"' )"
+						+ ") as p  "
+						+ "join mtn.profesor as pr on profesor = pr.ci_profesor" ;
+				
+				try {
+					// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+					st = connection.createStatement();
+					
+					 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+		            // Con "executeQuery" realizamos una consulta a la base de datos
+					rs = st.executeQuery(sql) ;
+						// convierte el resultset a table model
+					tableModel = (DefaultTableModel) DbUtils.resultSetToTableModel(rs);
+					DbUtils.resultSetToTableModel(rs);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						System.out.println(sql);
+					} finally {
+						 // Cerramos las conexiones, en orden inverso a su apertura
+						try
+						{
+							rs.close();
+						}
+						catch (Exception e2)
+						{
+							// TODO: handle exception
+						}
+						
+						try
+						{
+							st.close();
+						}
+						catch (Exception e2)
+						{
+							// TODO: handle exception
+						}
+					}
+				return tableModel;
+	}
+
+	/**
+	 * *  este metodo construye un table model con la data de
+	 * la consulta para saber los problemas resueltos del programador
+	 * @param ci
+	 * @return
+	 */
+	public TableModel buildTableModelConsultaProblemasResueltos(String ci)
+	{
+		// TODO Auto-generated method stub
+		Connection connection = conn;
+		
+		Statement st = null;
+		
+		ResultSet rs = null;
+		
+		DefaultTableModel tableModel = new DefaultTableModel()
+		{
+			@Override
+			public boolean isCellEditable(int row, int column)
+			{
+				//* set editable false table model */
+				return false;
+			}
+		};
+		
+		String sql = "select p.id_problema, pr.titulo, lenguaje, tiempo, dificultad "
+				+ "from "
+				+ "(	select id_problema,lenguaje, tiempo "
+				+ "from mtn.resuelve "
+				+ "where id_equipo in "
+				+ "(select id_equipo "
+				+ "from mtn.constituye_estudiante "
+				+ "where ci_estudiante = '"+ ci +"') "
+				+ ") as p "
+				+ "join mtn.problema as pr on pr.id_problema = p.id_problema" ;
+		
+		try {
+			// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+			st = connection.createStatement();
+			
+			 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+            // Con "executeQuery" realizamos una consulta a la base de datos
+			rs = st.executeQuery(sql) ;
+				// convierte el resultset a table model
+			tableModel = (DefaultTableModel) DbUtils.resultSetToTableModel(rs);
+			DbUtils.resultSetToTableModel(rs);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println(sql);
+			} finally {
+				 // Cerramos las conexiones, en orden inverso a su apertura
+				try
+				{
+					rs.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				
+				try
+				{
+					st.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+			}
+		return tableModel;
+	}
+
+	/**
+	 * este metodo construye un table model con la data de
+	 * la consulta para saber las participaciones en competencias 
+	 * del programador
+	 * @param ci
+	 * @return
+	 */
+	public TableModel buildTableModelConsultaCompetencias(String ci)
+	{
+		// TODO Auto-generated method stub
+				Connection connection = conn;
+				
+				Statement st = null;
+				
+				ResultSet rs = null;
+				
+				DefaultTableModel tableModel = new DefaultTableModel()
+				{
+					@Override
+					public boolean isCellEditable(int row, int column)
+					{
+						//* set editable false table model */
+						return false;
+					}
+				};
+				
+				String sql = "select c.id_competencia, nombre_competencia, nivel, lugar_competencia, fecha_competencia "
+						+ "from  "
+						+ "(	select id_competencia, incentivo, rendimiento "
+						+ "from mtn.participa "
+						+ "where id_equipo in "
+						+ "(select id_equipo "
+						+ "from mtn.constituye_estudiante "
+						+ "where ci_estudiante = '"+ci+"') "
+						+ ") as p "
+						+ "join mtn.competencia as c on p.id_competencia = c.id_competencia" ;
+				
+				try {
+					// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+					st = connection.createStatement();
+					
+					 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+		            // Con "executeQuery" realizamos una consulta a la base de datos
+					rs = st.executeQuery(sql) ;
+						// convierte el resultset a table model
+					tableModel = (DefaultTableModel) DbUtils.resultSetToTableModel(rs);
+					DbUtils.resultSetToTableModel(rs);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						System.out.println(sql);
+					} finally {
+						 // Cerramos las conexiones, en orden inverso a su apertura
+						try
+						{
+							rs.close();
+						}
+						catch (Exception e2)
+						{
+							// TODO: handle exception
+						}
+						
+						try
+						{
+							st.close();
+						}
+						catch (Exception e2)
+						{
+							// TODO: handle exception
+						}
+					}
+				return tableModel;
 	}
 
 }

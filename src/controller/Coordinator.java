@@ -751,6 +751,7 @@ public class Coordinator {
 		tableModel = databaseQueries.buildTableModelConsulta2();
 		if(tableModel != null){
 			JTable jTable = new JTable(tableModel);
+			jTable.setCellSelectionEnabled(false);
 			ViewConsultas viewConsultas = new ViewConsultas("Los Mas Problemas Resueltos y sus integrantes");
 			viewConsultas.getScrollPane().setViewportView(jTable);
 		}else{
@@ -772,12 +773,75 @@ public class Coordinator {
 				tableModel = databaseQueries.buildTableModelConsulta3();
 				if(tableModel != null){
 					JTable jTable = new JTable(tableModel);
+					jTable.setCellSelectionEnabled(false);
 					ViewConsultas viewConsultas = new ViewConsultas("El profesor que ha entrenado a equipos y que en el pasado ha sido estudiante");
 					viewConsultas.getScrollPane().setViewportView(jTable);
 				}else{
 					ViewAd viewAd = new ViewAd("No existen profesores");
 					System.out.println("no existen datos en  la bd");
 				}
+	}
+	
+	/**
+	 * este metodo obtiene la informacion de quienes son los
+	 * profesores de programador
+	 */
+	public void invokerWindowConsultaProfesores()
+	{
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		TableModel tableModel = null;
+		DatabaseQueries databaseQueries = new DatabaseQueries(conect);
+		tableModel = databaseQueries.buildTableModelConsultaProfesores(student.getCi());
+		if(tableModel != null){
+			JTable jTable = new JTable(tableModel);
+			jTable.setCellSelectionEnabled(false);
+			ViewConsultas viewConsultas = new ViewConsultas("Mis profesores");
+			viewConsultas.getScrollPane().setViewportView(jTable);
+		}else{
+			ViewAd viewAd = new ViewAd("No existen profesores");
+			System.out.println("no existen datos en  la bd");
+		}
+	}
+	/**
+	 * este metodo obtiene la informacion de los problemas resueltos
+	 * del programador
+	 */
+	public void invokerWindowConsultaProblemasResueltos()
+	{
+				// TODO Auto-generated method stub
+				TableModel tableModel = null;
+				DatabaseQueries databaseQueries = new DatabaseQueries(conect);
+				tableModel = databaseQueries.buildTableModelConsultaProblemasResueltos(student.getCi());
+				if(tableModel != null){
+					JTable jTable = new JTable(tableModel);
+					jTable.setCellSelectionEnabled(false);
+					ViewConsultas viewConsultas = new ViewConsultas("Mis problemas resueltos");
+					viewConsultas.getScrollPane().setViewportView(jTable);
+				}else{
+					ViewAd viewAd = new ViewAd("No tienes problemas resueltos");
+					System.out.println("no existen datos en  la bd");
+				}
+	}
+	/**
+	 * este metodo obtiene la informacion de las competencias
+	 * del programador
+	 */
+	public void invokerWindowConsultaCompetencias()
+	{
+		// TODO Auto-generated method stub
+		TableModel tableModel = null;
+		DatabaseQueries databaseQueries = new DatabaseQueries(conect);
+		tableModel = databaseQueries.buildTableModelConsultaCompetencias(student.getCi());
+		if(tableModel != null){
+			JTable jTable = new JTable(tableModel);
+			jTable.setCellSelectionEnabled(false);
+			ViewConsultas viewConsultas = new ViewConsultas("Mis participaciones en competencias");
+			viewConsultas.getScrollPane().setViewportView(jTable);
+		}else{
+			ViewAd viewAd = new ViewAd("No tienes participaciones en competencias");
+			System.out.println("no existen datos en  la bd");
+		}
 	}
 }
 

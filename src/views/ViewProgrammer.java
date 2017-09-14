@@ -77,8 +77,6 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 	private JMenu mnViajes;
 	private JMenuItem mntmVerViajes;
 	private JPanel panelButtons;
-	private JButton btnGuardar;
-	private JButton btnCancelar;
 	private JButton btnSalir;
 	private JPanel panelConsultas;
 	private JButton btnConsulta1;
@@ -148,7 +146,7 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 		mntmProblemaR = new JMenuItem("Problemas Resueltos");
 		mnViewGlobal.add(mntmProblemaR);
 		
-		mntmCompetencia = new JMenuItem("Competencia");
+		mntmCompetencia = new JMenuItem("Competencias");
 		mnViewGlobal.add(mntmCompetencia);
 		
 		mntmMiCoach = new JMenuItem("Mi Coach y Representante");
@@ -170,16 +168,6 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 		panelButtons = new JPanel();
 		getContentPane().add(panelButtons, BorderLayout.SOUTH);
 		panelButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		btnGuardar = new JButton("Cuardar");
-		panelButtons.add(btnGuardar);
-		btnGuardar.setEnabled(false);
-		btnGuardar.addActionListener(this);
-		
-		btnCancelar = new JButton("Cancelar");
-		panelButtons.add(btnCancelar);
-		btnCancelar.setEnabled(false);
-		btnCancelar.addActionListener(this);
 		
 		btnSalir = new JButton("Salir");
 		panelButtons.add(btnSalir);
@@ -230,13 +218,13 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 			myCoordinator.invokerWindowConsulta3();
 		}
 		if (e.getSource() == mntmCompetencia) {
-			
+			myCoordinator.invokerWindowConsultaCompetencias();
 		}
 		if (e.getSource() == mntmProblemaR) {
-			
+			myCoordinator.invokerWindowConsultaProblemasResueltos();
 		}
 		if (e.getSource() == mntmMiCoach) {
-			
+			myCoordinator.invokerWindowConsultaProfesores();
 		}
 	}
 
