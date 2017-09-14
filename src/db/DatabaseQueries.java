@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.sound.midi.SysexMessage;
+import javax.swing.table.TableModel;
 import javax.xml.crypto.Data;
 
 import model.ActivityList;
@@ -16,6 +17,7 @@ import model.Student;
 import model.StudentList;
 import model.TeamCompetitor;
 import model.TeamCompetitorList;
+import net.proteanit.sql.DbUtils;
 
 public class DatabaseQueries {
 	 
@@ -514,6 +516,243 @@ public class DatabaseQueries {
 					
 				}
 				return result;
+	}
+
+	/**
+	 * este metodo construye un table model con la data de
+	 * la consulta 1
+	 * @return
+	 */
+	public TableModel buildTableModelConsulta1()
+	{
+		// TODO Auto-generated method stub
+		
+		Connection connection = conn;
+		
+		Statement st = null;
+		
+		ResultSet rs = null;
+		
+		TableModel  tableModel = null;
+		
+		String sql = "SELECT  distinct "
+				+ "PARTICIPACIONES, "
+				+ "NOMBRE, "
+				+ "CI, "
+				+ "DIRECCION "
+				+ "FROM    (SELECT RANK() OVER( ORDER BY PARTICIPACIONES DESC) AS RANKING, "
+				+ "PARTICIPACIONES, "
+				+ "NOMBRE, "
+				+ "CI, "
+				+ "DIRECCION "
+				+ "FROM    (SELECT e.nombre_estudiante AS NOMBRE, "
+				+ "e.ci_estudiante         AS CI, "
+				+ "e.direccion_estudiante  AS DIRECCION, "
+				+ "COUNT (e.ci_estudiante) OVER (PARTITION BY e.ci_estudiante) AS PARTICIPACIONES "
+				+ "FROM    mtn.estudiante                  AS e "
+				+ "JOIN mtn.constituye_estudiante  AS ce   ON e.ci_estudiante  = ce.ci_estudiante "
+				+ "JOIN mtn.equipo                 AS eq   ON eq.id_equipo     = ce.id_equipo "
+				+ "JOIN mtn.participa              AS p    ON p.id_equipo      = eq.id_equipo "
+				+ "WHERE  eq.facultad IN ('FACYT-EC-UC') "
+				+ "ORDER BY PARTICIPACIONES DESC) FINAL "
+				+ ") FINAL2 "
+				+ "WHERE RANKING = 1;" ;
+		
+		try {
+			// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+			st = connection.createStatement();
+			
+			 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+            // Con "executeQuery" realizamos una consulta a la base de datos
+			rs = st.executeQuery(sql) ;
+				// convierte el resultset a table model
+			tableModel = DbUtils.resultSetToTableModel(rs);
+			DbUtils.resultSetToTableModel(rs);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println(sql);
+			} finally {
+				 // Cerramos las conexiones, en orden inverso a su apertura
+				try
+				{
+					rs.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				
+				try
+				{
+					st.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+			}
+		return tableModel;
+	}
+
+	/**
+	 * este metodo construye un table model con la data de
+	 * la consulta 2
+	 * @return
+	 */
+	public TableModel buildTableModelConsulta2()
+	{
+Connection connection = conn;
+		
+		Statement st = null;
+		
+		ResultSet rs = null;
+		
+		TableModel  tableModel = null;
+		
+		String sql = "SELECT  co.nombre_competencia as COMPETENCIA, "
+				+ "pro.titulo as PROBLEMA, "
+				+ "eq.nombre_equipo as EQUIPO, "
+				+ "e.nombre_estudiante AS Estudiante, "
+				+ "e.ci_estudiante "
+				+ "FROM    (SELECT ID_COMPETENCIA, "
+				+ "ID_EQUIPO, "
+				+ "ID_PROBLEMA "
+				+ "FROM    (SELECT RANK() OVER(PARTITION BY ID_COMPETENCIA ORDER BY CUENTA DESC) AS RANK, "
+				+ "ID_COMPETENCIA, "
+				+ "ID_EQUIPO, "
+				+ "ID_PROBLEMA, "
+				+ "CUENTA "
+				+ "FROM    (SELECT re.id_equipo        AS ID_EQUIPO, "
+				+ "re.id_problema      AS ID_PROBLEMA, "
+				+ "pr.id_competencia   AS ID_COMPETENCIA, "
+				+ "COUNT (re.id_problema) OVER (PARTITION BY re.id_problema) AS CUENTA "
+				+ "FROM    mtn.resuelve AS re "
+				+ "JOIN mtn.propone    AS pr ON re.id_problema = pr.id_problema "
+				+ "ORDER BY CUENTA DESC) AS A "
+				+ ") AS B "
+				+ "WHERE RANK = 1 "
+				+ "order by ID_COMPETENCIA "
+				+ ") AS C "
+				+ "JOIN mtn.equipo AS eq ON eq.id_equipo = C.ID_EQUIPO "
+				+ "JOIN mtn.problema as pro On pro.id_problema = C.ID_PROBLEMA "
+				+ "JOIN mtn.competencia as co on co.id_competencia = C.ID_COMPETENCIA "
+				+ "JOIN mtn.constituye_estudiante AS ce ON ce.id_equipo = eq.id_equipo "
+				+ "JOIN mtn.estudiante AS e ON e.ci_estudiante = ce.ci_estudiante;" ;
+		
+		try {
+			// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+			st = connection.createStatement();
+			
+			 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+            // Con "executeQuery" realizamos una consulta a la base de datos
+			rs = st.executeQuery(sql) ;
+				// convierte el resultset a table model
+			tableModel = DbUtils.resultSetToTableModel(rs);
+			DbUtils.resultSetToTableModel(rs);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println(sql);
+			} finally {
+				 // Cerramos las conexiones, en orden inverso a su apertura
+				try
+				{
+					rs.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				
+				try
+				{
+					st.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+			}
+		return tableModel;
+	}
+
+	/**
+	 * este metodo construye un table model con la data de
+	 * la consulta 3
+	 * @return
+	 */
+	public TableModel buildTableModelConsulta3()
+	{
+		// TODO Auto-generated method stub
+Connection connection = conn;
+		
+		Statement st = null;
+		
+		ResultSet rs = null;
+		
+		TableModel  tableModel = null;
+		
+		String sql = "SELECT  prof.ci_profesor	  	as CEDULA, "
+				+ "prof.nombre_profesor  	AS Nombre, "
+				+ "prof.apellido_profesor	as Apellido "
+				+ "FROM    mtn.profesor  	  		AS prof "
+				+ "WHERE   prof.tipo_profesor = 'Tecnico'  "
+				+ "AND prof.ci_profesor  "
+				+ "IN (select ci "
+				+ "from mtn.constituye_estudiante as ce "
+				+ "join  (SELECT e.ci_estudiante as ci "
+				+ "FROM  mtn.estudiante AS  e "
+				+ "JOIN  (SELECT DISTINCT  "
+				+ "pra.ci_profesor "
+				+ "FROM    mtn.prepara_a  AS pra "
+				+ "JOIN  (SELECT DISTINCT "
+				+ "eq.id_equipo "
+				+ "FROM    mtn.equipo  AS eq "
+				+ "JOIN  mtn.participa AS pat ON  eq.id_equipo  = pat.id_equipo "
+				+ ") AS a "
+				+ "ON a.id_equipo = pra.id_equipo "
+				+ ") AS b "
+				+ "ON  b.ci_profesor = e.ci_estudiante  "
+				+ ") as c "
+				+ "on c.ci = ce.ci_estudiante "
+				+ ");" ;
+		
+		try {
+			// Establecemos la comunicación entre nuestra aplicación java y la base de datos
+			st = connection.createStatement();
+			
+			 // Le pasamos al objeto de ResultSet el resultado de ejecutar la sentencia "query"
+            // Con "executeQuery" realizamos una consulta a la base de datos
+			rs = st.executeQuery(sql) ;
+				// convierte el resultset a table model
+			tableModel = DbUtils.resultSetToTableModel(rs);
+			DbUtils.resultSetToTableModel(rs);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println(sql);
+			} finally {
+				 // Cerramos las conexiones, en orden inverso a su apertura
+				try
+				{
+					rs.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+				
+				try
+				{
+					st.close();
+				}
+				catch (Exception e2)
+				{
+					// TODO: handle exception
+				}
+			}
+		return tableModel;
 	}
 
 }

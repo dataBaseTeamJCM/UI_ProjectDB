@@ -61,6 +61,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JSeparator;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingConstants;
 
 public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddons {
 	private Coordinator myCoordinator;
@@ -79,6 +80,10 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 	private JButton btnGuardar;
 	private JButton btnCancelar;
 	private JButton btnSalir;
+	private JPanel panelConsultas;
+	private JButton btnConsulta1;
+	private JButton btnConsulta2;
+	private JButton btnConsulta3;
 	
 	public void setCoordinator(Coordinator myCoordinator) {
 		this.myCoordinator = myCoordinator;
@@ -178,6 +183,23 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 		
 		btnSalir = new JButton("Salir");
 		panelButtons.add(btnSalir);
+		
+		panelConsultas = new JPanel();
+		getContentPane().add(panelConsultas, BorderLayout.CENTER);
+		panelConsultas.setLayout(new FlowLayout(FlowLayout.CENTER, 5,getHeight()/3));
+		
+		btnConsulta1 = new JButton("Consulta 1");
+		panelConsultas.add(btnConsulta1);
+		btnConsulta1.addActionListener(this);
+		
+		btnConsulta2 = new JButton("Consulta 2");
+		btnConsulta2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelConsultas.add(btnConsulta2);
+		btnConsulta2.addActionListener(this);
+		
+		btnConsulta3 = new JButton("Consulta 3");
+		panelConsultas.add(btnConsulta3);
+		btnConsulta3.addActionListener(this);
 		btnSalir.addActionListener(this);
 		// TODO Auto-generated method stub
 		
@@ -196,6 +218,16 @@ public class ViewProgrammer extends JFrame implements ActionListener, ViewsAddon
 		if(e.getSource() == mntmVerViajes){
 			// activa la ventana de viajes
 			myCoordinator.invokerWindowViajesForm();
+		}
+		
+		if (e.getSource()== btnConsulta1){
+			myCoordinator.invokerWindowConsulta1();
+		}
+		if (e.getSource()== btnConsulta2){
+			myCoordinator.invokerWindowConsulta2();
+		}
+		if (e.getSource()== btnConsulta3){
+			myCoordinator.invokerWindowConsulta3();
 		}
 		if (e.getSource() == mntmCompetencia) {
 			

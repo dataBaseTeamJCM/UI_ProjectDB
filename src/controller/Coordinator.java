@@ -378,7 +378,6 @@ public class Coordinator {
 			hideWindowSearch();
 			// procesamiento de datos del estudiante
 			// invocacion de la ventana de formulario del programador
-			//myProgrammerForm  = new ViewProgrammerForm(this, student.getName());
 			myWindowQueryProgrammer = new ViewProgrammer(this);	
 			System.out.println( student.toString());
 		}else{
@@ -717,6 +716,68 @@ public class Coordinator {
 		myTravelForm.getTextFieldFinancer().setEditable(b);
 		myTravelForm.getTextFieldHostage().setEditable(b);
 		myTravelForm.getBtnSave().setEnabled(b);
+	}
+	
+	/**
+	 * este metodo es obtiene la informacion
+	 * de la consulta 1
+	 */
+	public void invokerWindowConsulta1()
+	{
+		// TODO Auto-generated method stub
+		TableModel tableModel = null;
+		DatabaseQueries databaseQueries = new DatabaseQueries(conect);
+		tableModel = databaseQueries.buildTableModelConsulta1();
+		if(tableModel != null){
+			JTable jTable = new JTable(tableModel);
+			ViewConsultas viewConsultas = new ViewConsultas("Estudiante de facyt que ha participado en mas maratones de programacion en toda la historia");
+			viewConsultas.getScrollPane().setViewportView(jTable);
+		}else{
+			ViewAd viewAd = new ViewAd("No existen Estudiantes de Facyt");
+			System.out.println("no existen datos en  la bd");
+		}
+	}
+	
+	/**
+	 * este metodo es obtiene la informacion
+	 * de la consulta 2
+	 */
+	
+	public void invokerWindowConsulta2()
+	{
+		// TODO Auto-generated method stub
+		TableModel tableModel = null;
+		DatabaseQueries databaseQueries = new DatabaseQueries(conect);
+		tableModel = databaseQueries.buildTableModelConsulta2();
+		if(tableModel != null){
+			JTable jTable = new JTable(tableModel);
+			ViewConsultas viewConsultas = new ViewConsultas("Los Mas Problemas Resueltos y sus integrantes");
+			viewConsultas.getScrollPane().setViewportView(jTable);
+		}else{
+			ViewAd viewAd = new ViewAd("No existen problemas");
+			System.out.println("no existen datos en  la bd");
+		}
+	}
+	
+	/**
+	 * este metodo es obtiene la informacion
+	 * de la consulta 3
+	 */
+	
+	public void invokerWindowConsulta3()
+	{
+		// TODO Auto-generated method stub
+				TableModel tableModel = null;
+				DatabaseQueries databaseQueries = new DatabaseQueries(conect);
+				tableModel = databaseQueries.buildTableModelConsulta3();
+				if(tableModel != null){
+					JTable jTable = new JTable(tableModel);
+					ViewConsultas viewConsultas = new ViewConsultas("El profesor que ha entrenado a equipos y que en el pasado ha sido estudiante");
+					viewConsultas.getScrollPane().setViewportView(jTable);
+				}else{
+					ViewAd viewAd = new ViewAd("No existen profesores");
+					System.out.println("no existen datos en  la bd");
+				}
 	}
 }
 

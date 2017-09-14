@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import controller.Coordinator;
@@ -17,13 +18,12 @@ import javax.swing.JButton;
 public class ViewAd extends JDialog implements ActionListener {
 	
 	private JButton btnAcept;
-	private Coordinator myCoordinator;
 	public ViewAd(String message) {
 	
 		
 		//  esta instruccion hace que la ventana no se pueda cambiar su tamaño
 		setResizable(false);
-		
+		setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 		// configura las dimensiones de la ventana
 		setBounds(0, 0, 400, 200);
 		/*
